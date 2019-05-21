@@ -1,0 +1,70 @@
+<!--<ol>-->
+  <!--<li>-->
+    <!--<mat-form-field>-->
+      <!--<input matInput [(ngModel)]="name" placeholder="What's your name?">-->
+    <!--</mat-form-field>-->
+  <!--</li>-->
+<!--<div class="create" style="color: yellow; width: 100%">-->
+  <!--<li>-->
+    <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
+    <button style="margin-top: 61px" mat-raised-button (click)="openCreate()">Create</button>
+  <!--</li>-->
+  <!--<li *ngIf="animal">-->
+    <!--You chose: <i>{{animal}}</i>-->
+  <!--</li>-->
+<!--&lt;!&ndash;</ol>&ndash;&gt;-->
+<!--</div>-->
+
+
+
+
+<div class="container">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+
+  <table style="width: 80%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef>First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef>Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="university">
+      <th mat-header-cell *matHeaderCellDef> University </th>
+      <td mat-cell *matCellDef="let element"> {{element.university}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <button style="background: dodgerblue; icon: 'library_books'"  mat-raised-button (click)="openUpdate(element)">Update</button>
+        <button style=" background: red; color: white "  mat-raised-button (click)="delete(element.university)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
