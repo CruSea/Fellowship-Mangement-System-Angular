@@ -1,0 +1,50 @@
+<p><!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+  <!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
+  <!--<div mat-dialog-content>-->
+  <!--<p>What's your favorite animal?</p>-->
+  <!--<mat-form-field>-->
+  <!--<input matInput [(ngModel)]="data.animal">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+
+<form [formGroup]="updateContactForm" (ngSubmit)="updateContact(updateContactForm.value)">
+
+  <mat-form-field>
+    <input matInput placeholder="First Name" type="text" formControlName="firstname">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('firstname').invalid && (updateContactForm.get('firstname').dirty ||
+      updateContactForm.get('firstname').touched) && updateContactForm.get('firstname').errors?.required">
+      Please insert first name!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Last Name" type="text" formControlName="lastname">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('lastname').invalid && (updateContactForm.get('lastname').dirty ||
+      updateContactForm.get('lastname').touched) && !updateContactForm.get('lastname').errors?.minlength">
+      Please insert last name!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Phone number" type="text" formControlName="phone">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('phone').invalid && (updateContactForm.get('phone').dirty ||
+      updateContactForm.get('phone').touched) && !updateContactForm.get('phone').errors?.minlength">
+      Please insert phone number!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>University</mat-label>
+    <mat-select formControlName="university">
+      <mat-option *ngFor="let university of universities" [value]="university.value">
+        {{university.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Update</button>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+  </div>
+</form>
