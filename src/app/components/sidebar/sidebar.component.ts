@@ -12,7 +12,7 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/login', title: 'Login',  icon: 'how_to_reg', class: '' },
     // { path: '/register', title: 'Register',  icon: 'add', class: '' },
     { path: '/dashboard/user-profile', title: 'User Profile',  icon: 'person', class: '' },
-    { path: '/dashboard/contacts', title: 'Contacts',  icon: 'library_books', class: '' },
+    { path: '', title: 'Contacts',  icon: 'library_books', class: '' },
     { path: '/dashboard/table-list', title: 'Table List',  icon: 'content_paste', class: '' },
     { path: '/dashboard/typography', title: 'Typography',  icon: 'library_books', class: '' },
     { path: '/dashboard/icons', title: 'Icons',  icon: 'bubble_chart', class: '' },
@@ -28,6 +28,7 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
+  show = true;
 
   constructor() { }
 

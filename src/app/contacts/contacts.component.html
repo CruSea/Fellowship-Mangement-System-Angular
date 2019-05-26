@@ -1,3 +1,4 @@
+<p style="font-weight: bolder; font-size: x-large"> Contacts List </p>
 <!--<ol>-->
   <!--<li>-->
     <!--<mat-form-field>-->
@@ -7,16 +8,14 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
   <!--<li>-->
     <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-    <button style="margin-top: 61px" mat-raised-button (click)="openCreate()">Create</button>
+    <button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">Add New contact</button>
+    <button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>
   <!--</li>-->
   <!--<li *ngIf="animal">-->
     <!--You chose: <i>{{animal}}</i>-->
   <!--</li>-->
 <!--&lt;!&ndash;</ol>&ndash;&gt;-->
 <!--</div>-->
-
-
-
 
 <div class="container">
   <mat-form-field>
@@ -27,40 +26,43 @@
 
     <!-- Position Column -->
     <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> No. </th>
       <td mat-cell *matCellDef="let element"> {{element.position}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="firstname">
-      <th mat-header-cell *matHeaderCellDef>First Name </th>
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">First Name </th>
       <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="lastname">
-      <th mat-header-cell *matHeaderCellDef>Last Name </th>
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Last Name </th>
       <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef> Phone </th>
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Phone </th>
       <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="university">
-      <th mat-header-cell *matHeaderCellDef> University </th>
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> University </th>
       <td mat-cell *matCellDef="let element"> {{element.university}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
       <td mat-cell *matCellDef="let element">
-        <button style="background: dodgerblue; icon: 'library_books'"  mat-raised-button (click)="openUpdate(element)">Update</button>
-        <button style=" background: red; color: white "  mat-raised-button (click)="delete(element.university)">Delete</button>
+        <button mat-button="">
+        <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>
+        <button mat-button="">
+          <mat-icon style="color: red;" mat-raised-button
+                    (click)="delete(element.university)">delete_outline</mat-icon></button>
       </td>
     </ng-container>
 

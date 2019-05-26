@@ -10,41 +10,41 @@
 <form [formGroup]="groupContactsModalForm" (ngSubmit)="groupContactsModal(groupContactsModalForm.value)">
 
   <mat-form-field>
-    <input matInput placeholder="First Name" type="text" formControlName="firstname">
-    <mat-error style="color: red" *ngIf="groupContactsModalForm.get('firstname').invalid && (groupContactsModalForm.get('firstname').dirty ||
-      groupContactsModalForm.get('firstname').touched) && groupContactsModalForm.get('firstname').errors?.required">
-      Please insert first name!
+    <input matInput placeholder="Add Group Name" type="text" formControlName="groupname">
+    <mat-error style="color: red" *ngIf="groupContactsModalForm.get('groupname').invalid && (groupContactsModalForm.get('groupname').dirty ||
+      groupContactsModalForm.get('groupname').touched) && groupContactsModalForm.get('groupname').errors?.required">
+      Please insert Group Name!
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Last Name" type="text" formControlName="lastname">
-    <mat-error style="color: red" *ngIf="groupContactsModalForm.get('lastname').invalid && (groupContactsModalForm.get('lastname').dirty ||
-      groupContactsModalForm.get('lastname').touched) && !groupContactsModalForm.get('lastname').errors?.minlength">
-      Please insert last name!
-    </mat-error>
+    <textarea matInput placeholder="Enter description of the Group " type="text" formControlName="description"></textarea>
+    <!--<mat-error style="color: red" *ngIf="groupContactsModalForm.get('description').invalid && (groupContactsModalForm.get('description').dirty ||-->
+      <!--groupContactsModalForm.get('description').touched) && !groupContactsModalForm.get('description').errors?.minlength">-->
+      <!--Please insert last name!-->
+    <!--</mat-error>-->
   </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Phone number" type="text" formControlName="phone">
-    <mat-error style="color: red" *ngIf="groupContactsModalForm.get('phone').invalid && (groupContactsModalForm.get('phone').dirty ||
-      groupContactsModalForm.get('phone').touched) && !groupContactsModalForm.get('phone').errors?.minlength">
-      Please insert phone number!
-    </mat-error>
-  </mat-form-field>
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Phone number" type="text" formControlName="phone">-->
+    <!--<mat-error style="color: red" *ngIf="groupContactsModalForm.get('phone').invalid && (groupContactsModalForm.get('phone').dirty ||-->
+      <!--groupContactsModalForm.get('phone').touched) && !groupContactsModalForm.get('phone').errors?.minlength">-->
+      <!--Please insert phone number!-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
 
-  <mat-form-field>
-    <mat-label>University</mat-label>
-    <mat-select formControlName="university">
-      <mat-option *ngFor="let university of universities" [value]="university.value">
-        {{university.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <!--<mat-form-field>-->
+    <!--<mat-label>University</mat-label>-->
+    <!--<mat-select formControlName="university">-->
+      <!--<mat-option *ngFor="let university of universities" [value]="university.value">-->
+        <!--{{university.viewValue}}-->
+      <!--</mat-option>-->
+    <!--</mat-select>-->
+  <!--</mat-form-field>-->
 
   <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
   <div mat-dialog-actions>
-    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Add contact</button>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Add Group</button>
     <button mat-button (click)="onNoClick()">No Thanks</button>
   </div>
 </form>

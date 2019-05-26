@@ -5,10 +5,10 @@ import { UniversityInterface } from '../../register/register';
 
 export interface UpdateContactInterface {
     position?: string;
-    firstname: string;
-    lastname: string;
-    phone: string;
-    university: string;
+    groupname: string;
+    description: string;
+    // phone: string;
+    // university: string;
 }
 
 // export interface DialogData {
@@ -24,12 +24,12 @@ export interface UpdateContactInterface {
 export class UpdateContactComponent implements OnInit {
 
     updateContactForm: any;
-    universities: UniversityInterface[] = [
-        {value: 'Addis Ababa', viewValue: 'Addis Ababa'},
-        {value: 'Adama', viewValue: 'Adama'},
-        {value: 'Bahirdar', viewValue: 'Bahirdar'},
-        {value: 'Hawassa', viewValue: 'Hawassa'}
-    ];
+    // universities: UniversityInterface[] = [
+    //     {value: 'Addis Ababa', viewValue: 'Addis Ababa'},
+    //     {value: 'Adama', viewValue: 'Adama'},
+    //     {value: 'Bahirdar', viewValue: 'Bahirdar'},
+    //     {value: 'Hawassa', viewValue: 'Hawassa'}
+    // ];
     constructor(
         private formBuilder: FormBuilder,
         public dialogRef: MatDialogRef<UpdateContactComponent>,
@@ -43,10 +43,10 @@ export class UpdateContactComponent implements OnInit {
         // this.getEvent();
         console.log(this.data);
         this.updateContactForm = this.formBuilder.group({
-            firstname: [this.data.firstname, [Validators.required]],
-            lastname: [this.data.lastname, [Validators.required]],
-            phone: [this.data.phone, [Validators.required]],
-            university: [this.data.university, [Validators.required]],
+            groupname: [this.data.groupname, [Validators.required]],
+            description: [this.data.description, [Validators.required]],
+            // phone: [this.data.phone, [Validators.required]],
+            // university: [this.data.university, [Validators.required]],
         });
     }
 

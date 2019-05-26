@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { ContactsModalComponent } from './contacts-modal/contacts-modal.component';
 import { UpdateContactComponent, UpdateContactInterface } from './update-contact/update-contact.component';
+import { ImportContactComponent } from './import-contact/import-contact.component';
 
 
 export interface PeriodicElement {
@@ -44,6 +45,17 @@ export class ContactsComponent implements OnInit {
         const dialogRef = this.matDialog.open(ContactsModalComponent, {
             width: '500px',
             data: {firstname: this.firstname, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.animal = result;
+        });
+    }
+
+    openImportContact(): void {
+        const dialogRef = this.matDialog.open(ImportContactComponent, {
+            width: '1000px'
         });
 
         dialogRef.afterClosed().subscribe(result => {

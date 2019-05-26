@@ -7,17 +7,18 @@ import { ContactsModalComponent } from './contacts-modal/contacts-modal.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ngx-smart-table';
 import { UpdateContactComponent } from './update-contact/update-contact.component';
+import { ImportContactComponent } from './import-contact/import-contact.component';
 
 @NgModule({
   imports: [
     CommonModule,
       FormsModule,
       MaterialsModule,
-      ContactsRoutingModule,
       ReactiveFormsModule,
+      ContactsRoutingModule,
       Ng2SmartTableModule
   ],
-  declarations: [ContactsComponent, ContactsModalComponent, UpdateContactComponent],
-    entryComponents: [ ContactsModalComponent, UpdateContactComponent ]
+  declarations: [ContactsComponent, ContactsModalComponent, UpdateContactComponent, ImportContactComponent],
+    entryComponents: [ ContactsModalComponent, UpdateContactComponent, ImportContactComponent ]
 })
 export class ContactsModule { }

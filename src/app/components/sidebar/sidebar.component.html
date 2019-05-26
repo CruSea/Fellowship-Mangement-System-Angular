@@ -56,7 +56,15 @@
   </div>
     <ul class="nav">
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a class="nav-link" [routerLink]="[menuItem.path]">
+            <a class="nav-link" *ngIf="menuItem.title === 'Contacts'" style="cursor: pointer ">
+                <i class="material-icons">{{menuItem.icon}}</i>
+                <p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Contacts'">{{menuItem.title}}</p>
+                <mat-menu #menu="matMenu" style="width: 100%">
+                    <a mat-menu-item routerLink="/dashboard/contacts">Contacts List</a>
+                    <a mat-menu-item routerLink="/dashboard/group-contacts">Group Contacts</a>
+                </mat-menu>
+            </a>
+            <a class="nav-link" [routerLink]="[menuItem.path]" *ngIf="menuItem.title !== 'Contacts'">
                 <i class="material-icons">{{menuItem.icon}}</i>
                 <p>{{menuItem.title}}</p>
             </a>

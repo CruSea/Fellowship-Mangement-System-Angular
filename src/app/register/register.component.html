@@ -13,46 +13,46 @@
           </mat-error>
         </mat-form-field>
 
-        <!--<mat-form-field>-->
-          <!--<input matInput placeholder="Last Name" type="text" formControlName="lastname">-->
-          <!--<mat-error style="color: red" *ngIf="registerForm.get('lastname').invalid && (registerForm.get('lastname').dirty ||-->
-          <!--registerForm.get('lastname').touched) && !registerForm.get('lastname').errors?.minlength">-->
-            <!--Please insert last name!-->
-          <!--</mat-error>-->
-        <!--</mat-form-field>-->
+        <mat-form-field>
+          <input matInput placeholder="Last Name" type="text" formControlName="lastname">
+          <mat-error style="color: red" *ngIf="registerForm.get('lastname').invalid && (registerForm.get('lastname').dirty ||
+          registerForm.get('lastname').touched) && !registerForm.get('lastname').errors?.minlength">
+            Please insert last name!
+          </mat-error>
+        </mat-form-field>
 
-        <!--<mat-form-field>-->
-          <!--<input matInput placeholder="Phone number" type="text" formControlName="phonenumber">-->
-          <!--<mat-error style="color: red" *ngIf="registerForm.get('phonenumber').invalid && (registerForm.get('phonenumber').dirty ||-->
-          <!--registerForm.get('phonenumber').touched) && !registerForm.get('phonenumber').errors?.minlength">-->
-            <!--Please insert phone number!-->
-          <!--</mat-error>-->
-        <!--</mat-form-field>-->
+        <mat-form-field>
+          <input matInput placeholder="Phone number" type="text" formControlName="phonenumber">
+          <mat-error style="color: red" *ngIf="registerForm.get('phonenumber').invalid && (registerForm.get('phonenumber').dirty ||
+          registerForm.get('phonenumber').touched) && !registerForm.get('phonenumber').errors?.minlength">
+            Please insert phone number!
+          </mat-error>
+        </mat-form-field>
 
-        <!--<mat-form-field>-->
-          <!--<mat-label>University</mat-label>-->
-          <!--<mat-select fromControlName="university">-->
-            <!--<mat-option *ngFor="let university of universities" [value]="university.value">-->
-              <!--{{university.viewValue}}-->
-            <!--</mat-option>-->
-          <!--</mat-select>-->
-        <!--</mat-form-field>-->
+        <mat-form-field>
+          <mat-label>University</mat-label>
+          <mat-select fromControlName="university">
+            <mat-option *ngFor="let university of universities" [value]="university.value">
+              {{university.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-        <!--<mat-form-field>-->
-          <!--<input matInput placeholder="Email" type="text" formControlName="email">-->
-          <!--<mat-error style="color: red" *ngIf="registerForm.get('email').invalid && (registerForm.get('email').dirty ||-->
-          <!--registerForm.get('email').touched) && !registerForm.get('email').errors?.minlength">-->
-            <!--Please insert email address!-->
-          <!--</mat-error>-->
-        <!--</mat-form-field>-->
+        <mat-form-field>
+          <input matInput placeholder="Email" type="text" formControlName="email">
+          <mat-error style="color: red" *ngIf="registerForm.get('email').invalid && (registerForm.get('email').dirty ||
+          registerForm.get('email').touched) && !registerForm.get('email').errors?.minlength">
+            Please insert email address!
+          </mat-error>
+        </mat-form-field>
 
-        <!--<mat-form-field>-->
-          <!--<input matInput placeholder="Password" type="password" formControlName="password">-->
-          <!--<mat-error style="color: red" *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty ||-->
-          <!--registerForm.get('password').touched) && !registerForm.get('password').errors?.minlength">-->
-            <!--Please insert Password!-->
-          <!--</mat-error>-->
-        <!--</mat-form-field>-->
+        <mat-form-field>
+          <input matInput placeholder="Password" type="password" formControlName="password">
+          <mat-error style="color: red" *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty ||
+          registerForm.get('password').touched) && !registerForm.get('password').errors?.minlength">
+            Please insert Password!
+          </mat-error>
+        </mat-form-field>
 
         <button mat-raised-button color="primary" type="submit" >Register</button>
       </form>
