@@ -1,41 +1,69 @@
+<button mat-button mat-raised-button color="primary" style="width: 200px" class="route" routerLink="/login">Login</button>
 <div class="container">
   <div class="background">
     <div id="register-main">
 
       <h1 id="register-name">Register</h1>
+      <div *ngIf="su" style="text-align: center; color: green">
+        Successfully Registered
+      </div>
+      <div *ngIf="un" style="text-align: center; color: red">
+        Registration is unsuccessful
+      </div>
+
       <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
 
         <mat-form-field>
-          <input matInput placeholder="First Name" type="text" formControlName="firstname">
-          <mat-error style="color: red" *ngIf="registerForm.get('firstname').invalid && (registerForm.get('firstname').dirty ||
-          registerForm.get('firstname').touched) && registerForm.get('firstname').errors?.required">
+          <input matInput placeholder="Full Name" type="text" formControlName="full_name">
+          <mat-error style="color: red" *ngIf="registerForm.get('full_name').invalid && (registerForm.get('full_name').dirty ||
+          registerForm.get('full_name').touched) && registerForm.get('full_name').errors?.required">
             Please insert first name!
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
-          <input matInput placeholder="Last Name" type="text" formControlName="lastname">
-          <mat-error style="color: red" *ngIf="registerForm.get('lastname').invalid && (registerForm.get('lastname').dirty ||
-          registerForm.get('lastname').touched) && !registerForm.get('lastname').errors?.minlength">
-            Please insert last name!
-          </mat-error>
-        </mat-form-field>
+        <!--<mat-form-field>-->
+          <!--<input matInput placeholder="Last Name" type="text" formControlName="lastname">-->
+          <!--<mat-error style="color: red" *ngIf="registerForm.get('lastname').invalid && (registerForm.get('lastname').dirty ||-->
+          <!--registerForm.get('lastname').touched) && !registerForm.get('lastname').errors?.minlength">-->
+            <!--Please insert last name!-->
+          <!--</mat-error>-->
+        <!--</mat-form-field>-->
 
         <mat-form-field>
-          <input matInput placeholder="Phone number" type="text" formControlName="phonenumber">
-          <mat-error style="color: red" *ngIf="registerForm.get('phonenumber').invalid && (registerForm.get('phonenumber').dirty ||
-          registerForm.get('phonenumber').touched) && !registerForm.get('phonenumber').errors?.minlength">
+          <input matInput placeholder="Phone number" type="text" formControlName="phone">
+          <mat-error style="color: red" *ngIf="registerForm.get('phone').invalid && (registerForm.get('phone').dirty ||
+          registerForm.get('phone').touched) && !registerForm.get('phone').errors?.minlength">
             Please insert phone number!
           </mat-error>
         </mat-form-field>
 
+        <!--<mat-form-field>-->
+          <!--<mat-label>University City</mat-label>-->
+          <!--<mat-select fromControlName="university_city">-->
+            <!--<mat-option *ngFor="let university of universities" [value]="university.value">-->
+              <!--{{university.viewValue}}-->
+            <!--</mat-option>-->
+          <!--</mat-select>-->
+        <!--</mat-form-field>-->
+
         <mat-form-field>
-          <mat-label>University</mat-label>
-          <mat-select fromControlName="university">
-            <mat-option *ngFor="let university of universities" [value]="university.value">
-              {{university.viewValue}}
-            </mat-option>
-          </mat-select>
+          <input matInput placeholder="University City" type="text" formControlName="university_city">
+          <mat-error style="color: red" *ngIf="registerForm.get('university_city').invalid && (registerForm.get('university_city').dirty ||
+          registerForm.get('university_city').touched) && !registerForm.get('university_city').errors?.minlength">
+            Please insert university city!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="University Name" type="text" formControlName="university_name">
+          <mat-error style="color: red" *ngIf="registerForm.get('university_name').invalid && (registerForm.get('university_name').dirty ||
+          registerForm.get('university_name').touched) && !registerForm.get('university_name').errors?.minlength">
+            Please insert university name!
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Specific Place" type="text" formControlName="specific_place">
         </mat-form-field>
 
         <mat-form-field>

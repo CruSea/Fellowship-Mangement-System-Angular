@@ -1,9 +1,9 @@
 <div class="logo">
     <a href="https://www.creative-tim.com" class="simple-text">
-        <div class="logo-img">
-            <img src="/assets/img/angular2-logo-red.png"/>
-        </div>
-        Creative Tim
+        <!--<div class="logo-img">-->
+            <!--<img src="/assets/img/angular2-logo-red.png"/>-->
+        <!--</div>-->
+        FELLOWSHIP SMS SERVICE
     </a>
 </div>
 <div class="sidebar-wrapper">
@@ -64,10 +64,21 @@
                     <a mat-menu-item routerLink="/dashboard/group-contacts">Group Contacts</a>
                 </mat-menu>
             </a>
-            <a class="nav-link" [routerLink]="[menuItem.path]" *ngIf="menuItem.title !== 'Contacts'">
+            <a class="nav-link" *ngIf="menuItem.title === 'Messages'" style="cursor: pointer ">
+                <i class="material-icons">{{menuItem.icon}}</i>
+                <p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Messages'">{{menuItem.title}}</p>
+                <mat-menu #menu="matMenu" style="width: 100%">
+                    <a mat-menu-item routerLink="/dashboard/messages">Sent messages</a>
+                    <a mat-menu-item routerLink="/dashboard/received-messages">Received Messages</a>
+                    <a mat-menu-item routerLink="/dashboard/group-messages">Group Messages</a>
+                </mat-menu>
+            </a>
+            <a class="nav-link" [routerLink]="[menuItem.path]"
+               *ngIf="menuItem.title !== 'Contacts' && menuItem.title !== 'Messages'">
                 <i class="material-icons">{{menuItem.icon}}</i>
                 <p>{{menuItem.title}}</p>
             </a>
         </li>
     </ul>
 </div>
+

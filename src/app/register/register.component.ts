@@ -2,13 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import {RegisterInterface, UniversityInterface} from './register';
 import { AuthService } from '../auth.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+    su = false;
+    un = false;
 
     registerForm: any;
     universities: UniversityInterface[] = [
@@ -25,10 +29,12 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {
         this.registerForm = this.formBuilder.group({
-            firstname: [null, [Validators.required]],
-            lastname: [null, [Validators.required]],
-            phonenumber: [null, [Validators.required]],
-            university: [null, [Validators.required]],
+            full_name: [null, [Validators.required]],
+            // lastname: [null, [Validators.required]],
+            phone: [null, [Validators.required]],
+            university_city: [null, [Validators.required]],
+            university_name: [null, [Validators.required]],
+            specific_place: [null, [Validators.required]],
             email: [null, [Validators.required]],
             password: [null, [Validators.required, Validators.minLength(8)]]
         });
@@ -36,5 +42,15 @@ export class RegisterComponent implements OnInit {
 
     register(registerInterface: RegisterInterface) {
         console.log(registerInterface);
+        this.authService.signup(registerInterface)
+            .subscribe(response => {
+                console.log(response);
+                this.su = true;
+                this.un = false;
+            }, (error: HttpErrorResponse) => {
+                console.log(error)
+                this.su = false;
+                this.un = true;
+            })
     }
 }

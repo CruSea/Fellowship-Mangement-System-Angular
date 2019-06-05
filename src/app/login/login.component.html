@@ -7,10 +7,10 @@
 
     <div class="sidebar-background" style="background-image: url(../../assets/img/sidebar-4.jpg)"></div>
     <mat-form-field>
-      <input matInput placeholder="Username" type="text" formControlName="username">
-      <mat-error style="color: red" *ngIf="loginForm.get('username').invalid && (loginForm.get('username').dirty ||
-      loginForm.get('username').touched) && loginForm.get('username').errors?.required">
-        Please insert username!
+      <input matInput placeholder="Email" type="text" formControlName="email">
+      <mat-error style="color: red" *ngIf="loginForm.get('email').invalid && (loginForm.get('email').dirty ||
+      loginForm.get('email').touched) && loginForm.get('email').errors?.required">
+        Please insert email!
       </mat-error>
     </mat-form-field>
 
@@ -54,10 +54,10 @@
 
     <!--&lt;!&ndash;<div class="sidebar-background" style="background-image: url(../../assets/img/sidebar-4.jpg)"></div>&ndash;&gt;-->
     <!--<mat-form-field>-->
-      <!--<input matInput placeholder="Username" type="text" formControlName="username">-->
-      <!--<mat-error style="color: red" *ngIf="loginForm.get('username').invalid && (loginForm.get('username').dirty ||-->
-    <!--loginForm.get('username').touched) && loginForm.get('username').errors?.required">-->
-        <!--Please insert username!-->
+      <!--<input matInput placeholder="Username" type="text" formControlName="email">-->
+      <!--<mat-error style="color: red" *ngIf="loginForm.get('email').invalid && (loginForm.get('email').dirty ||-->
+    <!--loginForm.get('email').touched) && loginForm.get('email').errors?.required">-->
+        <!--Please insert email!-->
       <!--</mat-error>-->
     <!--</mat-form-field>-->
 
@@ -73,4 +73,4 @@
     <!--<button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>-->
     <!--<button mat-button=""  routerLink="/register">register</button>-->
   <!--</form>-->
-  <!--</div>--></div></div>
+  <!--&lt;!&ndash;</div>&ndash;&gt;</div></div>-->

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { Observable} from 'rxjs';
+import { RegisterInterface } from './register/register';
+import { LoginInterface} from './login/login.interface';
+import * as url from 'url';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +13,16 @@ export class AuthService {
   constructor(private http: Http) {
 
   }
-  signup(firstname: string, lastname: string, phone: string, university: string, email: string, password: string ) {
-    return this.http.post('http://localhost:3232/signup',
-        {firstname: firstname, lastname: lastname, phone: phone, university: university, email: email, password: password},
+  signup(registerInterface: RegisterInterface) {
+    return this.http.post('http://127.0.0.1:8000/api/signup',
+    registerInterface,
         {headers: new Headers({'Content-Type' : 'application/json'})
         });
   }
+
+  signin(loginInterface: LoginInterface) {
+    return this.http.post('http://127.0.0.1:8000/api/signin',
+    loginInterface,
+           {headers: new Headers({'Content-Type' : 'application/json'})
+    });
 }

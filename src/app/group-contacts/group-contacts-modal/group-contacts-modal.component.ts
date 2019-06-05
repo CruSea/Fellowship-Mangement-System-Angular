@@ -51,7 +51,7 @@ export class GroupContactsModalComponent implements OnInit {
 
     groupContactsModal(groupContactsModalInterface: GroupContactsModalInterface) {
         console.log(groupContactsModalInterface);
-        ELEMENT_DATA.push(groupContactsModalInterface)
+        // ELEMENT_DATA.push(groupContactsModalInterface)
     }
 
 }

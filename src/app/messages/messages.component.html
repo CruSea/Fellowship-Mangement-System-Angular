@@ -1,0 +1,72 @@
+<p style="font-weight: bolder; font-size: x-large">Sent messages List </p>
+<!--<ol>-->
+<!--<li>-->
+<!--<mat-form-field>-->
+<!--<input matInput [(ngModel)]="name" placeholder="What's your name?">-->
+<!--</mat-form-field>-->
+<!--</li>-->
+<!--<div class="create" style="color: yellow; width: 100%">-->
+<!--<li>-->
+<!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
+<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">Send new message</button>
+<!--<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>-->
+<!--</li>-->
+<!--<li *ngIf="animal">-->
+<!--You chose: <i>{{animal}}</i>-->
+<!--</li>-->
+<!--&lt;!&ndash;</ol>&ndash;&gt;-->
+<!--</div>-->
+
+<div class="container">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+
+  <table style="width: 80%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="message">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Message </th>
+      <td mat-cell *matCellDef="let element"> {{element.message}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="sent_to">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Sent To </th>
+      <td mat-cell *matCellDef="let element"> {{element.sent_to}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="campaign">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Campaign </th>
+      <td mat-cell *matCellDef="let element"> {{element.campaign}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="created_by">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created By </th>
+      <td mat-cell *matCellDef="let element"> {{element.created_by}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Status </th>
+      <td mat-cell *matCellDef="let element">
+        <!--<button mat-button="">-->
+          <!--<mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>-->
+        <!--<button mat-button="">-->
+          <!--<mat-icon style="color: red;" mat-raised-button-->
+                    <!--(click)="delete(element.created_by)">delete_outline</mat-icon></button>-->
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
