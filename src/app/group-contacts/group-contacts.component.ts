@@ -8,20 +8,18 @@ export interface PeriodicElement {
     groupname: string;
     description: string
     position?: number;
+    number_of_contacts?: number
+    updated_by?: string;
+    action?: string
     // university: string;
     // phone: string;
 }
 
 export let ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, groupname: 'Worship Group', description: 'it is a group where members train and lead worship in the fellowship'},
-    {position: 2, groupname: 'Prayers Group', description: ''},
-    {position: 3, groupname: 'Bible Study Group', description: 'Bible study group is a group to learn and share bible teachings'},
-    {position: 4, groupname: 'Natanim Group', description: 'Natanim group goal is to clean the house of God'},
-    // {position: 5, groupname: 'Derege', description: 'Worku'},
-    // {position: 6, groupname: 'Hiwot', description: 'Desalgn'},
-    // {position: 7, groupname: 'Zubeda', description: 'Getachew'},
-    // {position: 8, groupname: 'Tsion', description: 'Shimeles'},
-    // {position: 9, groupname: 'Meseret',  description: 'Batu'}
+    {position: 1, groupname: 'Worship Group', description: 'it is a group where members train and lead worship in the fellowship', number_of_contacts: 20, updated_by: 'Yitages Berhanu'},
+    {position: 2, groupname: 'Prayers Group', description: '', number_of_contacts: 150, updated_by: 'Zion Shimeles'},
+    {position: 3, groupname: 'Bible Study Group', description: 'Bible study group is a group to learn and share bible teachings', number_of_contacts: 60, updated_by: 'Meheret Tesfaye'},
+    {position: 4, groupname: 'Natanim Group', description: 'Natanim group goal is to clean the house of God', number_of_contacts: 30, updated_by: 'Yitages Berhanu'},
 ];
 
 @Component({
@@ -35,7 +33,7 @@ export class GroupContactsComponent implements OnInit {
     groupname: string;
 
 
-    displayedColumns: string[] = ['position', 'groupname', 'description', 'action'];
+    displayedColumns: string[] = ['position', 'groupname', 'description', 'number_of_contacts', 'updated_by', 'action'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
 
     constructor(private matDialog: MatDialog) { }

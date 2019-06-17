@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UniversityInterface } from '../../register/register';
+import { GenderInterface } from '../contacts';
 
 interface ContactsModalInterface {
-    firstname: string;
-    lastname: string;
+    full_name: string;
+    gender: string;
     phone: string;
-    university: string;
+    Academic_department: string;
+    fellowship_id: string;
 }
 
 export interface DialogData {
@@ -23,11 +24,9 @@ export interface DialogData {
 export class ContactsModalComponent implements OnInit {
 
     contactsModalForm: any;
-    universities: UniversityInterface[] = [
-        {value: 'Addis Abeba', viewValue: 'Addis Abeba'},
-        {value: 'Adama', viewValue: 'Adama'},
-        {value: 'Bahirdar', viewValue: 'Bahirdar'},
-        {value: 'Hawassa', viewValue: 'Hawassa'}
+    genders: GenderInterface[] = [
+        {type: 'male', name: 'Male'},
+        {type: 'female', name: 'Female'},
     ];
     constructor(
         private formBuilder: FormBuilder,
@@ -41,10 +40,11 @@ export class ContactsModalComponent implements OnInit {
     ngOnInit(): void {
         // this.getEvent();
         this.contactsModalForm = this.formBuilder.group({
-            firstname: [null, [Validators.required]],
-            lastname: [null, [Validators.required]],
+            full_name: [null, [Validators.required]],
+            gender: [null, [Validators.required]],
             phone: [null, [Validators.required]],
-            university: [null, [Validators.required]],
+            Academic_department: [null, [Validators.required]],
+            fellowship_id: [null, [Validators.required]],
         });
     }
 

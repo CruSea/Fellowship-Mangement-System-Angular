@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { LoginInterface } from './login.interface';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { AuthenticationService } from '../services/authentication/authentication.service';
+import { LoginResponseInterface } from '../services/authentication/authentication.interface';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
       private httpClient: HttpClient,
       private authService: AuthService,
+      private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -31,10 +34,17 @@ export class LoginComponent implements OnInit {
 
   login(loginInterface: LoginInterface) {
     console.log(loginInterface);
-    this.authService.signin(loginInterface)
-        .subscribe(response => {
-          console.log(response);
-            }
-        )
+    // this.authService.signin(loginInterface)
+    //     .subscribe(response => {
+    //       console.log(response);
+    //         }
+    //     )
+      this.authenticationService.login(loginInterface).subscribe(
+          (loginResponseInterface: LoginResponseInterface) => {
+            console.log(loginResponseInterface.message)
+          }, (httpErrorResponse: HttpErrorResponse) => {
+            console.log(`${httpErrorResponse.message} and...........`)
+            console.log(httpErrorResponse)
+          })
   }
 }

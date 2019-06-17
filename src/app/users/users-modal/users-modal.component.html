@@ -1,0 +1,50 @@
+<!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+<!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
+<!--<div mat-dialog-content>-->
+<!--<p>What's your favorite animal?</p>-->
+<!--<mat-form-field>-->
+<!--<input matInput [(ngModel)]="data.animal">-->
+<!--</mat-form-field>-->
+<!--</div>-->
+
+<form [formGroup]="usersModalForm" (ngSubmit)="usersModal(usersModalForm.value)">
+
+  <mat-form-field>
+    <input matInput placeholder="Full Name" type="text" formControlName="full_name">
+    <mat-error style="color: red" *ngIf="usersModalForm.get('full_name').invalid && (usersModalForm.get('full_name').dirty ||
+      usersModalForm.get('full_name').touched) && usersModalForm.get('full_name').errors?.required">
+      Please insert first name!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Email Address" type="text" formControlName="email_address">
+    <mat-error style="color: red" *ngIf="usersModalForm.get('email_address').invalid && (usersModalForm.get('email_address').dirty ||
+      usersModalForm.get('email_address').touched) && !usersModalForm.get('email_address').errors?.minlength">
+      Please insert last name!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Phone number" type="text" formControlName="phone">
+    <mat-error style="color: red" *ngIf="usersModalForm.get('phone').invalid && (usersModalForm.get('phone').dirty ||
+      usersModalForm.get('phone').touched) && !usersModalForm.get('phone').errors?.minlength">
+      Please insert phone number!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>User Role</mat-label>
+    <mat-select formControlName="role">
+      <mat-option *ngFor="let role of roles" [value]="role.type">
+        {{role.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Add User</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
-import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { ProtectedGuard, PublicGuard } from 'ngx-auth';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
-
     {
-        path: 'dashboard',
+        path: '',
         component: AdminLayoutComponent,
         children: [
             {
@@ -18,8 +15,16 @@ const routes: Routes = [
             }
         ]
     },
-    { path: 'login',          loadChildren: './login/login.module#LoginModule' },
-    { path: 'register',       loadChildren: './register/register.module#RegisterModule'}
+    {
+        path: 'login',
+        canActivate: [ PublicGuard ],
+        loadChildren: './login/login.module#LoginModule',
+    },
+    {
+        path: 'register',
+        canActivate: [ PublicGuard ],
+        loadChildren: './register/register.module#RegisterModule'
+    }
 ];
 
 @NgModule({

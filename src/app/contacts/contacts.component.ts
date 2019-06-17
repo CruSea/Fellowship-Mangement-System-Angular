@@ -3,26 +3,25 @@ import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from
 import { ContactsModalComponent } from './contacts-modal/contacts-modal.component';
 import { UpdateContactComponent, UpdateContactInterface } from './update-contact/update-contact.component';
 import { ImportContactComponent } from './import-contact/import-contact.component';
+import { ContactsService } from './contacts.service';
 
 
 export interface PeriodicElement {
-    firstname: string;
-    lastname: string
-    position: number;
-    university: string;
+    id: number;
+    full_name: string;
+    gender: string
     phone: string;
+    Academic_department: string;
+    fellowship_id: string;
+    created_at: string;
+    updated_at: string;
+    action?: string
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, firstname: 'Yitages', lastname: 'Abebe', phone: '0912342421', university: 'Addis Ababa'},
-    {position: 2, firstname: 'Meheret', lastname: 'Eyob', phone: '0911374382', university: 'Hawassa'},
-    {position: 3, firstname: 'Samson', lastname: 'Tesfaye', phone: '0916454563', university: 'Addis Ababa'},
-    {position: 4, firstname: 'Bereket', lastname: 'Berhanu', phone: '0926757473', university: 'Adama'},
-    {position: 5, firstname: 'Derege', lastname: 'Worku', phone: '0945898763', university: 'Hawassa'},
-    {position: 6, firstname: 'Hiwot', lastname: 'Desalgn', phone: '0911233453', university: 'Bahirdar'},
-    {position: 7, firstname: 'Zubeda', lastname: 'Getachew', phone: '0935231345', university: 'Adama'},
-    {position: 8, firstname: 'Tsion', lastname: 'Shimeles', phone: '0909231278', university: 'Bahirdar'},
-    {position: 9, firstname: 'Meseret',  lastname: 'Batu', phone: '0912345645', university: 'Addis Ababa'}
+    {id: 1, full_name: 'Yitages Berhanu', gender: 'male', phone: '0912342421', Academic_department: 'Computer Engineering', fellowship_id: '245', created_at: '12/4/2008', updated_at: '5/3/2011'},
+    {id: 2, full_name: 'Meheret Tesfaye', gender: 'male', phone: '0911374382', Academic_department: 'Computer Science', fellowship_id: '825', created_at: '8/2/2009', updated_at: '5/3/2011'},
+    {id: 3, full_name: 'Tsion Shimeles', gender: 'female', phone: '0916454563', Academic_department: 'Architecture', fellowship_id: '148', created_at: '23/6/2011', updated_at: '5/3/2011'},
 ];
 
 @Component({
@@ -36,10 +35,13 @@ export class ContactsComponent implements OnInit {
     firstname: string;
 
 
-    displayedColumns: string[] = ['position', 'firstname', 'lastname', 'university', 'phone', 'action'];
+    displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'Academic_department', 'fellowship_id', 'created_at', 'updated_at', 'action'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
+    // dataSource: any;
 
-  constructor(private matDialog: MatDialog) { }
+  constructor(private matDialog: MatDialog,
+              private contactsService: ContactsService
+  ) { }
 
     openCreate(): void {
         const dialogRef = this.matDialog.open(ContactsModalComponent, {
@@ -82,10 +84,21 @@ export class ContactsComponent implements OnInit {
     }
 
     ngOnInit() {
+      this.collectionOfcon()
   }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
+    collectionOfcon() {
+      this.contactsService.collectionofContacts().subscribe((res: any) => {
+          // console.log(res.contacts.data);
+          this.dataSource = new MatTableDataSource(res.contacts.data);
+      }, err => {
+          console.log(err);
+      
+      })
+    }
+    
 }

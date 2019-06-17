@@ -14,15 +14,17 @@ export class AuthService {
 
   }
   signup(registerInterface: RegisterInterface) {
-    return this.http.post('http://127.0.0.1:8000/api/signup',
+    return this.http.post('http://127.0.0.1:3232/api/signup',
     registerInterface,
         {headers: new Headers({'Content-Type' : 'application/json'})
         });
   }
 
   signin(loginInterface: LoginInterface) {
-    return this.http.post('http://127.0.0.1:8000/api/signin',
-    loginInterface,
-           {headers: new Headers({'Content-Type' : 'application/json'})
-    });
+      return this.http.post('http://127.0.0.1:3232/api/signin',
+          loginInterface,
+          {
+              headers: new Headers({'Content-Type': 'application/json'})
+          });
+  }
 }

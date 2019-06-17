@@ -1,0 +1,39 @@
+<!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+<!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
+<!--<div mat-dialog-content>-->
+<!--<p>What's your favorite animal?</p>-->
+<!--<mat-form-field>-->
+<!--<input matInput [(ngModel)]="data.animal">-->
+<!--</mat-form-field>-->
+<!--</div>-->
+
+<form [formGroup]="campaignsModalForm" (ngSubmit)="campaignsModal(campaignsModalForm.value)">
+
+  <mat-form-field>
+    <input matInput placeholder="Campaign Name" type="text" formControlName="campaign_name">
+    <mat-error style="color: red" *ngIf="campaignsModalForm.get('campaign_name').invalid && (campaignsModalForm.get('campaign_name').dirty ||
+      campaignsModalForm.get('campaign_name').touched) && campaignsModalForm.get('campaign_name').errors?.required">
+      Please insert first name!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>SMS Port</mat-label>
+    <mat-select formControlName="sms_port">
+      <mat-option *ngFor="let sms_port of port" [value]="sms_port.type">
+        {{sms_port.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Enter description of the Campaign " type="text" formControlName="description"></textarea>
+  </mat-form-field>
+
+
+  <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Add New Campaign</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

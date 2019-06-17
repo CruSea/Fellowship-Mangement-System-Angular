@@ -10,17 +10,17 @@
 <form [formGroup]="updateContactForm" (ngSubmit)="updateContact(updateContactForm.value)">
 
   <mat-form-field>
-    <input matInput placeholder="First Name" type="text" formControlName="firstname">
-    <mat-error style="color: red" *ngIf="updateContactForm.get('firstname').invalid && (updateContactForm.get('firstname').dirty ||
-      updateContactForm.get('firstname').touched) && updateContactForm.get('firstname').errors?.required">
+    <input matInput placeholder="Full Name" type="text" formControlName="full_name">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('full_name').invalid && (updateContactForm.get('full_name').dirty ||
+      updateContactForm.get('full_name').touched) && updateContactForm.get('full_name').errors?.required">
       Please insert first name!
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Last Name" type="text" formControlName="lastname">
-    <mat-error style="color: red" *ngIf="updateContactForm.get('lastname').invalid && (updateContactForm.get('lastname').dirty ||
-      updateContactForm.get('lastname').touched) && !updateContactForm.get('lastname').errors?.minlength">
+    <input matInput placeholder="Gender" type="text" formControlName="gender">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('gender').invalid && (updateContactForm.get('gender').dirty ||
+      updateContactForm.get('gender').touched) && !updateContactForm.get('gender').errors?.minlength">
       Please insert last name!
     </mat-error>
   </mat-form-field>
@@ -34,17 +34,49 @@
   </mat-form-field>
 
   <mat-form-field>
-    <mat-label>University</mat-label>
-    <mat-select formControlName="university">
-      <mat-option *ngFor="let university of universities" [value]="university.value">
-        {{university.viewValue}}
-      </mat-option>
-    </mat-select>
+    <input matInput placeholder="Academic Department" type="text" formControlName="Academic_department">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('Academic_department').invalid && (updateContactForm.get('Academic_department').dirty ||
+      updateContactForm.get('Academic_department').touched) && !updateContactForm.get('Academic_department').errors?.minlength">
+      Please insert phone number!
+    </mat-error>
   </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Fellowship Id" type="text" formControlName="fellowship_id">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('fellowship_id').invalid && (updateContactForm.get('fellowship_id').dirty ||
+      updateContactForm.get('fellowship_id').touched) && !updateContactForm.get('fellowship_id').errors?.minlength">
+      Please insert phone number!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Created At" type="text" formControlName="created_at">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('created_at').invalid && (updateContactForm.get('created_at').dirty ||
+      updateContactForm.get('created_at').touched) && !updateContactForm.get('created_at').errors?.minlength">
+      Please insert phone number!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Updated At" type="text" formControlName="updated_at">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('updated_at').invalid && (updateContactForm.get('updated_at').dirty ||
+      updateContactForm.get('updated_at').touched) && !updateContactForm.get('updated_at').errors?.minlength">
+      Please insert phone number!
+    </mat-error>
+  </mat-form-field>
+
+  <!--<mat-form-field>-->
+    <!--<mat-label>University</mat-label>-->
+    <!--<mat-select formControlName="university">-->
+      <!--<mat-option *ngFor="let university of universities" [value]="university.value">-->
+        <!--{{university.viewValue}}-->
+      <!--</mat-option>-->
+    <!--</mat-select>-->
+  <!--</mat-form-field>-->
 
   <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
   <div mat-dialog-actions>
     <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Update</button>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
   </div>
 </form>

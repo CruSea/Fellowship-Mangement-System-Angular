@@ -27,6 +27,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import { ImageComponent } from './image/image.component';
 import { MaterialsModule } from './utils/materials.module';
 import { CommonModule } from '@angular/common';
+import { AuthenticationModule } from './services/authentication/authentication.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -34,6 +36,8 @@ import { CommonModule } from '@angular/common';
       BrowserModule,
     BrowserAnimationsModule,
     HttpModule,
+      HttpClientModule,
+      AuthenticationModule,
     ComponentsModule,
       MaterialsModule,
     AgmCoreModule.forRoot({

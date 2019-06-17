@@ -1,0 +1,86 @@
+<p style="font-weight: bolder; font-size: x-large"> Fellowship SMS Service </p>
+
+<mat-card style="width: 1000px; margin-left: 30px; margin-top: 61px; font-size: x-large; font-weight: bolder">
+    <h3 style="font-weight: normal">Fellowship SMS Campaigns</h3>
+    <h5 style="color: grey">List of all available SMS campaigns</h5>
+    <button style="margin-bottom: 10px" color="primary" mat-raised-button (click)="openCreate()">Add New Campaign</button>
+</mat-card>
+
+
+<!--<p style="font-weight: bolder; font-size: x-large"> Account User </p>-->
+<!--&lt;!&ndash;<ol>&ndash;&gt;-->
+<!--&lt;!&ndash;<li>&ndash;&gt;-->
+<!--&lt;!&ndash;<mat-form-field>&ndash;&gt;-->
+<!--&lt;!&ndash;<input matInput [(ngModel)]="name" placeholder="What's your name?">&ndash;&gt;-->
+<!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+<!--&lt;!&ndash;</li>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="create" style="color: yellow; width: 100%">&ndash;&gt;-->
+<!--&lt;!&ndash;<li>&ndash;&gt;-->
+<!--&lt;!&ndash;<button class="l1" mat-raised-button (click)="openDialog()">Create</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</li>&ndash;&gt;-->
+<!--&lt;!&ndash;<li *ngIf="animal">&ndash;&gt;-->
+<!--&lt;!&ndash;You chose: <i>{{animal}}</i>&ndash;&gt;-->
+<!--&lt;!&ndash;</li>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;</ol>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<div class="container">-->
+    <!--<mat-form-field>-->
+        <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">-->
+    <!--</mat-form-field>-->
+
+    <!--<table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">-->
+
+        <!--&lt;!&ndash; Position Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="position">-->
+            <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> ID </th>-->
+            <!--<td mat-cell *matCellDef="let element"> {{element.position}} </td>-->
+        <!--</ng-container>-->
+
+        <!--&lt;!&ndash; Name Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="full_name">-->
+            <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold">Full Name </th>-->
+            <!--<td mat-cell *matCellDef="let element"> {{element.full_name}} </td>-->
+        <!--</ng-container>-->
+
+        <!--&lt;!&ndash; Name Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="phone">-->
+            <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold">Phone Number </th>-->
+            <!--<td mat-cell *matCellDef="let element"> {{element.phone}} </td>-->
+        <!--</ng-container>-->
+
+        <!--&lt;!&ndash; Weight Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="user_role">-->
+            <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> User Role </th>-->
+            <!--<td mat-cell *matCellDef="let element"> {{element.user_role}} </td>-->
+        <!--</ng-container>-->
+
+        <!--&lt;!&ndash; Symbol Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="created_date">-->
+            <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created Date </th>-->
+            <!--<td mat-cell *matCellDef="let element"> {{element.created_date}} </td>-->
+        <!--</ng-container>-->
+
+        <!--&lt;!&ndash; Symbol Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="updated_date">-->
+            <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated Date </th>-->
+            <!--<td mat-cell *matCellDef="let element"> {{element.updated_date}} </td>-->
+        <!--</ng-container>-->
+
+        <!--&lt;!&ndash; Symbol Column &ndash;&gt;-->
+        <!--<ng-container matColumnDef="action">-->
+            <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>-->
+            <!--<td mat-cell *matCellDef="let element">-->
+                <!--&lt;!&ndash;<button mat-button="">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button mat-button="">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<mat-icon style="color: red;" mat-raised-button&ndash;&gt;-->
+                              <!--&lt;!&ndash;(click)="delete(element.id)">delete_outline</mat-icon></button>&ndash;&gt;-->
+            <!--</td>-->
+        <!--</ng-container>-->
+
+        <!--<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+        <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+    <!--</table>-->
+<!--</div>-->
+

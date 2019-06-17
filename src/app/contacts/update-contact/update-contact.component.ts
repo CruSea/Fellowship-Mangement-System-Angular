@@ -5,10 +5,13 @@ import { UniversityInterface } from '../../register/register';
 
 export interface UpdateContactInterface {
     position?: string;
-    firstname: string;
-    lastname: string;
+    full_name: string;
+    gender: string;
     phone: string;
-    university: string;
+    Academic_department: string;
+    fellowship_id: string;
+    created_at: string;
+    updated_at: string
 }
 
 // export interface DialogData {
@@ -24,12 +27,12 @@ export interface UpdateContactInterface {
 export class UpdateContactComponent implements OnInit {
 
     updateContactForm: any;
-    universities: UniversityInterface[] = [
-        {value: 'Addis Ababa', viewValue: 'Addis Ababa'},
-        {value: 'Adama', viewValue: 'Adama'},
-        {value: 'Bahirdar', viewValue: 'Bahirdar'},
-        {value: 'Hawassa', viewValue: 'Hawassa'}
-    ];
+    // universities: UniversityInterface[] = [
+    //     {value: 'Addis Ababa', viewValue: 'Addis Ababa'},
+    //     {value: 'Adama', viewValue: 'Adama'},
+    //     {value: 'Bahirdar', viewValue: 'Bahirdar'},
+    //     {value: 'Hawassa', viewValue: 'Hawassa'}
+    // ];
     constructor(
         private formBuilder: FormBuilder,
         public dialogRef: MatDialogRef<UpdateContactComponent>,
@@ -43,10 +46,13 @@ export class UpdateContactComponent implements OnInit {
         // this.getEvent();
         console.log(this.data);
         this.updateContactForm = this.formBuilder.group({
-            firstname: [this.data.firstname, [Validators.required]],
-            lastname: [this.data.lastname, [Validators.required]],
+            full_name: [this.data.full_name, [Validators.required]],
+            gender: [this.data.gender, [Validators.required]],
             phone: [this.data.phone, [Validators.required]],
-            university: [this.data.university, [Validators.required]],
+            Academic_department: [this.data.Academic_department, [Validators.required]],
+            fellowship_id: [this.data.fellowship_id, [Validators.required]],
+            created_at: [this.data.created_at, [Validators.required]],
+            updated_at: [this.data.updated_at, [Validators.required]],
         });
     }
 

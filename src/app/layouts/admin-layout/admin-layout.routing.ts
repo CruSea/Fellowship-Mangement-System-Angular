@@ -62,6 +62,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'contacts',       loadChildren: '../../contacts/contacts.module#ContactsModule' },
+    { path: 'users',          loadChildren: '../../users/users.module#UsersModule' },
+    { path: 'campaigns',      loadChildren: '../../campaigns/campaigns.module#CampaignsModule' },
     { path: 'messages',       loadChildren: '../../messages/messages.module#MessagesModule' },
     { path: 'group-contacts', loadChildren: '../../group-contacts/group-contacts.module#GroupContactsModule' },
     { path: 'received-messages', loadChildren: '../../received-messages/received-messages.module#ReceivedMessagesModule' },

@@ -15,15 +15,9 @@ export interface PeriodicElement {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, message: 'Yitages', sent_to: 'Abebe', campaign: '0912342421', status:'sent', created_by: 'Addis Ababa'},
-    {position: 2, message: 'Meheret', sent_to: 'Eyob', campaign: '0911374382', status:'sent', created_by: 'Hawassa'},
-    {position: 3, message: 'Samson', sent_to: 'Tesfaye', campaign: '0916454563', status:'sent', created_by: 'Addis Ababa'},
-    {position: 4, message: 'Bereket', sent_to: 'Berhanu', campaign: '0926757473', status:'sent', created_by: 'Adama'},
-    {position: 5, message: 'Derege', sent_to: 'Worku', campaign: '0945898763', status:'sent', created_by: 'Hawassa'},
-    {position: 6, message: 'Hiwot', sent_to: 'Desalgn', campaign: '0911233453', status:'sent', created_by: 'Bahirdar'},
-    {position: 7, message: 'Zubeda', sent_to: 'Getachew', campaign: '0935231345', status:'sent', created_by: 'Adama'},
-    {position: 8, message: 'Tsion', sent_to: 'Shimeles', campaign: '0909231278', status:'sent', created_by: 'Bahirdar'},
-    {position: 9, message: 'Meseret',  sent_to: 'Batu', campaign: '0912345645', status:'sent', created_by: 'Addis Ababa'}
+    {position: 1, message: 'Hellow this is to inform you', sent_to: 'Abebe Petros', campaign: '0912342421', status: 'sent', created_by: 'Yitages Berhanu'},
+    {position: 2, message: 'Hey there this is to inform you that this week we will have a meeting ', sent_to: 'Eyob Bekele', campaign: '0911374382', status: 'sent', created_by: 'Meheret Tefaye'},
+    {position: 3, message: 'This month is a thanks giving month', sent_to: 'Tesfaye Gezahegn', campaign: '0916454563', status: 'sent', created_by: 'Tsion Shemeles'},
 ];
 
 @Component({
