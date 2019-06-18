@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
       private httpClient: HttpClient,
       private authService: AuthService,
-      private authenticationService: AuthenticationService,
+      private authenticationService: AuthService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -39,9 +39,9 @@ export class LoginComponent implements OnInit {
     //       console.log(response);
     //         }
     //     )
-      this.authenticationService.login(loginInterface).subscribe(
-          (loginResponseInterface: LoginResponseInterface) => {
-            console.log(loginResponseInterface.message)
+      this.authenticationService.signin(loginInterface).subscribe(
+          data  => {
+            console.log(data)
           }, (httpErrorResponse: HttpErrorResponse) => {
             console.log(`${httpErrorResponse.message} and...........`)
             console.log(httpErrorResponse)
