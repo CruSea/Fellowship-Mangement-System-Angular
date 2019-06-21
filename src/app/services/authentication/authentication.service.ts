@@ -60,8 +60,9 @@ export class AuthenticationService implements AuthService, OnInit {
       .append('Access-Control-Allow-Methods', 'POST')
       .append('Access-Control-Allow-Headers', 'Content-Type');
     console.log(loginInterface);
-    return this.loginService.create(loginInterface, headers, '/signin')
-      .pipe(tap((loginResponseInterface: LoginResponseInterface) => {
+    return this.loginService.create(loginInterface, headers, 'http://localhost:3232/api/signin')
+      .pipe(tap((loginResponseInterface: any) => {
+        console.log(JSON.parse(loginResponseInterface));
         this.storageService.setAccessToken(loginResponseInterface.token)
       }));
   }

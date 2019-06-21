@@ -22,6 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
     ],
     declarations: [UsersComponent, UsersModalComponent, UpdateUsersComponent],
     providers: [UsersService],
-    entryComponents: [ UsersModalComponent, UpdateUsersComponent ]
+    entryComponents: [ UsersModalComponent, UpdateUsersComponent, UsersComponent ]
 })
 export class UsersModule { }

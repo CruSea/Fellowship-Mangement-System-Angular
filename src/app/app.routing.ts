@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { ProtectedGuard, PublicGuard } from 'ngx-auth';
+import { P404Component } from './p404/p404.component';
 
 const routes: Routes = [
     {
         path: '',
         component: AdminLayoutComponent,
+        // canActivate: [ ProtectedGuard ],
         children: [
             {
               path: '',
@@ -24,6 +26,10 @@ const routes: Routes = [
         path: 'register',
         canActivate: [ PublicGuard ],
         loadChildren: './register/register.module#RegisterModule'
+    },
+    {
+        path: '**',
+        component: P404Component
     }
 ];
 

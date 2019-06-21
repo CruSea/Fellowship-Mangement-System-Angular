@@ -40,11 +40,10 @@ export class LoginComponent implements OnInit {
     //         }
     //     )
       this.authenticationService.signin(loginInterface).subscribe(
-          data  => {
-            console.log(data)
+          (data: any)  => {
+              console.log(data);
           }, (httpErrorResponse: HttpErrorResponse) => {
-            console.log(`${httpErrorResponse.message} and...........`)
             console.log(httpErrorResponse)
-          })
+          });
   }
 }

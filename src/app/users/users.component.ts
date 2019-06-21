@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { UsersModalComponent } from './users-modal/users-modal.component';
 import { UpdateUsersComponent, UpdateUsersInterface } from './update-users/update-users.component';
-import { UserRoleInterface } from '../users';
-import { UsersService } from './users.service';
+import { UserRoleInterface } from '../users/users';
+import { UsersService } from './users.service'
 
 
 export interface PeriodicElement {

@@ -21,7 +21,7 @@ export class AuthService {
   }
 
   signin(loginInterface: LoginInterface) {
-      return this.http.post('http://127.0.0.1:3232/api/signin',
+      return this.http.post('http://localhost:3232/api/signin',
           loginInterface,
           {
               headers: new Headers({'Content-Type': 'application/json'})
