@@ -1,15 +1,16 @@
-<button mat-button mat-raised-button color="primary" style="width: 200px" class="route" routerLink="/login">Login</button>
-<div class="container">
-  <div class="background">
-    <div id="register-main">
+<div class="background">
+  <div id="form">
+  <button mat-button mat-raised-button color="primary" style="width: 10%;" class="route" routerLink="/login">Login</button>
 
-      <h1 id="register-name">Register</h1>
-      <div *ngIf="su" style="text-align: center; color: green">
-        Successfully Registered
-      </div>
-      <div *ngIf="un" style="text-align: center; color: red">
-        Registration is unsuccessful
-      </div>
+      <!--<h1 style="text-align: center; font-weight: bolder">Register</h1>-->
+      <!--<div  *ngIf="su" style="text-align: center; color: green">-->
+        <!--Successfully Registered-->
+      <!--</div>-->
+      <!--<div *ngIf="un" style="text-align: center; color: red">-->
+        <!--Registration is unsuccessful-->
+      <!--</div>-->
+
+      <!--<button (click)="click()">click</button>-->
 
       <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
 
@@ -17,7 +18,7 @@
           <input matInput placeholder="Full Name" type="text" formControlName="full_name">
           <mat-error style="color: red" *ngIf="registerForm.get('full_name').invalid && (registerForm.get('full_name').dirty ||
           registerForm.get('full_name').touched) && registerForm.get('full_name').errors?.required">
-            Please insert first name!
+            Please insert full name!
           </mat-error>
         </mat-form-field>
 
@@ -86,5 +87,4 @@
       </form>
 
     </div>
-  </div>
 </div>
