@@ -1,0 +1,87 @@
+  <!--<mat-card style=" margin: 8% 5% 0 5%; height: 20%" >-->
+    <!--<section>-->
+      <!--<h1 style=" text-align: center; font-size: 150%; font-weight: bold" >Group Description</h1>-->
+      <!--<h5 style="font-weight: bold">Worship Team</h5>-->
+      <!--<p>Worship team is a team formed to organize the overall worship environment in the church </p>-->
+    <!--</section>-->
+  <!--</mat-card>-->
+
+
+  <mat-card style=" margin: 8% 5% 0 5%; height: 40%" >
+    <section>
+      <h1 style="font-size: 20px; font-weight: bold" >Worship Team</h1>
+      <p style="color: #9d9d9d">Worship team is a team formed to organize the overall worship environment in the church</p>
+    </section>
+
+    <button style="margin-top: 1%; margin-bottom: 2%; left: 3%; " mat-raised-button (click)="openCreate()">Add New contact</button>
+    <button mat-button color="primary" style="margin-top: 1%; margin-bottom: 2%; left: 6%" mat-raised-button (click)="openImportContact()"> Import Contact  </button>
+    <button mat-button color="primary" style="margin-top: 1%; margin-bottom: 2%; left: 10%" mat-raised-button (click)="refresh()"> Refresh  </button>
+
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+
+    <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="full_name">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Full Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.full_name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Gender </th>
+        <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Phone </th>
+        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Acadamic_department">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Academic Department </th>
+        <td mat-cell *matCellDef="let element"> {{element.Acadamic_department}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fellowship_id">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Fellowship Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.fellowship_id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="created_at">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created At </th>
+        <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
+      </ng-container>
+
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="updated_at">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated At </th>
+        <td mat-cell *matCellDef="let element"> {{element.updated_at}} </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-button="">
+            <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>
+          <button mat-button="">
+            <mat-icon style="color: red;" mat-raised-button
+                      (click)="deleteContact(element.id)">delete_outline</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </mat-card>
