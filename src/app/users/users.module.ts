@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ngx-smart-table';
 import { UsersModalComponent } from './users-modal/users-modal.component';
 import { UpdateUsersComponent } from './update-users/update-users.component';
-import { UsersService } from './users.service';
+import { UserService } from '../services/user/user.service';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
         UsersRoutingModule
     ],
     declarations: [UsersComponent, UsersModalComponent, UpdateUsersComponent],
-    providers: [UsersService],
+    providers: [UserService],
     entryComponents: [ UsersModalComponent, UpdateUsersComponent, UsersComponent ]
 })
 export class UsersModule { }

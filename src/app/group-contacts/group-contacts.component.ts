@@ -3,24 +3,23 @@ import { MatDialog, MatTableDataSource } from '@angular/material';
 import { GroupContactsModalComponent } from './group-contacts-modal/group-contacts-modal.component';
 import { UpdateContactInterface } from '../contacts/update-contact/update-contact.component';
 import { UpdateContactComponent } from './update-contact/update-contact.component';
+import { StorageService } from '../services/storage.service';
+import { TeamService } from '../services/team/team.service';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 export interface PeriodicElement {
-    groupname: string;
+    id: number;
+    name: string;
     description: string
-    position?: number;
-    number_of_contacts?: number
+    // number_of_contacts?: number;
+    fellowship_id: number;
+    created_by?: string;
     updated_by?: string;
     action?: string
     // university: string;
     // phone: string;
 }
 
-export let ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, groupname: 'Worship Group', description: 'it is a group where members train and lead worship in the fellowship', number_of_contacts: 20, updated_by: 'Yitages Berhanu'},
-    {position: 2, groupname: 'Prayers Group', description: '', number_of_contacts: 150, updated_by: 'Zion Shimeles'},
-    {position: 3, groupname: 'Bible Study Group', description: 'Bible study group is a group to learn and share bible teachings', number_of_contacts: 60, updated_by: 'Meheret Tesfaye'},
-    {position: 4, groupname: 'Natanim Group', description: 'Natanim group goal is to clean the house of God', number_of_contacts: 30, updated_by: 'Yitages Berhanu'},
-];
 
 @Component({
   selector: 'app-group-contacts',
@@ -33,10 +32,15 @@ export class GroupContactsComponent implements OnInit {
     groupname: string;
 
 
-    displayedColumns: string[] = ['position', 'groupname', 'description', 'number_of_contacts', 'updated_by', 'action'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+    displayedColumns: string[] = ['id', 'name', 'description', 'fellowship_id', 'created_by', 'updated_by', 'action'];
+    // dataSource = new MatTableDataSource(ELEMENT_DATA);
+    dataSource: any;
 
-    constructor(private matDialog: MatDialog) { }
+    constructor(
+        private matDialog: MatDialog,
+        private teamService: TeamService,
+        private storageService: StorageService,
+    ) { }
 
     openCreate(): void {
         const dialogRef = this.matDialog.open(GroupContactsModalComponent, {
@@ -63,11 +67,48 @@ export class GroupContactsComponent implements OnInit {
         });
     }
 
-    delete(uni: string){
-        console.log(uni);
+    deleteContact(id: string) {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'DELETE')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.teamService.delete(`team/${id}`, headers)
+            .subscribe((res: {message: string}) => {
+                console.log(res.message);
+                this.collectionOfcon();
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    collectionOfcon() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.teamService.gets(headers, '/teams')
+            .subscribe((res: any) => {
+                this.dataSource = new MatTableDataSource(res.teams);
+                console.log(res)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
     }
 
     ngOnInit() {
+        this.collectionOfcon()
+    }
+
+    refresh() {
+        this.collectionOfcon()
     }
 
     applyFilter(filterValue: string) {

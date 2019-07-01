@@ -10,21 +10,23 @@
 <form [formGroup]="updateUsersForm" (ngSubmit)="updateUsers(updateUsersForm.value)">
 
   <mat-form-field>
-    <input matInput placeholder="First Name" type="text" formControlName="firstname">
-    <mat-error style="color: red" *ngIf="updateUsersForm.get('firstname').invalid && (updateUsersForm.get('firstname').dirty ||
-      updateUsersForm.get('firstname').touched) && updateUsersForm.get('firstname').errors?.required">
+    <input matInput placeholder="Full Name" type="text" formControlName="full_name">
+    <mat-error style="color: red" *ngIf="updateUsersForm.get('full_name').invalid && (updateUsersForm.get('full_name').dirty ||
+      updateUsersForm.get('full_name').touched) && updateUsersForm.get('full_name').errors?.required">
       Please insert first name!
     </mat-error>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Last Name" type="text" formControlName="lastname">
-    <mat-error style="color: red" *ngIf="updateUsersForm.get('lastname').invalid && (updateUsersForm.get('lastname').dirty ||
-      updateUsersForm.get('lastname').touched) && !updateUsersForm.get('lastname').errors?.minlength">
+    <input matInput placeholder="Phone" type="text" formControlName="phone">
+    <mat-error style="color: red" *ngIf="updateUsersForm.get('phone').invalid && (updateUsersForm.get('phone').dirty ||
+      updateUsersForm.get('phone').touched) && !updateUsersForm.get('phone').errors?.minlength">
       Please insert last name!
     </mat-error>
+  </mat-form-field>
 
-  </mat-form-field><mat-form-field>
+
+  <mat-form-field>
     <input matInput placeholder="User Role" type="text" formControlName="user_role">
     <mat-error style="color: red" *ngIf="updateUsersForm.get('user_role').invalid && (updateUsersForm.get('user_role').dirty ||
       updateUsersForm.get('user_role').touched) && !updateUsersForm.get('user_role').errors?.minlength">
@@ -32,26 +34,26 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Phone number" type="text" formControlName="phone">
-    <mat-error style="color: red" *ngIf="updateUsersForm.get('phone').invalid && (updateUsersForm.get('phone').dirty ||
-      updateUsersForm.get('phone').touched) && !updateUsersForm.get('phone').errors?.minlength">
-      Please insert phone number!
-    </mat-error>
-  </mat-form-field>
+  <!--<mat-form-field>-->
+    <!--<mat-label> User Role</mat-label>-->
+    <!--<mat-select formControlName="user_role">-->
+      <!--<mat-option *ngFor="let user_role of universities" [value]="user_role.value">-->
+        <!--{{user_role.viewValue}}-->
+      <!--</mat-option>-->
+    <!--</mat-select>-->
+  <!--</mat-form-field>-->
 
   <mat-form-field>
-    <mat-label> User Role</mat-label>
-    <mat-select formControlName="user_role">
-      <mat-option *ngFor="let user_role of universities" [value]="user_role.value">
-        {{user_role.viewValue}}
-      </mat-option>
-    </mat-select>
+    <input matInput placeholder="Email" type="text" formControlName="email">
+    <mat-error style="color: red" *ngIf="updateUsersForm.get('email').invalid && (updateUsersForm.get('email').dirty ||
+      updateUsersForm.get('email').touched) && !updateUsersForm.get('email').errors?.minlength">
+      Please insert your email address!
+    </mat-error>
   </mat-form-field>
 
   <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
   <div mat-dialog-actions>
     <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Update</button>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
   </div>
 </form>

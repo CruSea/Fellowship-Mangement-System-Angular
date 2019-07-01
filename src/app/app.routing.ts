@@ -9,7 +9,7 @@ const routes: Routes = [
     {
         path: '',
         component: AdminLayoutComponent,
-        // canActivate: [ ProtectedGuard ],
+        canActivate: [ ProtectedGuard ],
         children: [
             {
               path: '',

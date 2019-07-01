@@ -4,12 +4,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 // import { UserRoleInterface } from '../../register/register';
 
 export interface UpdateUsersInterface {
-    position?: string;
-    firstname: string;
-    user_role: string;
-    lastname: string;
+    // position?: string;
+    full_name: string;
     phone: string;
-    university: string;
+    user_role: string;
+    email: string;
+    // university: string;
 }
 
 // export interface DialogData {
@@ -44,10 +44,10 @@ export class UpdateUsersComponent implements OnInit {
         // this.getEvent();
         console.log(this.data);
         this.updateUsersForm = this.formBuilder.group({
-            firstname: [this.data.firstname, [Validators.required]],
-            lastname: [this.data.lastname, [Validators.required]],
+            full_name: [this.data.full_name, [Validators.required]],
             phone: [this.data.phone, [Validators.required]],
             user_role: [this.data.user_role, [Validators.required]],
+            email: [this.data.email, [Validators.required]],
         });
     }
 

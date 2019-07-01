@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { tap, map, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from 'ngx-auth';
 
@@ -9,8 +9,8 @@ import { StorageService } from '../storage.service';
 import { Router } from '@angular/router';
 import { LoginService } from '../login/login.service';
 import { RegisterService } from '../register/register.service';
-import { LoginInterface } from '../../login/login.interface';
 import { RegisterInterface } from '../../register/register';
+import { LoginInterface } from '../../login/login.interface';
 
 @Injectable()
 export class AuthenticationService implements AuthService, OnInit {
@@ -35,8 +35,8 @@ export class AuthenticationService implements AuthService, OnInit {
     return this.storageService.getAccessToken();
   }
 
-  public refreshToken(): Observable <TokenInterface> {
-    return;
+  public refreshToken(): Observable <string> {
+    return of('');
     // return this.storageService.getRefreshToken()
     //   .pipe(switchMap((refresh_token: string) =>
     //       this.httpClient.post(`http://localhost:3000/auth/refresh`, { refresh_token: refresh_token })
@@ -58,11 +58,13 @@ export class AuthenticationService implements AuthService, OnInit {
     const headers = new HttpHeaders()
       .append('Access-Control-Allow-Origin', '*')
       .append('Access-Control-Allow-Methods', 'POST')
+      .append('X-Requested-With', 'XMLHttpRequest')
       .append('Access-Control-Allow-Headers', 'Content-Type');
     console.log(loginInterface);
-    return this.loginService.create(loginInterface, headers, 'http://localhost:3232/api/signin')
-      .pipe(tap((loginResponseInterface: any) => {
-        console.log(JSON.parse(loginResponseInterface));
+    return this.loginService.create(loginInterface, headers, '/signin')
+      .pipe(tap((loginResponseInterface: LoginResponseInterface) => {
+        console.log('...................................................................................');
+        console.log(loginResponseInterface);
         this.storageService.setAccessToken(loginResponseInterface.token)
       }));
   }
@@ -71,6 +73,7 @@ export class AuthenticationService implements AuthService, OnInit {
     const headers = new HttpHeaders()
       .append('Access-Control-Allow-Origin', '*')
       .append('Access-Control-Allow-Methods', 'POST')
+        .append('X-Requested-With', 'XMLHttpRequest')
       .append('Access-Control-Allow-Headers', 'Content-Type');
     return this.registerService.create(registerInterface, headers, '/signup');
   }

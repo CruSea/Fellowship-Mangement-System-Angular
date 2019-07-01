@@ -1,11 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UniversityInterface } from '../../register/register';
+import { StorageService } from '../../services/storage.service';
+import { GroupContactsService } from '../../services/group_contacts/group-contacts.service';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+
 
 export interface UpdateContactInterface {
-    position?: string;
-    groupname: string;
+    id?: string;
+    name: string;
     description: string;
     // phone: string;
     // university: string;
@@ -19,7 +22,8 @@ export interface UpdateContactInterface {
 @Component({
     selector: 'app-update-contact',
     templateUrl: './update-contact.component.html',
-    styleUrls: ['./update-contact.component.scss']
+    styleUrls: ['./update-contact.component.scss'],
+    providers: [GroupContactsService]
 })
 export class UpdateContactComponent implements OnInit {
 
@@ -32,6 +36,8 @@ export class UpdateContactComponent implements OnInit {
     // ];
     constructor(
         private formBuilder: FormBuilder,
+        private  groupContactsService: GroupContactsService,
+        private  storageService: StorageService,
         public dialogRef: MatDialogRef<UpdateContactComponent>,
         @Inject(MAT_DIALOG_DATA) public data: UpdateContactInterface) {}
 
@@ -43,14 +49,29 @@ export class UpdateContactComponent implements OnInit {
         // this.getEvent();
         console.log(this.data);
         this.updateContactForm = this.formBuilder.group({
-            groupname: [this.data.groupname, [Validators.required]],
+            name: [this.data.name, [Validators.required]],
             description: [this.data.description, [Validators.required]],
             // phone: [this.data.phone, [Validators.required]],
             // university: [this.data.university, [Validators.required]],
         });
     }
 
-    updateContact(updateContactInterface: UpdateContactInterface) {
-        console.log(updateContactInterface);
+    updateContact(contactsModalInterface: UpdateContactInterface) {
+        console.log(contactsModalInterface);
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'POST')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.groupContactsService.patch(`team/${this.data.id}`, contactsModalInterface, headers)
+            .subscribe((res: {message: string}) => {
+                console.log(res.message);
+                this.dialogRef.close();
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
     }
 }

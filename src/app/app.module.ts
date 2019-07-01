@@ -33,6 +33,7 @@ import { P404Component } from './p404/p404.component';
   imports: [
       CommonModule,
       BrowserModule,
+      // FormsModule,
     BrowserAnimationsModule,
     HttpModule,
       HttpClientModule,

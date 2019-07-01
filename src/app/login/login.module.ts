@@ -4,8 +4,7 @@ import { LoginComponent } from './login.component';
 import { LoginRoutingModule } from './login-routing.module';
 import { MaterialsModule } from '../utils/materials.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
-import { AuthService } from '../auth.service';
+import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 
 
@@ -15,10 +14,10 @@ import { AuthenticationService } from '../services/authentication/authentication
     CommonModule,
     FormsModule,
     MaterialsModule,
-      HttpClientModule,
+    HttpClientModule,
     ReactiveFormsModule,
     LoginRoutingModule
   ],
-    providers: [AuthService, AuthenticationService]
+    providers: [AuthenticationService]
 })
 export class LoginModule { }

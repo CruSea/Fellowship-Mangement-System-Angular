@@ -53,6 +53,13 @@ export class ServicesService implements ServicesInterface, OnInit {
     return this.httpClient.put(`${this.BASE_URL}/${id}${query}`, data, { headers: header });
   }
 
+    public patch(id, data, header?: HttpHeaders, query?: string) {
+        if (id === undefined ) { id = ''; }
+        if (query === undefined ) { query = ''; }
+        console.log(`PATCH: ${this.BASE_URL}/${id}${query}`);
+        return this.httpClient.patch(`${this.BASE_URL}/${id}${query}`, data, { headers: header });
+    }
+
   public delete(id, header?: HttpHeaders, query?: string) {
     if (id === undefined ) { id = ''; }
     if (query === undefined ) { query = ''; }

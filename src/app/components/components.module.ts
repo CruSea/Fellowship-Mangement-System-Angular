@@ -6,6 +6,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MaterialsModule } from '../utils/materials.module';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 
 @NgModule({
   imports: [
@@ -22,6 +23,9 @@ import { MaterialsModule } from '../utils/materials.module';
     FooterComponent,
     NavbarComponent,
     SidebarComponent
-  ]
+  ],
+    providers: [
+        AuthenticationService
+    ]
 })
 export class ComponentsModule { }

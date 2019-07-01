@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { LoginInterface } from './login.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { AuthService } from '../auth.service';
+// import { AuthService } from '../auth.service';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { LoginResponseInterface } from '../services/authentication/authentication.interface';
+import { Router } from '@angular/router';
+// import { AuthenticationService } from '../services/authentication/authentication.service';
+// import { LoginResponseInterface } from '../services/authentication/authentication.interface';
 
 
 @Component({
@@ -15,35 +18,28 @@ import { LoginResponseInterface } from '../services/authentication/authenticatio
 export class LoginComponent implements OnInit {
 
   loginForm: any;
-  github_users: any[];
 
   constructor(
+      private router: Router,
       private httpClient: HttpClient,
-      private authService: AuthService,
-      private authenticationService: AuthService,
-    private formBuilder: FormBuilder
+      private authenticationService: AuthenticationService,
+      private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    // this.getEvent();
     this.loginForm = this.formBuilder.group({
-      email: [null, [Validators.required]],
-      password: [null, [Validators.required]]
+      email: [null],
+      password: [null]
     });
   }
 
   login(loginInterface: LoginInterface) {
-    console.log(loginInterface);
-    // this.authService.signin(loginInterface)
-    //     .subscribe(response => {
-    //       console.log(response);
-    //         }
-    //     )
-      this.authenticationService.signin(loginInterface).subscribe(
-          (data: any)  => {
-              console.log(data);
-          }, (httpErrorResponse: HttpErrorResponse) => {
+      this.authenticationService.login(loginInterface)
+        .subscribe((loginResponseInterface: LoginResponseInterface) => {
+            console.log(loginResponseInterface.message);
+            this.router.navigateByUrl('/').catch(error => console.log(error))
+        }, (httpErrorResponse: HttpErrorResponse) => {
             console.log(httpErrorResponse)
-          });
+        })
   }
 }

@@ -3,7 +3,9 @@ import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from
 import { UsersModalComponent } from './users-modal/users-modal.component';
 import { UpdateUsersComponent, UpdateUsersInterface } from './update-users/update-users.component';
 import { UserRoleInterface } from '../users/users';
-import { UsersService } from './users.service'
+import { UserService } from '../services/user/user.service';
+import { StorageService } from '../services/storage.service';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 
 export interface PeriodicElement {
@@ -12,8 +14,8 @@ export interface PeriodicElement {
     email: string;
     phone: string;
     user_role: string;
-    created_date: string;
-    updated_date: string;
+    created_date?: string;
+    updated_date?: string;
     action?: string;
 }
 
@@ -37,12 +39,13 @@ export class UsersComponent implements OnInit {
 
     // displayedColumns: string[] = ['position', 'firstname', 'lastname', 'user_role', 'phone', 'action'];
     displayedColumns: string[] = ['position', 'full_name', 'email', 'phone', 'user_role', 'created_date', 'updated_date', 'action'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
-    // dataSource: any;
+    // dataSource = new MatTableDataSource(ELEMENT_DATA);
+    dataSource: any;
 
     constructor(
         private matDialog: MatDialog,
-        private usersService: UsersService
+        private userService: UserService,
+        private storageService: StorageService,
     ) { }
 
     openCreate(): void {
@@ -81,14 +84,23 @@ export class UsersComponent implements OnInit {
         });
     }
 
-    delete(id: string) {
-        console.log(id);
-        this.usersService.delete(id).subscribe(res => {
-            console.log(res);
-        }, err => {
-            console.log(err)
-        })
-    }
+    // deleteUser(id: string) {
+    //     const headers = new HttpHeaders()
+    //         .append('Access-Control-Allow-Origin', '*')
+    //         .append('Access-Control-Allow-Methods', 'DELETE')
+    //         .append('X-Requested-With', 'XMLHttpRequest')
+    //         .append('Access-Control-Allow-Headers', 'Content-Type')
+    //         .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+    //     // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+    //     return this.userService.delete(`user/${id}`, headers)
+    //         .subscribe((res: {message: string}) => {
+    //             console.log(res.message);
+    //             this.collectionOfu();
+    //         }, (httpErrorResponse: HttpErrorResponse) => {
+    //             console.log(httpErrorResponse.status);
+    //             console.log(httpErrorResponse);
+    //         })
+    // }
 
     ngOnInit() {
         this.collectionOfu()
@@ -99,13 +111,20 @@ export class UsersComponent implements OnInit {
     }
 
     collectionOfu() {
-        this.usersService.collectionOfUsers().subscribe((res: any) => {
-            // console.log(res);
-            // console.log(res.users.data);
-            this.dataSource = new MatTableDataSource(res.users.data);
-        }, err => {
-            console.log(err);
-        })
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userService.gets(headers, '/users')
+            .subscribe((res: any) => {
+                this.dataSource = new MatTableDataSource(res.users);
+                console.log(res)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
     }
-
 }

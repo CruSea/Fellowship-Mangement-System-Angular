@@ -34,9 +34,9 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Academic Department" type="text" formControlName="Academic_department">
-    <mat-error style="color: red" *ngIf="updateContactForm.get('Academic_department').invalid && (updateContactForm.get('Academic_department').dirty ||
-      updateContactForm.get('Academic_department').touched) && !updateContactForm.get('Academic_department').errors?.minlength">
+    <input matInput placeholder="Academic Department" type="text" formControlName="acadamic_department">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('acadamic_department').invalid && (updateContactForm.get('acadamic_department').dirty ||
+      updateContactForm.get('acadamic_department').touched) && !updateContactForm.get('acadamic_department').errors?.minlength">
       Please insert phone number!
     </mat-error>
   </mat-form-field>
@@ -45,22 +45,6 @@
     <input matInput placeholder="Fellowship Id" type="text" formControlName="fellowship_id">
     <mat-error style="color: red" *ngIf="updateContactForm.get('fellowship_id').invalid && (updateContactForm.get('fellowship_id').dirty ||
       updateContactForm.get('fellowship_id').touched) && !updateContactForm.get('fellowship_id').errors?.minlength">
-      Please insert phone number!
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder="Created At" type="text" formControlName="created_at">
-    <mat-error style="color: red" *ngIf="updateContactForm.get('created_at').invalid && (updateContactForm.get('created_at').dirty ||
-      updateContactForm.get('created_at').touched) && !updateContactForm.get('created_at').errors?.minlength">
-      Please insert phone number!
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder="Updated At" type="text" formControlName="updated_at">
-    <mat-error style="color: red" *ngIf="updateContactForm.get('updated_at').invalid && (updateContactForm.get('updated_at').dirty ||
-      updateContactForm.get('updated_at').touched) && !updateContactForm.get('updated_at').errors?.minlength">
       Please insert phone number!
     </mat-error>
   </mat-form-field>

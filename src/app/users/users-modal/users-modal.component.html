@@ -18,9 +18,9 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Email Address" type="text" formControlName="email_address">
-    <mat-error style="color: red" *ngIf="usersModalForm.get('email_address').invalid && (usersModalForm.get('email_address').dirty ||
-      usersModalForm.get('email_address').touched) && !usersModalForm.get('email_address').errors?.minlength">
+    <input matInput placeholder="Email Address" type="text" formControlName="email">
+    <mat-error style="color: red" *ngIf="usersModalForm.get('email').invalid && (usersModalForm.get('email').dirty ||
+      usersModalForm.get('email').touched) && !usersModalForm.get('email').errors?.minlength">
       Please insert last name!
     </mat-error>
   </mat-form-field>

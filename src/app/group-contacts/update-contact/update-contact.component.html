@@ -10,9 +10,9 @@
 <form [formGroup]="updateContactForm" (ngSubmit)="updateContact(updateContactForm.value)">
 
   <mat-form-field>
-    <input matInput placeholder="Group Name" type="text" formControlName="groupname">
-    <mat-error style="color: red" *ngIf="updateContactForm.get('groupname').invalid && (updateContactForm.get('groupname').dirty ||
-      updateContactForm.get('groupname').touched) && updateContactForm.get('groupname').errors?.required">
+    <input matInput placeholder="Group Name" type="text" formControlName="name">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('name').invalid && (updateContactForm.get('name').dirty ||
+      updateContactForm.get('name').touched) && updateContactForm.get('name').errors?.required">
       Please insert group name!
     </mat-error>
   </mat-form-field>

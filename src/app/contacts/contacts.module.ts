@@ -5,11 +5,12 @@ import { ContactsRoutingModule } from './contacts-routing.module';
 import { MaterialsModule } from '../utils/materials.module';
 import { ContactsModalComponent } from './contacts-modal/contacts-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Ng2SmartTableModule } from 'ngx-smart-table';
 import { UpdateContactComponent } from './update-contact/update-contact.component';
 import { ImportContactComponent } from './import-contact/import-contact.component';
 import { ContactsService } from './contacts.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ContactService } from '../services/contact/contact.service';
+import { StorageService } from '../services/storage.service';
 
 @NgModule({
   imports: [
@@ -19,10 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
       HttpClientModule,
       ReactiveFormsModule,
       ContactsRoutingModule,
-      Ng2SmartTableModule
   ],
   declarations: [ContactsComponent, ContactsModalComponent, UpdateContactComponent, ImportContactComponent],
-    providers: [ContactsService],
+    providers: [ContactsService, ContactService, StorageService],
     entryComponents: [ ContactsModalComponent, UpdateContactComponent, ImportContactComponent ]
 })
 export class ContactsModule { }

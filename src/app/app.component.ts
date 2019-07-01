@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 
 @Component({
@@ -8,4 +8,16 @@ import { Component} from '@angular/core';
 })
 export class AppComponent {
 
+    screenWidth: string;
+    screenHeight: string;
+
+    constructor() {
+      this.getScreenSize()
+    }
+
+    @HostListener('window:resize', ['$event'])
+    getScreenSize(event?) {
+        this.screenHeight = window.innerHeight.toString() + 'px';
+        this.screenWidth = window.innerWidth.toString() + 'px';
+    }
 }

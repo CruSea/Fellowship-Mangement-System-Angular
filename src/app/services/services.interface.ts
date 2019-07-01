@@ -7,4 +7,5 @@ export interface ServicesInterface {
     delete(id: string, header?: HttpHeaders, query?: string);
     example(url: string, header?: HttpHeaders, query?: string);
     update(id: string, data: any, header?: HttpHeaders, query?: string);
+    patch (id: string, data: any, header?: HttpHeaders, query?: string);
 }

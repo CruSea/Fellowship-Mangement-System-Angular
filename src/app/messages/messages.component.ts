@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { MessageModalComponent } from './message-modal/message-modal.component';
+import { StorageService } from '../services/storage.service';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { SentMessagesService } from '../services/sent_messages/sent-messages.service';
 // import { UpdateContactComponent, UpdateContactInterface } from './update-contact/update-contact.component';
 // import { ImportContactComponent } from './import-contact/import-contact.component';
 
@@ -8,16 +11,18 @@ import { MessageModalComponent } from './message-modal/message-modal.component';
 export interface PeriodicElement {
     message: string;
     sent_to: string;
-    status: string;
+    status?: string;
     position: number;
-    created_by: string;
-    campaign: string;
+    created_by?: string;
+    // campaign: string;
+    port_name: string;
+    action?: string
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, message: 'Hellow this is to inform you', sent_to: 'Abebe Petros', campaign: '0912342421', status: 'sent', created_by: 'Yitages Berhanu'},
-    {position: 2, message: 'Hey there this is to inform you that this week we will have a meeting ', sent_to: 'Eyob Bekele', campaign: '0911374382', status: 'sent', created_by: 'Meheret Tefaye'},
-    {position: 3, message: 'This month is a thanks giving month', sent_to: 'Tesfaye Gezahegn', campaign: '0916454563', status: 'sent', created_by: 'Tsion Shemeles'},
+    // {position: 1, message: 'Hellow this is to inform you', sent_to: 'Abebe Petros', campaign: '0912342421', status: 'sent', created_by: 'Yitages Berhanu'},
+    // {position: 2, message: 'Hey there this is to inform you that this week we will have a meeting ', sent_to: 'Eyob Bekele', campaign: '0911374382', status: 'sent', created_by: 'Meheret Tefaye'},
+    // {position: 3, message: 'This month is a thanks giving month', sent_to: 'Tesfaye Gezahegn', campaign: '0916454563', status: 'sent', created_by: 'Tsion Shemeles'},
 ];
 
 @Component({
@@ -31,10 +36,15 @@ export class MessagesComponent implements OnInit {
     message: string;
 
 
-    displayedColumns: string[] = ['position', 'message', 'sent_to', 'created_by', 'campaign', 'status'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+    displayedColumns: string[] = ['position', 'message', 'sent_to', 'created_by', 'port_name', 'status', 'action'];
+    // dataSource = new MatTableDataSource(ELEMENT_DATA);
+    dataSource: any;
 
-    constructor(private matDialog: MatDialog) { }
+    constructor(
+        private matDialog: MatDialog,
+        private storageService: StorageService,
+        private sentMessagesService: SentMessagesService
+    ) { }
 
     openCreate(): void {
         const dialogRef = this.matDialog.open(MessageModalComponent, {
@@ -71,16 +81,57 @@ export class MessagesComponent implements OnInit {
     //         this.animal = result;
     //     });
     // }
-    //
-    // delete(uni: string){
-    //     console.log(uni);
-    // }
+
+    delete(uni: string) {
+        console.log(uni);
+    }
 
     ngOnInit() {
+        this.sentMessages()
+    }
+
+    refresh() {
+        this.sentMessages()
     }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    sentMessages() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.sentMessagesService.gets(headers, '/messages')
+            .subscribe((res: any) => {
+                this.dataSource = new MatTableDataSource(res.messages);
+                console.log(res)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    deleteContact(id: string) {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'DELETE')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.sentMessagesService.delete(`message/${id}`, headers)
+            .subscribe((res: {message: string}) => {
+                console.log(res.message);
+                this.sentMessages();
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
     }
 
 }

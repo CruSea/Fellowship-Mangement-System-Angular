@@ -6,16 +6,21 @@ import { GroupContactsModalComponent } from './group-contacts-modal/group-contac
 import { UpdateContactComponent } from './update-contact/update-contact.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialsModule } from '../utils/materials.module';
+import { TeamService } from '../services/team/team.service';
+import { StorageService } from '../services/storage.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
       FormsModule,
       MaterialsModule,
+      HttpClientModule,
       ReactiveFormsModule,
       GroupContactsRoutingModule
   ],
   declarations: [GroupContactsComponent, GroupContactsModalComponent, UpdateContactComponent],
+    providers: [TeamService, StorageService],
     entryComponents: [GroupContactsModalComponent, UpdateContactComponent]
 })
 export class GroupContactsModule { }

@@ -1,75 +1,31 @@
 <div class="background">
-  <div class="container">
-    <div id="login-main">
-      <h1 id="login-name">Login</h1>
-      <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+  <div id="form">
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
 
-        <div class="sidebar-background" style="background-image: url(../../assets/img/sidebar-4.jpg)"></div>
-        <mat-form-field>
-          <input matInput placeholder="Email" type="text" formControlName="email">
-          <mat-error style="color: red" *ngIf="loginForm.get('email').invalid && (loginForm.get('email').dirty ||
-          loginForm.get('email').touched) && loginForm.get('email').errors?.required">
-            Please insert email!
-          </mat-error>
-        </mat-form-field>
+      <h1 style="text-align: center; font-weight: bolder">Login</h1>
 
-        <mat-form-field>
-          <input matInput placeholder="Password" type="password" formControlName="password">
-          <mat-error style="color: red" *ngIf="loginForm.get('password').invalid && (loginForm.get('password').dirty ||
-          loginForm.get('password').touched) && loginForm.get('password').errors?.minlength">
-            Please insert password!
-          </mat-error>
-        </mat-form-field>
+      <!--<div class="sidebar-background" style="background-image: url(../../assets/img/sidebar-4.jpg)"></div>-->
+      <mat-form-field>
+        <input matInput placeholder="Email" type="text" formControlName="email">
+        <mat-error style="color: red" *ngIf="loginForm.get('email').invalid && (loginForm.get('email').dirty ||
+    loginForm.get('email').touched) && loginForm.get('email').errors?.required">
+          Please insert email!
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <!--<i class="fas fa-lock" ></i>-->
+        <input matInput placeholder="Password" type="password" formControlName="password">
+        <mat-error style="color: red" *ngIf="loginForm.get('password').invalid && (loginForm.get('password').dirty ||
+    loginForm.get('password').touched) && loginForm.get('password').errors?.minlength">
+          Please insert password!
+        </mat-error>
+      </mat-form-field>
 
 
-        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
-        <button mat-button=""  routerLink="/register">register</button>
-      </form>
-    </div>
+      <button style="width: 100%" class="btn btn-danger btn-round" type="submit" [disabled]="loginForm.invalid">Login</button>
+      <p style="text-align: center; padding-top: 10%">Don't have an account?</p>
+      <button class="btn btn-outline-success btn-group-raised" style=" width: 50%; left: 25%  "  routerLink="/register">register</button>
+    </form>
   </div>
 </div>
-<!--<div *ngIf="github_users">-->
-  <!--<div *ngFor="let github_user of github_users">-->
-
-    <!--<div style="display: flex; flex-flow: row">-->
-      <!--<div style="width: 150px; height: auto">-->
-        <!--<img [src]="github_user.avatar_url" style="width: 100%; height: 100%">-->
-      <!--</div>-->
-      <!--<p style="margin: 8px 16px">{{github_user.login}}</p>-->
-    <!--</div>-->
-
-
-  <!--</div>-->
-<!--</div>-->
-
-
-
-<!--<div class="background" style="position: absolute; width: 100%; height: auto; z-index: 0">-->
-  <!--&lt;!&ndash;<img src="../image/casual-cellphone-chat-1798852.jpg" style="width: 100%; height: 100%">&ndash;&gt;-->
-<!--</div>-->
-<!--<div id="login-main">-->
-  <!--<h1 id="login-name">Login</h1>-->
-  <!--<form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">-->
-
-    <!--&lt;!&ndash;<div class="sidebar-background" style="background-image: url(../../assets/img/sidebar-4.jpg)"></div>&ndash;&gt;-->
-    <!--<mat-form-field>-->
-      <!--<input matInput placeholder="Username" type="text" formControlName="email">-->
-      <!--<mat-error style="color: red" *ngIf="loginForm.get('email').invalid && (loginForm.get('email').dirty ||-->
-    <!--loginForm.get('email').touched) && loginForm.get('email').errors?.required">-->
-        <!--Please insert email!-->
-      <!--</mat-error>-->
-    <!--</mat-form-field>-->
-
-    <!--<mat-form-field>-->
-      <!--<input matInput placeholder="Password" type="password" formControlName="password">-->
-      <!--<mat-error style="color: red" *ngIf="loginForm.get('password').invalid && (loginForm.get('password').dirty ||-->
-    <!--loginForm.get('password').touched) && loginForm.get('password').errors?.minlength">-->
-        <!--Please insert password!-->
-      <!--</mat-error>-->
-    <!--</mat-form-field>-->
-
-
-    <!--<button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>-->
-    <!--<button mat-button=""  routerLink="/register">register</button>-->
-  <!--</form>-->
-  <!--&lt;!&ndash;</div>&ndash;&gt;</div></div>-->

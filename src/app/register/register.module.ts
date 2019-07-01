@@ -4,7 +4,7 @@ import { RegisterComponent } from './register.component';
 import { RegisterRoutingModule} from './register-routing.module';
 import { MaterialsModule } from '../utils/materials.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 @NgModule({
   declarations: [RegisterComponent],
   imports: [
@@ -14,6 +14,6 @@ import { AuthService } from '../auth.service';
       MaterialsModule,
     RegisterRoutingModule
   ],
-    providers: [AuthService]
+    providers: [AuthenticationService]
 })
 export class RegisterModule { }

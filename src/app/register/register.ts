@@ -1,8 +1,9 @@
 export interface RegisterInterface {
-  first_name: string;
-  last_name: string;
-  phone_number: number;
-  university: string;
+  full_name: string;
+  phone: string;
+  university_name: string;
+  university_city: string;
+  specific_place: string,
   email: string;
   password: string;
 }
