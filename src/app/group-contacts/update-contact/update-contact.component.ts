@@ -2,8 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../services/storage.service';
-import { GroupContactsService } from '../../services/group_contacts/group-contacts.service';
+// import { GroupContactsService } from '../../services/group_contacts/group-contacts.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { TeamService } from '../../services/team/team.service';
 
 
 export interface UpdateContactInterface {
@@ -23,11 +24,11 @@ export interface UpdateContactInterface {
     selector: 'app-update-contact',
     templateUrl: './update-contact.component.html',
     styleUrls: ['./update-contact.component.scss'],
-    providers: [GroupContactsService]
+    // providers: [GroupContactsService]
 })
 export class UpdateContactComponent implements OnInit {
 
-    updateContactForm: any;
+    updateGroupContactForm: any;
     // universities: UniversityInterface[] = [
     //     {value: 'Addis Ababa', viewValue: 'Addis Ababa'},
     //     {value: 'Adama', viewValue: 'Adama'},
@@ -36,7 +37,7 @@ export class UpdateContactComponent implements OnInit {
     // ];
     constructor(
         private formBuilder: FormBuilder,
-        private  groupContactsService: GroupContactsService,
+        private  teamService: TeamService,
         private  storageService: StorageService,
         public dialogRef: MatDialogRef<UpdateContactComponent>,
         @Inject(MAT_DIALOG_DATA) public data: UpdateContactInterface) {}
@@ -48,7 +49,7 @@ export class UpdateContactComponent implements OnInit {
     ngOnInit(): void {
         // this.getEvent();
         console.log(this.data);
-        this.updateContactForm = this.formBuilder.group({
+        this.updateGroupContactForm = this.formBuilder.group({
             name: [this.data.name, [Validators.required]],
             description: [this.data.description, [Validators.required]],
             // phone: [this.data.phone, [Validators.required]],
@@ -56,7 +57,7 @@ export class UpdateContactComponent implements OnInit {
         });
     }
 
-    updateContact(contactsModalInterface: UpdateContactInterface) {
+    updateGroupContact(contactsModalInterface: UpdateContactInterface) {
         console.log(contactsModalInterface);
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
@@ -65,7 +66,7 @@ export class UpdateContactComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.groupContactsService.patch(`team/${this.data.id}`, contactsModalInterface, headers)
+        return this.teamService.patch(`team/${this.data.id}`, contactsModalInterface, headers)
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
                 this.dialogRef.close();

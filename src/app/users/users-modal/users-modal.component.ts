@@ -10,7 +10,8 @@ interface UsersModalInterface {
     full_name: string;
     email_address: string;
     phone: string;
-    role: string;
+    password: string;
+    // role: string;
 }
 
 export interface DialogData {
@@ -26,12 +27,12 @@ export interface DialogData {
 export class UsersModalComponent implements OnInit {
 
     usersModalForm: any;
-    roles: UserRoleInterface[] = [
-        {type: 'owner', name: 'Owner'},
-        {type: 'admin', name: 'Admin'},
-        {type: 'editor', name: 'Editor'},
-        {type: 'viewer', name: 'Viewer'}
-    ];
+    // roles: UserRoleInterface[] = [
+    //     {type: 'owner', name: 'Owner'},
+    //     {type: 'admin', name: 'Admin'},
+    //     {type: 'editor', name: 'Editor'},
+    //     {type: 'viewer', name: 'Viewer'}
+    // ];
     constructor(
         private formBuilder: FormBuilder,
         private userService: UserService,
@@ -49,7 +50,8 @@ export class UsersModalComponent implements OnInit {
             full_name: [null, [Validators.required]],
             phone: [null, [Validators.required]],
             email: [null, [Validators.required]],
-            role: [null, [Validators.required]],
+            password: [null, [Validators.required]],
+            // role: [null, [Validators.required]],
         });
     }
 

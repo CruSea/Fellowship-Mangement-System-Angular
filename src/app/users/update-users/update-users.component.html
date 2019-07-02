@@ -27,9 +27,9 @@
 
 
   <mat-form-field>
-    <input matInput placeholder="User Role" type="text" formControlName="user_role">
-    <mat-error style="color: red" *ngIf="updateUsersForm.get('user_role').invalid && (updateUsersForm.get('user_role').dirty ||
-      updateUsersForm.get('user_role').touched) && !updateUsersForm.get('user_role').errors?.minlength">
+    <input matInput placeholder="User Role" type="text" formControlName="role">
+    <mat-error style="color: red" *ngIf="updateUsersForm.get('role').invalid && (updateUsersForm.get('role').dirty ||
+      updateUsersForm.get('role').touched) && !updateUsersForm.get('role').errors?.minlength">
       Please insert user role!
     </mat-error>
   </mat-form-field>

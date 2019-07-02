@@ -7,7 +7,7 @@ export interface UpdateUsersInterface {
     // position?: string;
     full_name: string;
     phone: string;
-    user_role: string;
+    role: string;
     email: string;
     // university: string;
 }
@@ -46,7 +46,7 @@ export class UpdateUsersComponent implements OnInit {
         this.updateUsersForm = this.formBuilder.group({
             full_name: [this.data.full_name, [Validators.required]],
             phone: [this.data.phone, [Validators.required]],
-            user_role: [this.data.user_role, [Validators.required]],
+            role: [this.data.role, [Validators.required]],
             email: [this.data.email, [Validators.required]],
         });
     }

@@ -12,7 +12,6 @@ export interface ContactsModalInterface {
     gender: string;
     phone: string;
     acadamic_department: string;
-    fellowship_id: string;
 }
 
 export interface DialogData {
@@ -50,7 +49,6 @@ export class ContactsModalComponent implements OnInit {
             gender: [null, [Validators.required]],
             phone: [null, [Validators.required]],
             acadamic_department: [null, [Validators.required]],
-            fellowship_id: [null, [Validators.required]],
         });
     }
 

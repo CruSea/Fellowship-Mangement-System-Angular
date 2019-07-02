@@ -13,7 +13,6 @@ export interface UpdateContactInterface {
     phone: string;
     acadamic_department: string;
     Acadamic_department?: string;
-    fellowship_id: string;
     created_at?: string;
     updated_at?: string
 }

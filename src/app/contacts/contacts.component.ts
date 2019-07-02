@@ -15,7 +15,6 @@ export interface PeriodicElement {
     gender: string
     phone: string;
     Acadamic_department: string;
-    fellowship_id: string;
     // created_at: string;
     // updated_at: string;
     action?: string
@@ -38,7 +37,7 @@ export class ContactsComponent implements OnInit {
     firstname: string;
 
 
-    displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'Acadamic_department', 'fellowship_id', 'created_at', 'updated_at', 'action'];
+    displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'Acadamic_department', 'created_at', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
