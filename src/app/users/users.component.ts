@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { UsersModalComponent } from './users-modal/users-modal.component';
 import { UpdateUsersComponent, UpdateUsersInterface } from './update-users/update-users.component';
-import { UserRoleInterface } from '../users/users';
+// import { UserRoleInterface } from '../users/users';
 import { UserService } from '../services/user/user.service';
 import { StorageService } from '../services/storage.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';

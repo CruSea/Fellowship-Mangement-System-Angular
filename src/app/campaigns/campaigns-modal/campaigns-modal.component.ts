@@ -2,10 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PortInterface } from '../campaigns';
+
 interface CampaignsModalInterface {
-    campaign_name: string;
-    sms_port: string;
-    description: string
+    port_name: string;
+    port_type: string;
+    negarit_campaign_id: number;
+    negarit_sms_port_id: number
 }
 
 export interface DialogData {
@@ -21,9 +23,10 @@ export interface DialogData {
 export class CampaignsModalComponent implements OnInit {
 
     campaignsModalForm: any;
-    port: PortInterface[] = [
-        {type: '', name: ''},
-        {type: '', name: ''}
+    portsInterface: PortInterface[] = [
+        {type: 'both', name: 'Both'},
+        {type: 'only_send', name: 'Only Send'},
+        {type: 'only_received', name: 'Only Received'},
     ];
     constructor(
         private formBuilder: FormBuilder,
@@ -37,9 +40,10 @@ export class CampaignsModalComponent implements OnInit {
     ngOnInit(): void {
         // this.getEvent();
         this.campaignsModalForm = this.formBuilder.group({
-            campaign_name: [null, [Validators.required]],
-            sms_port: [null, [Validators.required]],
-            description: [null, [Validators.required]]
+            port_name: [null, [Validators.required]],
+            port_type: [null, [Validators.required]],
+            negarit_campaign_id: [null, [Validators.required]],
+            negarit_sms_port_id: [null, [Validators.required]],
         });
     }
 

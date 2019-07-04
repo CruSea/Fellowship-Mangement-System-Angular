@@ -7,16 +7,17 @@
   <!--</mat-card>-->
 
 
-  <mat-card style=" margin: 8% 5% 0 5%; height: 40%" >
+  <mat-card style=" margin: 10% 5% 0 5%; height: 50%" *ngIf="team_detail">
     <section>
-      <h1 style="font-size: 20px; font-weight: bold" >Worship Team</h1>
-      <p style="color: #9d9d9d">Worship team is a team formed to organize the overall worship environment in the church</p>
+      <h1 style="font-size: 20px; font-weight: bold" >{{team_detail.team.name}}</h1>
+      <p style="color: #9d9d9d">{{team_detail.team.description}}</p>
     </section>
 
-    <button style="margin-top: 1%; margin-bottom: 2%; left: 3%; " mat-raised-button (click)="openCreate()">Add New contact</button>
-    <button mat-button color="primary" style="margin-top: 1%; margin-bottom: 2%; left: 6%" mat-raised-button (click)="openImportContact()"> Import Contact  </button>
-    <button mat-button color="primary" style="margin-top: 1%; margin-bottom: 2%; left: 10%" mat-raised-button (click)="refresh()"> Refresh  </button>
-
+    <button routerLink="/group-contacts" mat-button style="margin-top: 1%; margin-bottom: 2%; color: forestgreen; font-weight: bolder">
+      <mat-icon>reply</mat-icon>Back to Groups</button><br>
+    <button style="margin-top: 1%; margin-bottom: 2%; left: 3%; " class="btn btn-danger btn-round" (click)="openCreate()">Add New contact</button>
+    <button class="btn btn-primary btn-round" mat-button color="primary" style="margin-top: 1%; margin-bottom: 2%; left: 6%"  (click)="openImportContact()"> Import Contact  </button>
+    <button class="btn btn-outline-success btn-round" mat-button color="primary" style="margin-top: 1%; margin-bottom: 2%; left: 10%" (click)="refresh()"> Refresh  </button>
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
     </mat-form-field>

@@ -55,7 +55,7 @@ export class UpdateContactComponent implements OnInit {
             gender: [this.data.gender, [Validators.required]],
             phone: [this.data.phone, [Validators.required]],
             acadamic_department: [this.data.Acadamic_department, [Validators.required]],
-            fellowship_id: [this.data.fellowship_id, [Validators.required]],
+            // fellowship_id: [this.data.fellowship_id, [Validators.required]],
         });
     }
 

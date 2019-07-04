@@ -1,20 +1,19 @@
 <div class="background">
   <div id="form">
-  <button mat-button mat-raised-button color="primary" style="width: 10%;" class="route" routerLink="/login">Login</button>
 
-      <!--<h1 style="text-align: center; font-weight: bolder">Register</h1>-->
-      <!--<div  *ngIf="su" style="text-align: center; color: green">-->
-        <!--Successfully Registered-->
-      <!--</div>-->
-      <!--<div *ngIf="un" style="text-align: center; color: red">-->
-        <!--Registration is unsuccessful-->
-      <!--</div>-->
+    <!--<h1 style="text-align: center; font-weight: bolder">Register</h1>-->
+    <!--<div  *ngIf="su" style="text-align: center; color: green">-->
+    <!--Successfully Registered-->
+    <!--</div>-->
+    <!--<div *ngIf="un" style="text-align: center; color: red">-->
+    <!--Registration is unsuccessful-->
+    <!--</div>-->
 
-      <!--<button (click)="click()">click</button>-->
+    <!--<button (click)="click()">click</button>-->
 
-      <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
+    <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
 
-        <mat-form-field>
+      <mat-form-field>
           <input matInput placeholder="Full Name" type="text" formControlName="full_name">
           <mat-error style="color: red" *ngIf="registerForm.get('full_name').invalid && (registerForm.get('full_name').dirty ||
           registerForm.get('full_name').touched) && registerForm.get('full_name').errors?.required">
@@ -22,15 +21,15 @@
           </mat-error>
         </mat-form-field>
 
-        <!--<mat-form-field>-->
-          <!--<input matInput placeholder="Last Name" type="text" formControlName="lastname">-->
-          <!--<mat-error style="color: red" *ngIf="registerForm.get('lastname').invalid && (registerForm.get('lastname').dirty ||-->
-          <!--registerForm.get('lastname').touched) && !registerForm.get('lastname').errors?.minlength">-->
-            <!--Please insert last name!-->
-          <!--</mat-error>-->
-        <!--</mat-form-field>-->
+      <!--<mat-form-field>-->
+      <!--<input matInput placeholder="Last Name" type="text" formControlName="lastname">-->
+      <!--<mat-error style="color: red" *ngIf="registerForm.get('lastname').invalid && (registerForm.get('lastname').dirty ||-->
+      <!--registerForm.get('lastname').touched) && !registerForm.get('lastname').errors?.minlength">-->
+      <!--Please insert last name!-->
+      <!--</mat-error>-->
+      <!--</mat-form-field>-->
 
-        <mat-form-field>
+      <mat-form-field>
           <input matInput placeholder="Phone number" type="text" formControlName="phone">
           <mat-error style="color: red" *ngIf="registerForm.get('phone').invalid && (registerForm.get('phone').dirty ||
           registerForm.get('phone').touched) && !registerForm.get('phone').errors?.minlength">
@@ -38,16 +37,16 @@
           </mat-error>
         </mat-form-field>
 
-        <!--<mat-form-field>-->
-          <!--<mat-label>University City</mat-label>-->
-          <!--<mat-select fromControlName="university_city">-->
-            <!--<mat-option *ngFor="let university of universities" [value]="university.value">-->
-              <!--{{university.viewValue}}-->
-            <!--</mat-option>-->
-          <!--</mat-select>-->
-        <!--</mat-form-field>-->
+      <!--<mat-form-field>-->
+      <!--<mat-label>University City</mat-label>-->
+      <!--<mat-select fromControlName="university_city">-->
+      <!--<mat-option *ngFor="let university of universities" [value]="university.value">-->
+      <!--{{university.viewValue}}-->
+      <!--</mat-option>-->
+      <!--</mat-select>-->
+      <!--</mat-form-field>-->
 
-        <mat-form-field>
+      <mat-form-field>
           <input matInput placeholder="University City" type="text" formControlName="university_city">
           <mat-error style="color: red" *ngIf="registerForm.get('university_city').invalid && (registerForm.get('university_city').dirty ||
           registerForm.get('university_city').touched) && !registerForm.get('university_city').errors?.minlength">
@@ -55,7 +54,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
+      <mat-form-field>
           <input matInput placeholder="University Name" type="text" formControlName="university_name">
           <mat-error style="color: red" *ngIf="registerForm.get('university_name').invalid && (registerForm.get('university_name').dirty ||
           registerForm.get('university_name').touched) && !registerForm.get('university_name').errors?.minlength">
@@ -63,11 +62,11 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
+      <mat-form-field>
           <input matInput placeholder="Specific Place" type="text" formControlName="specific_place">
         </mat-form-field>
 
-        <mat-form-field>
+      <mat-form-field>
           <input matInput placeholder="Email" type="text" formControlName="email">
           <mat-error style="color: red" *ngIf="registerForm.get('email').invalid && (registerForm.get('email').dirty ||
           registerForm.get('email').touched) && !registerForm.get('email').errors?.minlength">
@@ -75,7 +74,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field>
+      <mat-form-field>
           <input matInput placeholder="Password" type="password" formControlName="password">
           <mat-error style="color: red" *ngIf="registerForm.get('password').invalid && (registerForm.get('password').dirty ||
           registerForm.get('password').touched) && !registerForm.get('password').errors?.minlength">
@@ -83,8 +82,10 @@
           </mat-error>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit" >Register</button>
-      </form>
+      <button mat-raised-button color="primary" type="submit" >Register</button>
+      <p style="text-align: center; padding-top: 10%">Have an account?</p>
+      <button mat-button mat-raised-button color="primary" style="width: 10%;" class="route" routerLink="/login">Login</button>
+    </form>
 
-    </div>
+  </div>
 </div>

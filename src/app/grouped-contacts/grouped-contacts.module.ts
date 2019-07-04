@@ -7,6 +7,7 @@ import { GroupedContactsRoutingModule } from './grouped-contacts-routing.module'
 import { StorageService } from '../services/storage.service';
 import { TeamService } from '../services/team/team.service';
 import { GroupedContactsModalComponent } from './grouped-contacts-modal/grouped-contacts-modal.component';
+import { GroupedContactsService } from '../services/grouped_contacts/grouped-contacts.service';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { GroupedContactsModalComponent } from './grouped-contacts-modal/grouped-
       GroupedContactsRoutingModule
   ],
   declarations: [GroupedContactsComponent, GroupedContactsModalComponent],
-    providers: [StorageService, TeamService],
+    providers: [StorageService, TeamService, GroupedContactsService],
     // entryComponents: [G]
 })
 export class GroupedContactsModule { }

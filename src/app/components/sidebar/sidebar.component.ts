@@ -19,7 +19,7 @@ export const ROUTES: RouteInfo[] = [
     // { path: '/dashboard/typography', title: 'Typography',  icon: 'library_books', class: '' },
     // { path: '/dashboard/icons', title: 'Icons',  icon: 'bubble_chart', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon: 'notifications', class: '' },
-    { path: '/campaigns', title: 'Campaigns',  icon: 'card_giftcard', class: '' },
+    { path: '/campaigns', title: 'SMS Port',  icon: 'card_giftcard', class: '' },
     { path: '/users', title: 'User',  icon: 'account_circle', class: '' },
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon: 'unarchive', class: 'active-pro' },
 ];

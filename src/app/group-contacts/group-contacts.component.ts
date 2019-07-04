@@ -10,9 +10,9 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 export interface PeriodicElement {
     id: number;
     name: string;
-    description: string
+    // description: string
     // number_of_contacts?: number;
-    fellowship_id: number;
+    // fellowship_id: number;
     created_by?: string;
     updated_by?: string;
     action?: string
@@ -32,7 +32,7 @@ export class GroupContactsComponent implements OnInit {
     groupname: string;
 
 
-    displayedColumns: string[] = ['id', 'name', 'description', 'fellowship_id', 'created_by', 'updated_by', 'action'];
+    displayedColumns: string[] = ['id', 'name', 'created_by', 'updated_by', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 

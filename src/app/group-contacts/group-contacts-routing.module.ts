@@ -6,7 +6,11 @@ const routes: Routes = [
   {
     path: '',
     component: GroupContactsComponent
-  }
+  },
+    {
+        path: ':id',
+        loadChildren: '../grouped-contacts/grouped-contacts.module#GroupedContactsModule'
+    }
 ];
 
 @NgModule({
