@@ -45,6 +45,7 @@
     "jquery": "3.2.1",
     "moment": "2.22.1",
     "ngx-auth": "^5.0.0",
+    "ngx-pipes": "^2.5.1",
     "ngx-smart-table": "^2.0.3",
     "perfect-scrollbar": "1.1.0",
     "popper.js": "1.14.3",

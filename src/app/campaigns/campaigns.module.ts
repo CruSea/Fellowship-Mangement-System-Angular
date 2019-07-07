@@ -7,7 +7,9 @@ import { Ng2SmartTableModule } from 'ngx-smart-table';
 import { CampaignsModalComponent } from './campaigns-modal/campaigns-modal.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CampaignsRoutingModule } from './campaigns-routing.module';
-import { CampaignsService } from './campaigns.service';
+// import { CampaignsService } from './campaigns.service';
+import { StorageService } from '../services/storage.service';
+import { SmsPortService } from '../services/sms-port/sms-port.service';
 
 @NgModule({
     imports: [
@@ -20,7 +22,7 @@ import { CampaignsService } from './campaigns.service';
         CampaignsRoutingModule
     ],
     declarations: [CampaignsComponent, CampaignsModalComponent ],
-    providers: [CampaignsService],
+    providers: [StorageService, SmsPortService],
     entryComponents: [ CampaignsModalComponent ]
 })
 export class CampaignsModule { }

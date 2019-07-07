@@ -30,12 +30,7 @@ export interface UpdateContactInterface {
 export class UpdateContactComponent implements OnInit {
 
     updateContactForm: any;
-    // universities: UniversityInterface[] = [
-    //     {value: 'Addis Ababa', viewValue: 'Addis Ababa'},
-    //     {value: 'Adama', viewValue: 'Adama'},
-    //     {value: 'Bahirdar', viewValue: 'Bahirdar'},
-    //     {value: 'Hawassa', viewValue: 'Hawassa'}
-    // ];
+
     constructor(
         private formBuilder: FormBuilder,
         private contactService: ContactService,

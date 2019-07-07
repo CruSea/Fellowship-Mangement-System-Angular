@@ -6,6 +6,6 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class RegisterService extends ServicesService implements ServicesInterface {
     constructor(httpClient: HttpClient) {
-        super(httpClient, 'api/register')
+        super(httpClient, 'api')
     }
 }

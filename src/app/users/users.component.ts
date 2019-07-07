@@ -9,22 +9,21 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 
 export interface PeriodicElement {
-    position: number;
+    id: number;
     full_name: string;
     email: string;
     phone: string;
     password?: string;
-    // user_role: string;
-    created_date?: string;
-    updated_date?: string;
+    role: string;
+    created_at?: string;
+    updated_at?: string;
     action?: string;
 }
 
 
 
 const ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, full_name: 'Yitages', email: 'yitages12@gmail.com', phone: '0912342421', created_date: 'Addis Ababa', updated_date: '12/3/2011'},
-    {position: 2, full_name: 'Meheret', email: 'meherett@gmail.com', phone: '0911374382', created_date: 'Hawassa', updated_date: '24/5/2011'}
+
 ];
 
 @Component({
@@ -39,7 +38,7 @@ export class UsersComponent implements OnInit {
 
 
     // displayedColumns: string[] = ['position', 'firstname', 'lastname', 'user_role', 'phone', 'action'];
-    displayedColumns: string[] = ['position', 'full_name', 'email', 'phone', 'created_date', 'updated_date', 'action'];
+    displayedColumns: string[] = ['id', 'full_name', 'email', 'phone', 'created_at', 'role', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
@@ -57,6 +56,7 @@ export class UsersComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.collectionOfu();
             this.animal = result;
         });
     }
@@ -81,6 +81,7 @@ export class UsersComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.collectionOfu();
             this.animal = result;
         });
     }
@@ -122,7 +123,8 @@ export class UsersComponent implements OnInit {
         return this.userService.gets(headers, '/users')
             .subscribe((res: any) => {
                 this.dataSource = new MatTableDataSource(res.users);
-                console.log(res)
+                console.log(res);
+                this.collectionOfu();
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);

@@ -25,9 +25,9 @@
   <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
@@ -42,6 +42,17 @@
       <td mat-cell *matCellDef="let element"> {{element.sent_to}} </td>
     </ng-container>
 
+    <!-- Name Column -->
+    <ng-container matColumnDef="is_sent">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Sent</th>
+      <td mat-cell *matCellDef="let element"> {{element.is_sent | isEqualTo: 1 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="is_delivered">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Delivered</th>
+      <td mat-cell *matCellDef="let element"> {{element.is_delivered | isEqualTo: 1 }}</td>
+    </ng-container>
+
      <!--Weight Column -->
     <!--<ng-container matColumnDef="campaign">-->
       <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Campaign </th>-->
@@ -49,26 +60,14 @@
     <!--</ng-container>-->
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="created_by">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created By </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_by}} </td>
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created At </th>
+      <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="port_name">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Port Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.port_name}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Status </th>
-      <td mat-cell *matCellDef="let element"> {{element.status}}
-        <!--<button mat-button="">-->
-          <!--<mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>-->
-        <!--<button mat-button="">-->
-          <!--<mat-icon style="color: red;" mat-raised-button-->
-                    <!--(click)="delete(element.created_by)">delete_outline</mat-icon></button>-->
-      </td>
+    <ng-container matColumnDef="sms_port_id">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Port Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.sms_port_id}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">

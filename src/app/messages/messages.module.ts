@@ -9,10 +9,13 @@ import { MessageModalComponent } from './message-modal/message-modal.component';
 import { HttpClientModule } from '@angular/common/http';
 import { StorageService } from '../services/storage.service';
 import { SentMessagesService } from '../services/sent_messages/sent-messages.service';
+import { NgPipesModule } from 'ngx-pipes';
+import { SmsPortService } from '../services/sms-port/sms-port.service';
 @NgModule({
   imports: [
     CommonModule,
       FormsModule,
+      NgPipesModule,
       MaterialsModule,
       HttpClientModule,
       ReactiveFormsModule,
@@ -20,7 +23,7 @@ import { SentMessagesService } from '../services/sent_messages/sent-messages.ser
       Ng2SmartTableModule
   ],
   declarations: [MessagesComponent, MessageModalComponent],
-    providers: [ SentMessagesService, StorageService],
+    providers: [ SentMessagesService, StorageService, SmsPortService],
     entryComponents: [MessageModalComponent]
 })
 export class MessagesModule { }

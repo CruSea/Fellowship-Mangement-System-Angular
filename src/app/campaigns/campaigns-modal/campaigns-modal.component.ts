@@ -2,6 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PortInterface } from '../campaigns';
+import { StorageService } from '../../services/storage.service';
+import { SmsPortService } from '../../services/sms-port/sms-port.service';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 interface CampaignsModalInterface {
     port_name: string;
@@ -30,6 +33,8 @@ export class CampaignsModalComponent implements OnInit {
     ];
     constructor(
         private formBuilder: FormBuilder,
+        private storageService: StorageService,
+        private  smsPortService: SmsPortService,
         public dialogRef: MatDialogRef<CampaignsModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
@@ -49,5 +54,20 @@ export class CampaignsModalComponent implements OnInit {
 
     campaignsModal(campaignsModalInterface: CampaignsModalInterface) {
         console.log(campaignsModalInterface);
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'POST')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.smsPortService.create(campaignsModalInterface, headers, '/sms-port')
+            .subscribe((res: {message: string}) => {
+                console.log(res.message);
+                this.dialogRef.close();
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
     }
 }

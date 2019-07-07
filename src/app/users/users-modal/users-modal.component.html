@@ -41,14 +41,14 @@
     </mat-error>
   </mat-form-field>
 
-  <!--<mat-form-field>-->
-    <!--<mat-label>User Role</mat-label>-->
-    <!--<mat-select formControlName="role">-->
-      <!--<mat-option *ngFor="let role of roles" [value]="role.type">-->
-        <!--{{role.name}}-->
-      <!--</mat-option>-->
-    <!--</mat-select>-->
-  <!--</mat-form-field>-->
+  <mat-form-field>
+    <mat-label>User Role</mat-label>
+    <mat-select formControlName="role">
+      <mat-option *ngFor="let role of roles" [value]="role.type">
+        {{role.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
   <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
   <div mat-dialog-actions>

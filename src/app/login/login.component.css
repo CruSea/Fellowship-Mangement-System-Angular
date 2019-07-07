@@ -1,7 +1,7 @@
 .background{
   height: 100%;
   width: 100%;
-  background: linear-gradient(rgba(26, 26, 26, 0.5), rgba(26, 26, 26, 0.5)), url(../image/background-connection-contemporary-303383.jpg);
+  background: linear-gradient(rgba(26, 26, 26, 0.5), rgba(26, 26, 26, 0.5)), url(../../assets/img/background-connection-contemporary-303383.jpg);
   background-repeat: no-repeat;
   /*background-position: center center;*/
   background-size: 100% auto;

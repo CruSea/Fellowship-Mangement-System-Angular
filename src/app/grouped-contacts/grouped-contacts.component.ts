@@ -8,6 +8,8 @@ import { GroupedContactsService } from '../services/grouped_contacts/grouped-con
 import { GroupedContactsModalComponent } from './grouped-contacts-modal/grouped-contacts-modal.component';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { ImportContactComponent } from '../contacts/import-contact/import-contact.component';
+import { UpdateContactComponent, UpdateContactInterface } from '../group-contacts/update-contact/update-contact.component';
 
 export interface PeriodicElement {
     id: number;
@@ -62,18 +64,29 @@ export class GroupedContactsComponent implements OnInit {
         });
     }
 
-    // openUpdate(data: UpdateContactInterface): void {
-    //     console.log(data);
-    //     const dialogRef = this.matDialog.open(UpdateContactComponent, {
-    //         data: data,
-    //         width: '500px'
-    //     });
-    //
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         console.log('The dialog was closed');
-    //         this.animal = result;
-    //     });
-    // }
+    openImportContact(): void {
+        const dialogRef = this.matDialog.open(ImportContactComponent, {
+            width: '1000px'
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.animal = result;
+        });
+    }
+
+    openUpdate(data: GroupedContactsComponent): void {
+        console.log(data);
+        const dialogRef = this.matDialog.open(GroupedContactsComponent, {
+            data: data,
+            width: '500px'
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.animal = result;
+        });
+    }
 
     getGroupsById() {
         const headers = new HttpHeaders()
@@ -87,6 +100,26 @@ export class GroupedContactsComponent implements OnInit {
             .subscribe((res: any) => {
                 console.log(res);
                 this.team_detail = res;
+                this.getGroupsContactByGroupName(res.team.name)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    getGroupsContactByGroupName(name: string) {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.groupedContactsService.gets(headers, '/team/members/' + name)
+            .subscribe((res: any) => {
+                console.log(res);
+                this.dataSource = new MatTableDataSource(res.contacts);
+                // this.team_detail = res;
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
@@ -97,9 +130,6 @@ export class GroupedContactsComponent implements OnInit {
         this.getGroupsById()
   }
 
-  refresh() {
-        this.getGroupsById()
-  }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();

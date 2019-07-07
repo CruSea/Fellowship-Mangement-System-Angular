@@ -8,9 +8,7 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px" mat-raised-button (click)="openCreate()">Add New Group Contact</button>
-<button mat-button color="primary" style="margin-top: 61px; left: 80px" mat-raised-button (click)="refresh()"> Refresh  </button>
-
+<button style="margin-top: 61px; left: 15px" mat-raised-button (click)="openCreate()">Add New Group Contact</button>
 <!--</li>-->
 <!--<li *ngIf="animal">-->
 <!--You chose: <i>{{animal}}</i>-->
@@ -35,37 +33,18 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Group Name </th>
       <td mat-cell *matCellDef="let element">
-        <a routerLink="/group-contacts/{{element.id}}">{{element.name}}</a>
+        <a routerLink="/group-contacts/{{element.id}}">{{element.name | uppercase}}</a>
       </td>
     </ng-container>
 
-    <!-- Name Column -->
-    <!--<ng-container matColumnDef="description">-->
-      <!--<mat-form-field appearance="standard">-->
-      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Description </th>-->
-      <!--<input matInput placeholder="Description">-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.description}} </td>-->
-      <!--</mat-form-field>-->
-    <!--</ng-container>-->
-
-    <!--<ng-container matColumnDef="number_of_contacts">-->
-      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Number Of Contacts </th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.number_of_contacts}} </td>-->
-    <!--</ng-container>-->
-
-    <!--<ng-container matColumnDef="fellowship_id">-->
-      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Fellowship Id </th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.fellowship_id}} </td>-->
-    <!--</ng-container>-->
-
-    <ng-container matColumnDef="created_by">
+    <ng-container matColumnDef="created_at">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created By </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_by}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="updated_by">
+    <ng-container matColumnDef="updated_at">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated By </th>
-      <td mat-cell *matCellDef="let element"> {{element.updated_by}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.updated_at | date :'fullDate'}} </td>
     </ng-container>
 
     <!-- Weight Column -->

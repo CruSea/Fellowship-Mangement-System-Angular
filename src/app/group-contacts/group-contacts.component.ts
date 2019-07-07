@@ -32,7 +32,7 @@ export class GroupContactsComponent implements OnInit {
     groupname: string;
 
 
-    displayedColumns: string[] = ['id', 'name', 'created_by', 'updated_by', 'action'];
+    displayedColumns: string[] = ['id', 'name', 'created_at', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
@@ -50,6 +50,7 @@ export class GroupContactsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.collectionOfcon();
             this.animal = result;
         });
     }
@@ -63,6 +64,7 @@ export class GroupContactsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.collectionOfcon();
             this.animal = result;
         });
     }
@@ -104,10 +106,6 @@ export class GroupContactsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.collectionOfcon()
-    }
-
-    refresh() {
         this.collectionOfcon()
     }
 

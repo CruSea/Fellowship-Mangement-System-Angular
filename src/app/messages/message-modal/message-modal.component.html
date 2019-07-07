@@ -7,14 +7,23 @@
 <!--</mat-form-field>-->
 <!--</div>-->
 
-<form [formGroup]="messageModalForm" (ngSubmit)="messageModal(messageModalForm.value)">
+<form [formGroup]="messageModalForm" (ngSubmit)="messageModal(messageModalForm.value)" *ngIf="smsPorts">
+
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Port Name" type="text" formControlName="port_name">-->
+    <!--<mat-error style="color: red" *ngIf="messageModalForm.get('port_name').invalid && (messageModalForm.get('port_name').dirty ||-->
+      <!--messageModalForm.get('port_name').touched) && messageModalForm.get('port_name').errors?.required">-->
+      <!--Please Campaign !-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
 
   <mat-form-field>
-    <input matInput placeholder="Campaign" type="text" formControlName="campaign">
-    <mat-error style="color: red" *ngIf="messageModalForm.get('campaign').invalid && (messageModalForm.get('campaign').dirty ||
-      messageModalForm.get('campaign').touched) && messageModalForm.get('campaign').errors?.required">
-      Please Campaign !
-    </mat-error>
+    <mat-label>Port Name</mat-label>
+    <mat-select formControlName="port_name">
+      <mat-option *ngFor="let smsPort of smsPorts.sms_ports" [value]="smsPort.port_name">
+        {{smsPort.port_name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <!--<mat-form-field>-->
@@ -26,9 +35,9 @@
   <!--</mat-form-field>-->
 
   <mat-form-field>
-    <input matInput placeholder="Phone number" type="text" formControlName="phone">
-    <mat-error style="color: red" *ngIf="messageModalForm.get('phone').invalid && (messageModalForm.get('phone').dirty ||
-      messageModalForm.get('phone').touched) && !messageModalForm.get('phone').errors?.minlength">
+    <input matInput placeholder="Phone number" type="text" formControlName="sent_to">
+    <mat-error style="color: red" *ngIf="messageModalForm.get('sent_to').invalid && (messageModalForm.get('sent_to').dirty ||
+      messageModalForm.get('sent_to').touched) && !messageModalForm.get('sent_to').errors?.minlength">
       Please insert phone number!
     </mat-error>
   </mat-form-field>

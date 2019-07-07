@@ -20,11 +20,11 @@ export interface PeriodicElement {
     action?: string
 }
 
-// const ELEMENT_DATA: any[] = [
+const ELEMENT_DATA: any[] = [
 //     {id: 1, full_name: 'Yitages Berhanu', gender: 'male', phone: '0912342421', Academic_department: 'Computer Engineering', fellowship_id: '245', created_at: '12/4/2008', updated_at: '5/3/2011'},
 //     {id: 2, full_name: 'Meheret Tesfaye', gender: 'male', phone: '0911374382', Academic_department: 'Computer Science', fellowship_id: '825', created_at: '8/2/2009', updated_at: '5/3/2011'},
 //     {id: 3, full_name: 'Tsion Shimeles', gender: 'female', phone: '0916454563', Academic_department: 'Architecture', fellowship_id: '148', created_at: '23/6/2011', updated_at: '5/3/2011'},
-// ];
+];
 
 @Component({
   selector: 'app-contacts',
@@ -56,6 +56,7 @@ export class ContactsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.collectionOfcon();
             this.animal = result;
         });
     }
@@ -67,6 +68,7 @@ export class ContactsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.collectionOfcon();
             this.animal = result;
         });
     }
@@ -80,6 +82,7 @@ export class ContactsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.collectionOfcon();
             this.animal = result;
         });
     }
@@ -92,9 +95,6 @@ export class ContactsComponent implements OnInit {
       this.collectionOfcon()
   }
 
-    refresh() {
-        this.collectionOfcon()
-    }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();

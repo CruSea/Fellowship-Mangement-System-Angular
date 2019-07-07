@@ -31,28 +31,28 @@
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="sent_message">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Sent Message </th>
-      <td mat-cell *matCellDef="let element"> {{element.sent_message}} </td>
+    <ng-container matColumnDef="port_name">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Port Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.port_name}} </td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="group_name">
+    <ng-container matColumnDef="team">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Group Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.group_name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.team}} </td>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="campaign_name">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Campaign Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.campaign_name}} </td>
+    <ng-container matColumnDef="message">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Message </th>
+      <td mat-cell *matCellDef="let element"> {{element.message}} </td>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="sent_msg_count">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Sent Msg Count </th>
-      <td mat-cell *matCellDef="let element"> {{element.sent_msg_count}} </td>
-    </ng-container>
+    <!--<ng-container matColumnDef="sent_msg_count">-->
+      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Sent Msg Count </th>-->
+      <!--<td mat-cell *matCellDef="let element"> {{element.sent_msg_count}} </td>-->
+    <!--</ng-container>-->
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="date_time">
@@ -60,9 +60,9 @@
       <td mat-cell *matCellDef="let element"> {{element.date_time}}
         <!--<button mat-button="">-->
         <!--<mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>-->
-        <!--<button mat-button="">-->
-        <!--<mat-icon style="color: red;" mat-raised-button-->
-        <!--(click)="delete(element.created_by)">delete_outline</mat-icon></button>-->
+        <button mat-button="">
+        <mat-icon style="color: red;" mat-raised-button
+        (click)="deleteGroupMessage(element.created_by)">delete_outline</mat-icon></button>
       </td>
     </ng-container>
 

@@ -4,6 +4,7 @@ import { MessageModalComponent } from './message-modal/message-modal.component';
 import { StorageService } from '../services/storage.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { SentMessagesService } from '../services/sent_messages/sent-messages.service';
+import { SmsPortService } from '../services/sms-port/sms-port.service';
 // import { UpdateContactComponent, UpdateContactInterface } from './update-contact/update-contact.component';
 // import { ImportContactComponent } from './import-contact/import-contact.component';
 
@@ -11,11 +12,12 @@ import { SentMessagesService } from '../services/sent_messages/sent-messages.ser
 export interface PeriodicElement {
     message: string;
     sent_to: string;
-    status?: string;
-    position: number;
-    created_by?: string;
+    is_sent: string;
+    is_delivered: string;
+    id: number;
+    created_at?: string;
     // campaign: string;
-    port_name: string;
+    sms_port_id: string;
     action?: string
 }
 
@@ -36,7 +38,7 @@ export class MessagesComponent implements OnInit {
     message: string;
 
 
-    displayedColumns: string[] = ['position', 'message', 'sent_to', 'created_by', 'port_name', 'status', 'action'];
+    displayedColumns: string[] = ['id', 'message', 'sent_to', 'is_sent', 'is_delivered', 'created_at', 'sms_port_id', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
@@ -54,6 +56,7 @@ export class MessagesComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.sentMessages();
             this.animal = result;
         });
     }
@@ -90,9 +93,6 @@ export class MessagesComponent implements OnInit {
         this.sentMessages()
     }
 
-    refresh() {
-        this.sentMessages()
-    }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -116,7 +116,7 @@ export class MessagesComponent implements OnInit {
             })
     }
 
-    deleteContact(id: string) {
+    deleteMessage (id: string) {
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'DELETE')
@@ -133,5 +133,6 @@ export class MessagesComponent implements OnInit {
                 console.log(httpErrorResponse);
             })
     }
+
 
 }

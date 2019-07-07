@@ -26,29 +26,37 @@
   </mat-form-field>
 
 
-  <mat-form-field>
-    <input matInput placeholder="User Role" type="text" formControlName="role">
-    <mat-error style="color: red" *ngIf="updateUsersForm.get('role').invalid && (updateUsersForm.get('role').dirty ||
-      updateUsersForm.get('role').touched) && !updateUsersForm.get('role').errors?.minlength">
-      Please insert user role!
-    </mat-error>
-  </mat-form-field>
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="User Role" type="text" formControlName="role">-->
+    <!--<mat-error style="color: red" *ngIf="updateUsersForm.get('role').invalid && (updateUsersForm.get('role').dirty ||-->
+      <!--updateUsersForm.get('role').touched) && !updateUsersForm.get('role').errors?.minlength">-->
+      <!--Please insert user role!-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
 
   <!--<mat-form-field>-->
     <!--<mat-label> User Role</mat-label>-->
-    <!--<mat-select formControlName="user_role">-->
-      <!--<mat-option *ngFor="let user_role of universities" [value]="user_role.value">-->
-        <!--{{user_role.viewValue}}-->
+    <!--<mat-select formControlName="role">-->
+      <!--<mat-option *ngFor="let role of universities" [value]="role.value">-->
+        <!--{{// role.viewValue}}-->
       <!--</mat-option>-->
     <!--</mat-select>-->
   <!--</mat-form-field>-->
 
   <mat-form-field>
-    <input matInput placeholder="Email" type="text" formControlName="email">
+    <input matInput placeholder="Email" type="email" formControlName="email">
     <mat-error style="color: red" *ngIf="updateUsersForm.get('email').invalid && (updateUsersForm.get('email').dirty ||
       updateUsersForm.get('email').touched) && !updateUsersForm.get('email').errors?.minlength">
       Please insert your email address!
     </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Role" type="text" formControlName="role">
+    <!--<mat-error style="color: red" *ngIf="updateUsersForm.get('role').invalid && (updateUsersForm.get('role').dirty ||-->
+      <!--updateUsersForm.get('role').touched) && !updateUsersForm.get('role').errors?.minlength">-->
+      <!--Please insert your email address!-->
+    <!--</mat-error>-->
   </mat-form-field>
 
   <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->

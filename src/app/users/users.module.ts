@@ -9,6 +9,7 @@ import { UsersModalComponent } from './users-modal/users-modal.component';
 import { UpdateUsersComponent } from './update-users/update-users.component';
 import { UserService } from '../services/user/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { StorageService } from '../services/storage.service';
 
 @NgModule({
     imports: [
@@ -21,7 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
         UsersRoutingModule
     ],
     declarations: [UsersComponent, UsersModalComponent, UpdateUsersComponent],
-    providers: [UserService],
+    providers: [UserService, StorageService],
     entryComponents: [ UsersModalComponent, UpdateUsersComponent, UsersComponent ]
 })
 export class UsersModule { }
