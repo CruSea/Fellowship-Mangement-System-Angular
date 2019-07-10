@@ -7,14 +7,15 @@
 <!--</mat-form-field>-->
 <!--</div>-->
 
-<form [formGroup]="groupmessagesModalForm" (ngSubmit)="groupmessagesModal(groupmessagesModalForm.value)">
+<form [formGroup]="groupmessagesModalForm" (ngSubmit)="groupmessagesModal(groupmessagesModalForm.value)" *ngIf="smsPorts; groupNames" >
 
   <mat-form-field>
-    <input matInput placeholder="Port Name" type="text" formControlName="port_name">
-    <mat-error style="color: red" *ngIf="groupmessagesModalForm.get('port_name').invalid && (groupmessagesModalForm.get('port_name').dirty ||
-      groupmessagesModalForm.get('port_name').touched) && groupmessagesModalForm.get('port_name').errors?.required">
-      Please port name !
-    </mat-error>
+    <mat-label>Port Name</mat-label>
+    <mat-select formControlName="port_name">
+      <mat-option *ngFor="let smsPort of smsPorts.sms_ports" [value]="smsPort.port_name">
+        {{smsPort.port_name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <!--<mat-form-field>-->
@@ -25,8 +26,13 @@
   <!--</mat-error>-->
   <!--</mat-form-field>-->
 
-  <mat-form-field>
-    <input matInput placeholder="Group Name" type="text" formControlName="team">
+  <mat-form-field >
+      <mat-label>Group Name</mat-label>
+      <mat-select formControlName="team">
+        <mat-option *ngFor="let groupName of groupNames.teams" [value]="groupName.name">
+          {{groupName.name }}
+        </mat-option>
+      </mat-select>
     <mat-error style="color: red" *ngIf="groupmessagesModalForm.get('team').invalid && (groupmessagesModalForm.get('team').dirty ||
       groupmessagesModalForm.get('team').touched) && !groupmessagesModalForm.get('team').errors?.minlength">
       Please select group name!
