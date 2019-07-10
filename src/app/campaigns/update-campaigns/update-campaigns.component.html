@@ -1,0 +1,58 @@
+<p><!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+  <!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
+  <!--<div mat-dialog-content>-->
+  <!--<p>What's your favorite animal?</p>-->
+  <!--<mat-form-field>-->
+  <!--<input matInput [(ngModel)]="data.animal">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+
+<form [formGroup]="updateCampaingsForm" (ngSubmit)="updateCampaigns(updateCampaingsForm.value)">
+
+  <mat-form-field>
+    <input matInput placeholder="Port Name" type="text" formControlName="port_name">
+    <mat-error style="color: red" *ngIf="updateCampaingsForm.get('port_name').invalid && (updateCampaingsForm.get('port_name').dirty ||
+      updateCampaingsForm.get('port_name').touched) && updateCampaingsForm.get('port_name').errors?.required">
+      Please insert first name!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Port Type" type="text" formControlName="port_type">
+    <mat-error style="color: red" *ngIf="updateCampaingsForm.get('port_type').invalid && (updateCampaingsForm.get('port_type').dirty ||
+      updateCampaingsForm.get('port_type').touched) && !updateCampaingsForm.get('port_type').errors?.minlength">
+      Please insert last name!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Negarit Campaign Id" type="text" formControlName="negarit_campaign_id">
+    <mat-error style="color: red" *ngIf="updateCampaingsForm.get('negarit_campaign_id').invalid && (updateCampaingsForm.get('negarit_campaign_id').dirty ||
+      updateCampaingsForm.get('negarit_campaign_id').touched) && !updateCampaingsForm.get('negarit_campaign_id').errors?.minlength">
+      Please insert negarit_campaign_id number!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Negarit SMS Port Id" type="text" formControlName="negarit_sms_port_id">
+    <mat-error style="color: red" *ngIf="updateCampaingsForm.get('negarit_sms_port_id').invalid && (updateCampaingsForm.get('negarit_sms_port_id').dirty ||
+      updateCampaingsForm.get('negarit_sms_port_id').touched) && !updateCampaingsForm.get('negarit_sms_port_id').errors?.minlength">
+      Please insert negarit_campaign_id number!
+    </mat-error>
+  </mat-form-field>
+
+  <!--<mat-form-field>-->
+  <!--<mat-label>University</mat-label>-->
+  <!--<mat-select formControlName="university">-->
+  <!--<mat-option *ngFor="let university of universities" [value]="university.value">-->
+  <!--{{university.viewValue}}-->
+  <!--</mat-option>-->
+  <!--</mat-select>-->
+  <!--</mat-form-field>-->
+
+  <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Update</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

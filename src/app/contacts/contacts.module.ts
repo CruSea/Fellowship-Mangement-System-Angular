@@ -11,6 +11,8 @@ import { ContactsService } from './contacts.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ContactService } from '../services/contact/contact.service';
 import { StorageService } from '../services/storage.service';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+
 
 @NgModule({
   imports: [
@@ -18,6 +20,7 @@ import { StorageService } from '../services/storage.service';
       FormsModule,
       MaterialsModule,
       HttpClientModule,
+      ConfirmationPopoverModule,
       ReactiveFormsModule,
       ContactsRoutingModule,
   ],

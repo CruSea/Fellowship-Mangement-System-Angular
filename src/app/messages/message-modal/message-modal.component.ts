@@ -72,6 +72,7 @@ export class MessageModalComponent implements OnInit {
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
+                this.dialogRef.close();
             })
     }
 

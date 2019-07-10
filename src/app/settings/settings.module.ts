@@ -6,6 +6,8 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingService } from '../services/setting/setting.service';
 import { StorageService } from '../services/storage.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   imports: [
@@ -13,6 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       FormsModule,
       ReactiveFormsModule,
       MaterialsModule,
+      HttpClientModule,
+      SweetAlert2Module,
       SettingsRoutingModule
   ],
   declarations: [SettingsComponent],

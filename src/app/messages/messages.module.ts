@@ -11,12 +11,14 @@ import { StorageService } from '../services/storage.service';
 import { SentMessagesService } from '../services/sent_messages/sent-messages.service';
 import { NgPipesModule } from 'ngx-pipes';
 import { SmsPortService } from '../services/sms-port/sms-port.service';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 @NgModule({
   imports: [
     CommonModule,
       FormsModule,
       NgPipesModule,
       MaterialsModule,
+      ConfirmationPopoverModule,
       HttpClientModule,
       ReactiveFormsModule,
       MessagesRoutingModule,

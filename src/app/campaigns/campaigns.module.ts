@@ -10,6 +10,8 @@ import { CampaignsRoutingModule } from './campaigns-routing.module';
 // import { CampaignsService } from './campaigns.service';
 import { StorageService } from '../services/storage.service';
 import { SmsPortService } from '../services/sms-port/sms-port.service';
+import { UpdateCampaignsComponent } from './update-campaigns/update-campaigns.component';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 @NgModule({
     imports: [
@@ -17,12 +19,13 @@ import { SmsPortService } from '../services/sms-port/sms-port.service';
         FormsModule,
         MaterialsModule,
         HttpClientModule,
+        ConfirmationPopoverModule,
         ReactiveFormsModule,
         Ng2SmartTableModule,
         CampaignsRoutingModule
     ],
-    declarations: [CampaignsComponent, CampaignsModalComponent ],
+    declarations: [CampaignsComponent, CampaignsModalComponent, UpdateCampaignsComponent ],
     providers: [StorageService, SmsPortService],
-    entryComponents: [ CampaignsModalComponent ]
+    entryComponents: [ CampaignsModalComponent, UpdateCampaignsComponent ]
 })
 export class CampaignsModule { }

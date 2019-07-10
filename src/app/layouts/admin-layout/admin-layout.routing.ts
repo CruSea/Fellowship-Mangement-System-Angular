@@ -23,6 +23,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'settings',           loadChildren: '../../settings/settings.module#SettingsModule' },
     { path: 'users',              loadChildren: '../../users/users.module#UsersModule' },
     { path: 'campaigns',          loadChildren: '../../campaigns/campaigns.module#CampaignsModule' },
+    { path: 'events',             loadChildren: '../../events/events.module#EventsModule' },
     { path: 'messages',           loadChildren: '../../messages/messages.module#MessagesModule' },
     { path: 'group-contacts',     loadChildren: '../../group-contacts/group-contacts.module#GroupContactsModule' },
     { path: 'received-messages',  loadChildren: '../../received-messages/received-messages.module#ReceivedMessagesModule' },

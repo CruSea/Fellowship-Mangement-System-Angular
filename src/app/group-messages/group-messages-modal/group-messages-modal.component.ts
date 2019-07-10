@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UniversityInterface } from '../../register/register';
 import { StorageService } from '../../services/storage.service';
@@ -25,6 +25,8 @@ export interface DialogData {
 export class GroupMessagesModalComponent implements OnInit {
 
     groupmessagesModalForm: any;
+    smsPorts: any;
+    groupNames: any;
     // universities: UniversityInterface[] = [
     //     {value: 'Addis Abeba', viewValue: 'Addis Abeba'},
     //     {value: 'Adama', viewValue: 'Adama'},
@@ -43,7 +45,8 @@ export class GroupMessagesModalComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.getEvent();
+        this.getSmsPorts();
+        this.getGroupName();
         this.groupmessagesModalForm = this.formBuilder.group({
             port_name: [null, [Validators.required]],
             team: [null, [Validators.required]],
@@ -64,6 +67,42 @@ export class GroupMessagesModalComponent implements OnInit {
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
                 this.dialogRef.close();
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    getSmsPorts() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.groupedMessageService.gets(headers, '/sms-ports')
+            .subscribe((res: any) => {
+                console.log(res);
+                this.smsPorts = res
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    getGroupName() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.groupedMessageService.gets(headers, '/teams')
+            .subscribe((res: any) => {
+                console.log(res);
+                this.groupNames = res
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);

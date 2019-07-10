@@ -15,12 +15,12 @@ export class RegisterComponent implements OnInit {
     un = false;
 
     registerForm: any;
-    universities: UniversityInterface[] = [
-        {value: 'Addis Abeba', viewValue: 'Addis Abeba'},
-        {value: 'Adama', viewValue: 'Adama'},
-        {value: 'Bahirdar', viewValue: 'Bahirdar'},
-        {value: 'Hawassa', viewValue: 'Hawassa'}
-    ];
+    // universities: UniversityInterface[] = [
+    //     {value: 'Addis Abeba', viewValue: 'Addis Abeba'},
+    //     {value: 'Adama', viewValue: 'Adama'},
+    //     {value: 'Bahirdar', viewValue: 'Bahirdar'},
+    //     {value: 'Hawassa', viewValue: 'Hawassa'}
+    // ];
 
 
     constructor(
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
             university_city: [null, [Validators.required]],
             specific_place: [null, [Validators.required]],
             email: [null, [Validators.required]],
-            password: [null, [Validators.required, Validators.minLength(8)]]
+            password: [null, [Validators.required, Validators.minLength(6)]]
         });
     }
 

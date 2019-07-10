@@ -56,13 +56,7 @@
                   <mat-form-field class="example-full-width">
                     <textarea matInput placeholder="Here can be your description"></textarea>
                   </mat-form-field>
-                  <!-- <div class="form-group">
 
-                      <div class="form-group">
-                          <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-                          <textarea class="form-control" rows="5"></textarea>
-                      </div>
-                  </div> -->
                 </div>
               </div>
               <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Company Profile</button>
@@ -73,8 +67,8 @@
       </div>
       <div class="col-md-4">
         <div class="card card-profile">
-          <!--<div class="card-body">-->
-            <!--<h4 class="card-title" style="font-weight: bold">Company API KEYS</h4>-->
+          <div class="card-body">
+            <h4 class="card-title" style="font-weight: bold">Reset Your Password</h4>
             <!--<a style="color: white" class="btn btn-danger btn-round">Add New API KEY</a>-->
             <!--<p class="card-description">-->
               <!--Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...-->
@@ -98,20 +92,46 @@
               <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
               <!--<tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>-->
             <!--</table>-->
-            <!--<mat-list>-->
-              <!--<form [formGroup]="settingForm" (ngSubmit)="setting(settingForm.value)">-->
-                <!--<mat-form-field>-->
-                  <!--<input matInput placeholder="Port Name" type="text" formControlName="name">-->
-                <!--</mat-form-field>-->
+            <mat-list>
+              <form [formGroup]="settingForm" (ngSubmit)="setting(settingForm.value)">
+                <mat-form-field>
+                  <input matInput placeholder="Old Password" type="text" formControlName="old_password">
+                </mat-form-field>
+
+                <mat-form-field>
+                  <input matInput placeholder="New Password" type="text" formControlName="new_password">
+                  <mat-error style="color: red" *ngIf="settingForm.get('new_password').invalid && (settingForm.get('new_password').dirty ||
+                     settingForm.get('new_password').touched) && settingForm.get('new_password').errors?.minlength">
+                    Please at list 6 characters !
+                  </mat-error>
+                </mat-form-field>
 
                 <!--<mat-form-field>-->
-                  <!--<input matInput placeholder="Value" type="text" formControlName="value">-->
+                  <!--<input matInput placeholder="Confirm Password" type="text" formControlName="confirm_password">-->
+                  <!--<mat-error style="color: red" *ngIf="settingForm.get('confirm_password').invalid">-->
+                    <!--Password does not match!-->
+                  <!--</mat-error>-->
                 <!--</mat-form-field>-->
-                <!--<button style="color: white" type="submit"  class="btn btn-danger btn-round">Add New Port</button>-->
-              <!--</form>-->
-            <!--</mat-list>-->
+                <button style="color: white; width: 100%" type="submit"  class="btn btn-success btn-round">Reset Password</button>
+              </form>
+            </mat-list>
+            <!--<button [swal]="['Reset Successfull', 'Your password has been reset successfully!', 'success']">-->
+              <!--Do it!-->
+            <!--</button>-->
+            <swal #password_reset
+                         title="Reset Successfully!"
+                         text="Your password has been changed"
+                         type="success"
+                         [showCancelButton]="true">
+          </swal>
+            <swal #password_reset_error
+                  title="Reset Unsuccessful!"
+                  text="the password you entered doesn't not match"
+                  type="error"
+                  [showCancelButton]="true">
+            </swal>
 
-          <!--</div>-->
+          </div>
         </div>
       </div>
     </div>

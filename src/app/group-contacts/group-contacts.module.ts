@@ -9,12 +9,14 @@ import { MaterialsModule } from '../utils/materials.module';
 import { TeamService } from '../services/team/team.service';
 import { StorageService } from '../services/storage.service';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 @NgModule({
   imports: [
     CommonModule,
       FormsModule,
       MaterialsModule,
+      ConfirmationPopoverModule,
       HttpClientModule,
       ReactiveFormsModule,
       GroupContactsRoutingModule

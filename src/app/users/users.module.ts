@@ -10,6 +10,7 @@ import { UpdateUsersComponent } from './update-users/update-users.component';
 import { UserService } from '../services/user/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StorageService } from '../services/storage.service';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { StorageService } from '../services/storage.service';
         FormsModule,
         MaterialsModule,
         HttpClientModule,
+        ConfirmationPopoverModule,
         ReactiveFormsModule,
         Ng2SmartTableModule,
         UsersRoutingModule

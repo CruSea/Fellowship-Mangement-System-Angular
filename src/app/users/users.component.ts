@@ -124,7 +124,6 @@ export class UsersComponent implements OnInit {
             .subscribe((res: any) => {
                 this.dataSource = new MatTableDataSource(res.users);
                 console.log(res);
-                this.collectionOfu();
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);

@@ -1,0 +1,58 @@
+<p><!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+  <!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
+  <!--<div mat-dialog-content>-->
+  <!--<p>What's your favorite animal?</p>-->
+  <!--<mat-form-field>-->
+  <!--<input matInput [(ngModel)]="data.animal">-->
+  <!--</mat-form-field>-->
+  <!--</div>-->
+
+<form [formGroup]="updateEventsForm" (ngSubmit)="updateEvent(updateEventsForm.value)">
+
+  <mat-form-field>
+    <input matInput placeholder="Events Name" type="text" formControlName="events_name">
+    <mat-error style="color: red" *ngIf="updateEventsForm.get('events_name').invalid && (updateEventsForm.get('events_name').dirty ||
+      updateEventsForm.get('events_name').touched) && updateEventsForm.get('events_name').errors?.required">
+      Please insert first name!
+    </mat-error>
+  </mat-form-field>
+
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Gender" type="text" formControlName="gender">-->
+    <!--<mat-error style="color: red" *ngIf="updateEventsForm.get('gender').invalid && (updateEventsForm.get('gender').dirty ||-->
+      <!--updateEventsForm.get('gender').touched) && !updateEventsForm.get('gender').errors?.minlength">-->
+      <!--Please insert last name!-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <mat-form-field>
+    <input matInput placeholder="Description" type="text" formControlName="description">
+    <!--<mat-error style="color: red" *ngIf="updateEventsForm.get('description').invalid && (updateEventsForm.get('description').dirty ||-->
+      <!--updateEventsForm.get('description').touched) && !updateEventsForm.get('description').errors?.minlength">-->
+      <!--Please insert description number!-->
+    <!--</mat-error>-->
+  </mat-form-field>
+
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Academic Department" type="text" formControlName="acadamic_department">-->
+    <!--<mat-error style="color: red" *ngIf="updateEventsForm.get('acadamic_department').invalid && (updateEventsForm.get('acadamic_department').dirty ||-->
+      <!--updateEventsForm.get('acadamic_department').touched) && !updateEventsForm.get('acadamic_department').errors?.minlength">-->
+      <!--Please insert description number!-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <!--<mat-form-field>-->
+  <!--<mat-label>University</mat-label>-->
+  <!--<mat-select formControlName="university">-->
+  <!--<mat-option *ngFor="let university of universities" [value]="university.value">-->
+  <!--{{university.viewValue}}-->
+  <!--</mat-option>-->
+  <!--</mat-select>-->
+  <!--</mat-form-field>-->
+
+  <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Update</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

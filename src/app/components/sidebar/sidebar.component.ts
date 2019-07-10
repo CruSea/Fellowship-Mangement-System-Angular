@@ -15,11 +15,12 @@ export const ROUTES: RouteInfo[] = [
     { path: '/settings', title: 'Settings', icon: 'settings', class: '' },
     { path: '', title: 'Contacts',  icon: 'contacts', class: '' },
     { path: '', title: 'Messages',  icon: 'message', class: '' },
-    { path: '/table-list', title: 'Table List',  icon: 'content_paste', class: '' },
+    // { path: '/table-list', title: 'Table List',  icon: 'content_paste', class: '' },
     // { path: '/dashboard/typography', title: 'Typography',  icon: 'library_books', class: '' },
     // { path: '/dashboard/icons', title: 'Icons',  icon: 'bubble_chart', class: '' },
     // { path: '/notifications', title: 'Notifications',  icon: 'notifications', class: '' },
     { path: '/campaigns', title: 'SMS Port',  icon: 'textsms', class: '' },
+    { path: '/events', title: 'Events',  icon: 'event_note', class: '' },
     { path: '/users', title: 'User',  icon: 'account_circle', class: '' },
     // { path: '/upgrade', title: 'Upgrade to PRO',  icon: 'unarchive', class: 'active-pro' },
 ];

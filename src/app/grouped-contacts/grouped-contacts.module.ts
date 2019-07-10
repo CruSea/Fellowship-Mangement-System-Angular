@@ -10,6 +10,7 @@ import { GroupedContactsModalComponent } from './grouped-contacts-modal/grouped-
 import { GroupedContactsService } from '../services/grouped_contacts/grouped-contacts.service';
 import { ImportGroupedContactsComponent } from './import-grouped-contacts/import-grouped-contacts.component';
 import { ContactService } from '../services/contact/contact.service';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 // import { UpdateGroupedContactsComponent } from './update-grouped-contacts/update-grouped-contacts.component';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { ContactService } from '../services/contact/contact.service';
     CommonModule,
       FormsModule,
       MaterialsModule,
+      ConfirmationPopoverModule,
       ReactiveFormsModule,
       GroupedContactsRoutingModule
   ],

@@ -29,6 +29,8 @@ import { CommonModule } from '@angular/common';
 import { AuthenticationModule } from './services/authentication/authentication.module';
 import { HttpClientModule } from '@angular/common/http';
 import { P404Component } from './p404/p404.component';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 @NgModule({
   imports: [
       CommonModule,
@@ -39,7 +41,9 @@ import { P404Component } from './p404/p404.component';
       HttpClientModule,
       AuthenticationModule,
     ComponentsModule,
+      SweetAlert2Module.forRoot(),
       MaterialsModule,
+      ConfirmationPopoverModule.forRoot({confirmButtonType: 'danger'}),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),

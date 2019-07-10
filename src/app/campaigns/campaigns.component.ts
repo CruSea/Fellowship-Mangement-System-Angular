@@ -5,6 +5,7 @@ import { CampaignsService } from './campaigns.service';
 import { StorageService } from '../services/storage.service';
 import { SmsPortService } from '../services/sms-port/sms-port.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { UpdateCampaignsComponent, UpdateCampaignsInterface } from './update-campaigns/update-campaigns.component';
 
 
 export interface PeriodicElement {
@@ -54,22 +55,24 @@ export class CampaignsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
+            this.collectionOfcampaign();
             this.animal = result;
         });
     }
 
-    // openUpdate(data: UpdateUsersInterface): void {
-    //     console.log(data);
-    //     const dialogRef = this.matDialog.open(UpdateUsersComponent, {
-    //         data: data,
-    //         width: '500px'
-    //     });
-    //
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         console.log('The dialog was closed');
-    //         this.animal = result;
-    //     });
-    // }
+    openUpdate(data: UpdateCampaignsInterface): void {
+        console.log(data);
+        const dialogRef = this.matDialog.open(UpdateCampaignsComponent, {
+            data: data,
+            width: '500px'
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.collectionOfcampaign();
+            this.animal = result;
+        });
+    }
 
     // delete(id: string) {
     //     console.log(id);
@@ -81,14 +84,14 @@ export class CampaignsComponent implements OnInit {
     // }
 
     ngOnInit() {
-        this.collectionOfcon()
+        this.collectionOfcampaign()
     }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    collectionOfcon() {
+    collectionOfcampaign() {
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -100,14 +103,13 @@ export class CampaignsComponent implements OnInit {
             .subscribe((res: any) => {
                 this.dataSource = new MatTableDataSource(res.sms_ports);
                 console.log(res);
-                this.collectionOfcon();
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })
     }
 
-    deleteContact(id: string) {
+    deleteCampaign(id: string) {
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'DELETE')
@@ -115,10 +117,10 @@ export class CampaignsComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.smsPortService.delete(`contact/${id}`, headers)
+        return this.smsPortService.delete(`sms-port/${id}`, headers)
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
-                this.collectionOfcon();
+                this.collectionOfcampaign();
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);

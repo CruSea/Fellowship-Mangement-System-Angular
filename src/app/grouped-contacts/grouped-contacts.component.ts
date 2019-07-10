@@ -126,6 +126,24 @@ export class GroupedContactsComponent implements OnInit {
             })
     }
 
+    deleteGroupedContact(id: string) {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'DELETE')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.groupedContactsService.delete(`/team/members/${this.team_detail.team.name}/${id}`, headers)
+            .subscribe((res: {message: string}) => {
+                console.log(res.message);
+                this.getGroupsById();
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
   ngOnInit() {
         this.getGroupsById()
   }

@@ -27,9 +27,9 @@ export class CampaignsModalComponent implements OnInit {
 
     campaignsModalForm: any;
     portsInterface: PortInterface[] = [
-        {type: 'both', name: 'Both'},
-        {type: 'only_send', name: 'Only Send'},
-        {type: 'only_received', name: 'Only Received'},
+        {type: 'Both', name: 'both'},
+        {type: 'only send', name: 'Only Send'},
+        {type: 'only receive', name: 'Only Receive'},
     ];
     constructor(
         private formBuilder: FormBuilder,
@@ -45,7 +45,7 @@ export class CampaignsModalComponent implements OnInit {
     ngOnInit(): void {
         // this.getEvent();
         this.campaignsModalForm = this.formBuilder.group({
-            port_name: [null, [Validators.required]],
+            port_name: [null, [Validators.required, Validators.minLength(4)]],
             port_type: [null, [Validators.required]],
             negarit_campaign_id: [null, [Validators.required]],
             negarit_sms_port_id: [null, [Validators.required]],
@@ -68,6 +68,7 @@ export class CampaignsModalComponent implements OnInit {
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
+                this.dialogRef.close();
             })
     }
 }

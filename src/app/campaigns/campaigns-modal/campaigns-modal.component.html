@@ -12,8 +12,8 @@
 <mat-form-field>
     <input matInput placeholder="Port Name" type="text" formControlName="port_name">
     <mat-error style="color: red" *ngIf="campaignsModalForm.get('port_name').invalid && (campaignsModalForm.get('port_name').dirty ||
-      campaignsModalForm.get('port_name').touched) && campaignsModalForm.get('port_name').errors?.required">
-        Please insert port name!
+    campaignsModalForm.get('port_name').touched) && campaignsModalForm.get('port_name').errors?.minlength">
+        The port name must be at least 4 characters!
     </mat-error>
 </mat-form-field>
 

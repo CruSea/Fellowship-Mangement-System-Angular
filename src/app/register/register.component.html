@@ -2,12 +2,12 @@
   <div id="form">
 
     <!--<h1 style="text-align: center; font-weight: bolder">Register</h1>-->
-    <!--<div  *ngIf="su" style="text-align: center; color: green">-->
-    <!--Successfully Registered-->
-    <!--</div>-->
-    <!--<div *ngIf="un" style="text-align: center; color: red">-->
-    <!--Registration is unsuccessful-->
-    <!--</div>-->
+    <div  *ngIf="su" style="text-align: center; color: green">
+    Successfully Registered
+    </div>
+    <div *ngIf="un" style="text-align: center; color: red">
+    Registration is unsuccessful
+    </div>
 
     <!--<button (click)="click()">click</button>-->
 
@@ -82,9 +82,10 @@
           </mat-error>
         </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit" >Register</button>
+      <button mat-raised-button color="primary" style="width: 100%" type="submit" >Register</button>
       <p style="text-align: center; padding-top: 10%">Have an account?</p>
-      <button mat-button mat-raised-button color="primary" style="width: 10%;" class="route" routerLink="/login">Login</button>
+      <button class="btn btn-outline-success btn-group-raised"
+              style=" width: 50%; left: 25%" routerLink="/login">Login</button>
     </form>
 
   </div>

@@ -16,6 +16,10 @@
         {{smsPort.port_name }}
       </mat-option>
     </mat-select>
+    <mat-error style="color: red" *ngIf="groupmessagesModalForm.get('port_name').invalid && (groupmessagesModalForm.get('port_name').dirty ||
+      groupmessagesModalForm.get('port_name').touched) && !groupmessagesModalForm.get('port_name').errors?.minlength">
+      Please select port name!
+    </mat-error>
   </mat-form-field>
 
   <!--<mat-form-field>-->

@@ -1,8 +1,11 @@
-<div>
-  <form enctype="multipart/form-data">
-    <input type="file" id="file">
-    <button mat-button mat-raised-button color="primary" type="submit" value="submit"  cdkFocusInitial > Upload </button>
-  </form>
+<!--<div>-->
+  <!--<form enctype="multipart/form-data">-->
+    <!--<input type="file" id="file">-->
+    <!--<button mat-button mat-raised-button color="primary" type="submit" value="submit"  cdkFocusInitial > Upload </button>-->
+  <!--</form>-->
 
-  <button mat-button (click)="onNoClick()">Close</button>
-</div>
+  <!--<button mat-button (click)="onNoClick()">Close</button>-->
+<!--</div>-->
+
+<input type="file" (change)="onFileSelected($event)"/>
+<button type="button" (click)="onUpload()">Upload</button>
