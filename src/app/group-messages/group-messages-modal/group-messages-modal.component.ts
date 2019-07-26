@@ -27,12 +27,6 @@ export class GroupMessagesModalComponent implements OnInit {
     groupmessagesModalForm: any;
     smsPorts: any;
     groupNames: any;
-    // universities: UniversityInterface[] = [
-    //     {value: 'Addis Abeba', viewValue: 'Addis Abeba'},
-    //     {value: 'Adama', viewValue: 'Adama'},
-    //     {value: 'Bahirdar', viewValue: 'Bahirdar'},
-    //     {value: 'Hawassa', viewValue: 'Hawassa'}
-    // ];
     constructor(
         private formBuilder: FormBuilder,
         private storageService: StorageService,
@@ -70,6 +64,7 @@ export class GroupMessagesModalComponent implements OnInit {
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
+                this.dialogRef.close();
             })
     }
 

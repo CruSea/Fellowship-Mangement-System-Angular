@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { GroupContactsModalComponent } from './group-contacts-modal/group-contacts-modal.component';
 import { UpdateContactInterface } from '../contacts/update-contact/update-contact.component';
-import { UpdateContactComponent } from './update-contact/update-contact.component';
 import { StorageService } from '../services/storage.service';
 import { TeamService } from '../services/team/team.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { UpdateGroupContactsComponent, UpdateGroupContactsInterface } from './update-group-contacts/update-group-contacts.component';
 
 export interface PeriodicElement {
     id: number;
@@ -55,9 +55,9 @@ export class GroupContactsComponent implements OnInit {
         });
     }
 
-    openUpdate(data: UpdateContactInterface): void {
+    openUpdate(data: UpdateGroupContactsInterface): void {
         console.log(data);
-        const dialogRef = this.matDialog.open(UpdateContactComponent, {
+        const dialogRef = this.matDialog.open(UpdateGroupContactsComponent, {
             data: data,
             width: '500px'
         });

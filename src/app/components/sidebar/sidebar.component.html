@@ -65,6 +65,15 @@
                 </mat-menu>
             </a>
 
+            <a class="nav-link" *ngIf="menuItem.title === 'Post Graduates'" style="cursor: pointer ">
+                <i class="material-icons">{{menuItem.icon}}</i>
+                <p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Post Graduates'">{{menuItem.title}}</p>
+                <mat-menu #menu="matMenu" style="width: 100%">
+                    <a mat-menu-item routerLink="/post-graduates">Graduates List</a>
+                    <a mat-menu-item routerLink="/post-graduates-groups">Graduates Group</a>
+                </mat-menu>
+            </a>
+
             <!--</a> <a class="nav-link" *ngIf="menuItem.title === 'Users'" style="cursor: pointer ">-->
                 <!--<i class="material-icons">{{menuItem.icon}}</i>-->
                 <!--<p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Users'">{{menuItem.title}}</p>-->
@@ -80,10 +89,12 @@
                     <a mat-menu-item routerLink="/messages">Sent messages</a>
                     <a mat-menu-item routerLink="/received-messages">Received Messages</a>
                     <a mat-menu-item routerLink="/group-messages">Group Messages</a>
+                    <a mat-menu-item routerLink="/periodic-message">Periodic Messages</a>
+                    <a mat-menu-item routerLink="/scheduled-message">Scheduled Messages</a>
                 </mat-menu>
             </a>
             <a class="nav-link" [routerLink]="menuItem.path"
-               *ngIf="menuItem.title !== 'Contacts' && menuItem.title !== 'Messages'">
+               *ngIf="menuItem.title !== 'Contacts' && menuItem.title !== 'Messages' && menuItem.title !== 'Post Graduates'">
                 <i class="material-icons">{{menuItem.icon}}</i>
                 <p>{{menuItem.title}}</p>
             </a>

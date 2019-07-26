@@ -8,11 +8,13 @@ import { GroupMessagesRoutingModule } from './group-messages-routing.module';
 import { GroupMessagesModalComponent } from './group-messages-modal/group-messages-modal.component';
 import { GroupedMessageService } from '../services/group_message/grouped-message.service';
 import { StorageService } from '../services/storage.service';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         MaterialsModule,
+        ConfirmationPopoverModule,
         ReactiveFormsModule,
         GroupMessagesRoutingModule,
         Ng2SmartTableModule

@@ -9,12 +9,12 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 
 export interface PeriodicElement {
-    position?: number;
-    port_name: string;
-    team: string;
+    id?: number;
+    // port_name: string;
+    // team: string;
     message: string;
     // sent_msg_count: string;
-    date_time: string;
+    created_at: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
@@ -35,7 +35,7 @@ export class GroupMessagesComponent implements OnInit {
     message: string;
 
 
-    displayedColumns: string[] = ['position', 'port_name', 'team', 'message', 'date_time'];
+    displayedColumns: string[] = ['id', 'message', 'created_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
@@ -105,9 +105,9 @@ export class GroupMessagesComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.groupedMessageService.gets(headers, '/team-message')
+        return this.groupedMessageService.gets(headers, '/team-messages')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.messages);
+                this.dataSource = new MatTableDataSource(res.team_message);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
@@ -123,7 +123,7 @@ export class GroupMessagesComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.groupedMessageService.delete(`message/${id}`, headers)
+        return this.groupedMessageService.delete(`team-message/${id}`, headers)
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
                 this.groupMessages();

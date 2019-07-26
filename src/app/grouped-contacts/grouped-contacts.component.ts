@@ -9,7 +9,8 @@ import { GroupedContactsModalComponent } from './grouped-contacts-modal/grouped-
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { ImportContactComponent } from '../contacts/import-contact/import-contact.component';
-import { UpdateContactComponent, UpdateContactInterface } from '../group-contacts/update-contact/update-contact.component';
+import { UpdateGroupedContactsComponent } from './update-grouped-contacts/update-grouped-contacts.component';
+// import { UpdateContactComponent, UpdateContactInterface } from '../group-contacts/update-contact/update-contact.component';
 
 export interface PeriodicElement {
     id: number;
@@ -75,9 +76,9 @@ export class GroupedContactsComponent implements OnInit {
         });
     }
 
-    openUpdate(data: GroupedContactsComponent): void {
+    openUpdate(data: any): void {
         console.log(data);
-        const dialogRef = this.matDialog.open(GroupedContactsComponent, {
+        const dialogRef = this.matDialog.open(UpdateGroupedContactsComponent, {
             data: data,
             width: '500px'
         });

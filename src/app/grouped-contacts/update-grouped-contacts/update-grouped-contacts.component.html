@@ -1,50 +1,74 @@
-<p><!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
-  <!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
-  <!--<div mat-dialog-content>-->
-  <!--<p>What's your favorite animal?</p>-->
+<!--<p>&lt;!&ndash;<button mat-button (click)="onNoClick()">No Thanks</button>&ndash;&gt;-->
+  <!--&lt;!&ndash;<h1 mat-dialog-title>Hi {{data.name}}</h1>&ndash;&gt;-->
+  <!--&lt;!&ndash;<div mat-dialog-content>&ndash;&gt;-->
+  <!--&lt;!&ndash;<p>What's your favorite animal?</p>&ndash;&gt;-->
+  <!--&lt;!&ndash;<mat-form-field>&ndash;&gt;-->
+  <!--&lt;!&ndash;<input matInput [(ngModel)]="data.animal">&ndash;&gt;-->
+  <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<form [formGroup]="updateContactForm" (ngSubmit)="updateContact(updateContactForm.value)">-->
+
   <!--<mat-form-field>-->
-  <!--<input matInput [(ngModel)]="data.animal">-->
-  <!--</mat-form-field>-->
-  <!--</div>-->
-
-<form [formGroup]="updateGroupedContactForm" (ngSubmit)="updateGroupedContact(updateGroupedContactForm.value)">
-
-  <mat-form-field>
-    <input matInput placeholder="Group Name" type="text" formControlName="name">
-    <mat-error style="color: red" *ngIf="updateGroupedContactForm.get('name').invalid && (updateGroupedContactForm.get('name').dirty ||
-      updateGroupedContactForm.get('name').touched) && updateGroupedContactForm.get('name').errors?.required">
-      Please insert group name!
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <input matInput placeholder=" Description" type="text" formControlName="description">
-    <!--<mat-error style="color: red" *ngIf="updateGroupedContactForm.get('description').invalid && (updateGroupedContactForm.get('description').dirty ||-->
-    <!--updateGroupedContactForm.get('description').touched) && !updateGroupedContactForm.get('description').errors?.minlength">-->
-    <!--Please insert last name!-->
+    <!--<input matInput placeholder="Full Name" type="text" formControlName="full_name">-->
+    <!--<mat-error style="color: red" *ngIf="updateContactForm.get('full_name').invalid && (updateContactForm.get('full_name').dirty ||-->
+      <!--updateContactForm.get('full_name').touched) && updateContactForm.get('full_name').errors?.required">-->
+      <!--Please insert first name!-->
     <!--</mat-error>-->
-  </mat-form-field>
-
-  <!--<mat-form-field>-->
-  <!--<input matInput placeholder="Phone number" type="text" formControlName="phone">-->
-  <!--<mat-error style="color: red" *ngIf="updateGroupedContactForm.get('phone').invalid && (updateGroupedContactForm.get('phone').dirty ||-->
-  <!--updateGroupedContactForm.get('phone').touched) && !updateGroupedContactForm.get('phone').errors?.minlength">-->
-  <!--Please insert phone number!-->
-  <!--</mat-error>-->
   <!--</mat-form-field>-->
 
   <!--<mat-form-field>-->
-  <!--<mat-label>University</mat-label>-->
-  <!--<mat-select formControlName="university">-->
-  <!--<mat-option *ngFor="let university of universities" [value]="university.value">-->
-  <!--{{university.viewValue}}-->
-  <!--</mat-option>-->
-  <!--</mat-select>-->
+    <!--<input matInput placeholder="Gender" type="text" formControlName="gender">-->
+    <!--<mat-error style="color: red" *ngIf="updateContactForm.get('gender').invalid && (updateContactForm.get('gender').dirty ||-->
+      <!--updateContactForm.get('gender').touched) && !updateContactForm.get('gender').errors?.minlength">-->
+      <!--Please insert last name!-->
+    <!--</mat-error>-->
   <!--</mat-form-field>-->
 
-  <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
-  <div mat-dialog-actions>
-    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Update</button>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-  </div>
-</form>
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Phone number" type="text" formControlName="phone">-->
+    <!--<mat-error style="color: red" *ngIf="updateContactForm.get('phone').invalid && (updateContactForm.get('phone').dirty ||-->
+      <!--updateContactForm.get('phone').touched) && !updateContactForm.get('phone').errors?.minlength">-->
+      <!--Please insert phone number!-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Academic Department" type="text" formControlName="Acadamic_department">-->
+    <!--<mat-error style="color: red" *ngIf="updateContactForm.get('Acadamic_department').invalid && (updateContactForm.get('Acadamic_department').dirty ||-->
+      <!--updateContactForm.get('Acadamic_department').touched) && !updateContactForm.get('Acadamic_department').errors?.minlength">-->
+      <!--Please insert acadamic department!-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Email" type="text" formControlName="email">-->
+    <!--<mat-error style="color: red" *ngIf="updateContactForm.get('email').invalid && (updateContactForm.get('email').dirty ||-->
+      <!--updateContactForm.get('email').touched) && !updateContactForm.get('email').errors?.minlength">-->
+      <!--Please insert email address!-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Graduation Year" type="text" formControlName="graduation_year">-->
+    <!--<mat-error style="color: red" *ngIf="updateContactForm.get('graduation_year').invalid && (updateContactForm.get('graduation_year').dirty ||-->
+      <!--updateContactForm.get('graduation_year').touched) && !updateContactForm.get('graduation_year').errors?.minlength">-->
+      <!--Please insert graduation year!-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <!--&lt;!&ndash;<mat-form-field>&ndash;&gt;-->
+  <!--&lt;!&ndash;<mat-label>University</mat-label>&ndash;&gt;-->
+  <!--&lt;!&ndash;<mat-select formControlName="university">&ndash;&gt;-->
+  <!--&lt;!&ndash;<mat-option *ngFor="let university of universities" [value]="university.value">&ndash;&gt;-->
+  <!--&lt;!&ndash;{{university.viewValue}}&ndash;&gt;-->
+  <!--&lt;!&ndash;</mat-option>&ndash;&gt;-->
+  <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+  <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+
+  <!--&lt;!&ndash;<button mat-raised-button color="primary" type="submit" >Add contact</button>&ndash;&gt;-->
+  <!--<div mat-dialog-actions>-->
+    <!--<button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Update</button>-->
+    <!--<button mat-button (click)="onNoClick()">Cancel</button>-->
+  <!--</div>-->
+<!--</form>-->

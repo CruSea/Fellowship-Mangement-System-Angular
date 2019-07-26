@@ -1,0 +1,101 @@
+<p style="font-weight: bolder; font-size: x-large"> Post Graduates </p>
+<!--<ol>-->
+<!--<li>-->
+<!--<mat-form-field>-->
+<!--<input matInput [(ngModel)]="name" placeholder="What's your name?">-->
+<!--</mat-form-field>-->
+<!--</li>-->
+<!--<div class="create" style="color: yellow; width: 100%">-->
+<!--<li>-->
+<!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
+<button style="margin-top: 61px; left: 15px" mat-raised-button (click)="openCreate()">Add New graduate</button>
+<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>
+<!--<button mat-button color="" style="margin-top: 61px; left: 70px" mat-raised-button="" >-->
+<!--<mat-icon style="color: red;" mat-raised-button-->
+<!--(click)="refresh()"></mat-icon>-->
+<!--</button>-->
+<!--</li>-->
+<!--<li *ngIf="animal">-->
+<!--You chose: <i>{{animal}}</i>-->
+<!--</li>-->
+<!--&lt;!&ndash;</ol>&ndash;&gt;-->
+<!--</div>-->
+
+
+
+<div class="container">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+
+  <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.id | number : fractionsize}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="full_name">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Full Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.full_name | titlecase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Gender </th>
+      <td mat-cell *matCellDef="let element"> {{element.gender | titlecase}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acadamic_department">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Academic Department </th>
+      <td mat-cell *matCellDef="let element"> {{element.acadamic_department | titlecase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="graduation_year">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Graduation Year </th>
+      <td mat-cell *matCellDef="let element"> {{element.graduation_year | titlecase}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created At </th>
+      <td mat-cell *matCellDef="let element"> {{element.created_at  | date :'fullDate'}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="updated_at">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated At </th>
+      <td mat-cell *matCellDef="let element"> {{element.updated_at  | date :'fullDate'}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button="">
+          <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>
+        <button mat-button=""
+                mwlConfirmationPopover
+                [popoverTitle]="'Confirm Deletion'"
+                [popoverMessage]="'Are you sure you want to delete this graduate'"
+                placement="left"
+                (confirm)="deleteContact(element.id)"
+                (cancel)="cancelClicked = true"
+        >
+
+          <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

@@ -14,6 +14,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user-profile', title: 'My Profile',  icon: 'person', class: '' },
     { path: '/settings', title: 'Settings', icon: 'settings', class: '' },
     { path: '', title: 'Contacts',  icon: 'contacts', class: '' },
+    { path: '', title: 'Post Graduates',  icon: 'school', class: '' },
     { path: '', title: 'Messages',  icon: 'message', class: '' },
     // { path: '/table-list', title: 'Table List',  icon: 'content_paste', class: '' },
     // { path: '/dashboard/typography', title: 'Typography',  icon: 'library_books', class: '' },

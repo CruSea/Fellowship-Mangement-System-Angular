@@ -12,9 +12,13 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 export interface PeriodicElement {
     id: number;
     full_name: string;
-    gender: string
+    gender: string;
     phone: string;
+    email: string;
     Acadamic_department: string;
+    status: string;
+    // fellowship_id: number;
+    // created_by: string;
     // created_at: string;
     // updated_at: string;
     action?: string
@@ -37,7 +41,7 @@ export class ContactsComponent implements OnInit {
     firstname: string;
 
 
-    displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'Acadamic_department', 'created_at', 'updated_at', 'action'];
+    displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'email', 'Acadamic_department', 'graduation_year', 'status', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 

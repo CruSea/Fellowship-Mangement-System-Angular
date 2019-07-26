@@ -12,30 +12,27 @@
     <!--<button (click)="click()">click</button>-->
 
     <form [formGroup]="registerForm" (ngSubmit)="register(registerForm.value)">
-
-      <mat-form-field>
-          <input matInput placeholder="Full Name" type="text" formControlName="full_name">
-          <mat-error style="color: red" *ngIf="registerForm.get('full_name').invalid && (registerForm.get('full_name').dirty ||
+        <div style="display: flex; flex-flow: row; width: 100%">
+            <div style="width: 50%; margin-right: 50px">
+                <mat-form-field>
+                    <input matInput placeholder="Full Name" type="text" formControlName="full_name">
+                    <mat-error style="color: red" *ngIf="registerForm.get('full_name').invalid && (registerForm.get('full_name').dirty ||
           registerForm.get('full_name').touched) && registerForm.get('full_name').errors?.required">
-            Please insert full name!
-          </mat-error>
-        </mat-form-field>
+                        Please insert full name!
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-      <!--<mat-form-field>-->
-      <!--<input matInput placeholder="Last Name" type="text" formControlName="lastname">-->
-      <!--<mat-error style="color: red" *ngIf="registerForm.get('lastname').invalid && (registerForm.get('lastname').dirty ||-->
-      <!--registerForm.get('lastname').touched) && !registerForm.get('lastname').errors?.minlength">-->
-      <!--Please insert last name!-->
-      <!--</mat-error>-->
-      <!--</mat-form-field>-->
-
-      <mat-form-field>
-          <input matInput placeholder="Phone number" type="text" formControlName="phone">
-          <mat-error style="color: red" *ngIf="registerForm.get('phone').invalid && (registerForm.get('phone').dirty ||
+            <div style="width: 50%;">
+                <mat-form-field>
+                    <input matInput placeholder="Phone number" type="text" formControlName="phone">
+                    <mat-error style="color: red" *ngIf="registerForm.get('phone').invalid && (registerForm.get('phone').dirty ||
           registerForm.get('phone').touched) && !registerForm.get('phone').errors?.minlength">
-            Please insert phone number!
-          </mat-error>
-        </mat-form-field>
+                        Please insert phone number!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
 
       <!--<mat-form-field>-->
       <!--<mat-label>University City</mat-label>-->
@@ -45,7 +42,8 @@
       <!--</mat-option>-->
       <!--</mat-select>-->
       <!--</mat-form-field>-->
-
+    <div style="display: flex; flex-flow: row; width: 100%">
+    <div style="width: 33.33%; margin-right: 50px">
       <mat-form-field>
           <input matInput placeholder="University City" type="text" formControlName="university_city">
           <mat-error style="color: red" *ngIf="registerForm.get('university_city').invalid && (registerForm.get('university_city').dirty ||
@@ -53,7 +51,9 @@
             Please insert university city!
           </mat-error>
         </mat-form-field>
+    </div>
 
+    <div style="width: 33.33%; margin-right: 50px">
       <mat-form-field>
           <input matInput placeholder="University Name" type="text" formControlName="university_name">
           <mat-error style="color: red" *ngIf="registerForm.get('university_name').invalid && (registerForm.get('university_name').dirty ||
@@ -62,9 +62,15 @@
           </mat-error>
         </mat-form-field>
 
+    </div>
+
+    <div style="width: 33.33%;">
       <mat-form-field>
           <input matInput placeholder="Specific Place" type="text" formControlName="specific_place">
         </mat-form-field>
+
+    </div>
+    </div>
 
       <mat-form-field>
           <input matInput placeholder="Email" type="text" formControlName="email">
@@ -82,7 +88,7 @@
           </mat-error>
         </mat-form-field>
 
-      <button mat-raised-button color="primary" style="width: 100%" type="submit" >Register</button>
+      <button mat-raised-button color="primary"  style=" width: 50%; left: 25%" type="submit" >Register</button>
       <p style="text-align: center; padding-top: 10%">Have an account?</p>
       <button class="btn btn-outline-success btn-group-raised"
               style=" width: 50%; left: 25%" routerLink="/login">Login</button>

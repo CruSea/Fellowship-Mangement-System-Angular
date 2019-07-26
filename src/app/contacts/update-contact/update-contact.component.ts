@@ -11,8 +11,9 @@ export interface UpdateContactInterface {
     full_name: string;
     gender: string;
     phone: string;
-    acadamic_department: string;
-    Acadamic_department?: string;
+    email: string;
+    graduation_year: number;
+    Acadamic_department: string;
     created_at?: string;
     updated_at?: string
 }
@@ -49,7 +50,9 @@ export class UpdateContactComponent implements OnInit {
             full_name: [this.data.full_name, [Validators.required]],
             gender: [this.data.gender, [Validators.required]],
             phone: [this.data.phone, [Validators.required]],
-            acadamic_department: [this.data.Acadamic_department, [Validators.required]],
+            Acadamic_department: [this.data.Acadamic_department, [Validators.required]],
+            email: [this.data.email, [Validators.required]],
+            graduation_year: [this.data.graduation_year, [Validators.required]],
             // fellowship_id: [this.data.fellowship_id, [Validators.required]],
         });
     }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { CampaignsModalComponent } from './campaigns-modal/campaigns-modal.component';
-import { CampaignsService } from './campaigns.service';
 import { StorageService } from '../services/storage.service';
 import { SmsPortService } from '../services/sms-port/sms-port.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -10,20 +9,15 @@ import { UpdateCampaignsComponent, UpdateCampaignsInterface } from './update-cam
 
 export interface PeriodicElement {
     id: number;
-    port_name: string
+    port_name: string;
     port_type: string;
+    // api_key: string;
     negarit_campaign_id: string;
     negarit_sms_port_id: string;
-    created_at: string;
-    updated_at: string;
+    // created_at: string;
+    // updated_at: string;
     action?: string;
 }
-
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-    
-];
 
 @Component({
     selector: 'app-campaigns',
@@ -37,7 +31,7 @@ export class CampaignsComponent implements OnInit {
 
 
     // displayedColumns: string[] = ['position', 'firstname', 'lastname', 'negarit_campaign_id', 'port_type', 'action'];
-    displayedColumns: string[] = ['id', 'port_name', 'port_type', 'negarit_campaign_id', 'negarit_sms_port_id', 'created_at', 'updated_at', 'action'];
+    displayedColumns: string[] = ['id', 'port_name', 'port_type','negarit_campaign_id', 'negarit_sms_port_id', 'created_at', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 

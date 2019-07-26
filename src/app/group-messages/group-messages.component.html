@@ -25,22 +25,22 @@
   <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="port_name">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Port Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.port_name}} </td>
-    </ng-container>
+    <!--<ng-container matColumnDef="port_name">-->
+      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Port Name </th>-->
+      <!--<td mat-cell *matCellDef="let element"> {{element.port_name}} </td>-->
+    <!--</ng-container>-->
 
     <!-- Name Column -->
-    <ng-container matColumnDef="team">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Group Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.team}} </td>
-    </ng-container>
+    <!--<ng-container matColumnDef="team">-->
+      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold">Group Name </th>-->
+      <!--<td mat-cell *matCellDef="let element"> {{element.team}} </td>-->
+    <!--</ng-container>-->
 
     <!-- Weight Column -->
     <ng-container matColumnDef="message">
@@ -55,14 +55,25 @@
     <!--</ng-container>-->
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="date_time">
+    <ng-container matColumnDef="created_at">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Date Time </th>
-      <td mat-cell *matCellDef="let element"> {{element.date_time}}
-        <!--<button mat-button="">-->
+      <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
+      <td mat-cell *matCellDef="let element">
         <!--<mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>-->
-        <button mat-button="">
-        <mat-icon style="color: red;" mat-raised-button
-        (click)="deleteGroupMessage(element.created_by)">delete_outline</mat-icon></button>
+        <button mat-button=""
+                mwlConfirmationPopover
+                [popoverTitle]="'Confirm Deletion'"
+                [popoverMessage]="'Are you sure you want to delete this contact'"
+                placement="left"
+                (confirm)="deleteGroupMessage(element.id)"
+                (cancel)="cancelClicked = true"
+        >
+
+          <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
+        </button>
       </td>
     </ng-container>
 

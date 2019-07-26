@@ -34,10 +34,26 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Academic Department" type="text" formControlName="acadamic_department">
-    <mat-error style="color: red" *ngIf="updateContactForm.get('acadamic_department').invalid && (updateContactForm.get('acadamic_department').dirty ||
-      updateContactForm.get('acadamic_department').touched) && !updateContactForm.get('acadamic_department').errors?.minlength">
-      Please insert phone number!
+    <input matInput placeholder="Academic Department" type="text" formControlName="Acadamic_department">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('Acadamic_department').invalid && (updateContactForm.get('Acadamic_department').dirty ||
+      updateContactForm.get('Acadamic_department').touched) && !updateContactForm.get('Acadamic_department').errors?.minlength">
+      Please insert acadamic department!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Email" type="text" formControlName="email">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('email').invalid && (updateContactForm.get('email').dirty ||
+      updateContactForm.get('email').touched) && !updateContactForm.get('email').errors?.minlength">
+      Please insert email address!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Graduation Year" type="text" formControlName="graduation_year">
+    <mat-error style="color: red" *ngIf="updateContactForm.get('graduation_year').invalid && (updateContactForm.get('graduation_year').dirty ||
+      updateContactForm.get('graduation_year').touched) && !updateContactForm.get('graduation_year').errors?.minlength">
+      Please insert graduation year!
     </mat-error>
   </mat-form-field>
 
