@@ -33,9 +33,10 @@ export const MY_FORMATS = {
 
 export interface ContactsModalInterface {
     full_name: string;
-    gender: string;
     phone: string;
+    gender: string;
     acadamic_department: string;
+    graduation_year: string;
     team: string;
     email: string;
 }
@@ -58,6 +59,7 @@ export interface DialogData {
 export class ContactsModalComponent implements OnInit {
 
     groupNames: any;
+    // loading: boolean;
     contactsModalForm: any;
     genders: GenderInterface[] = [
         {type: 'male', name: 'Male'},
@@ -114,9 +116,11 @@ export class ContactsModalComponent implements OnInit {
             // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.contactService.create(contactsModalInterface, headers, '/contact')
             .subscribe((res: {message: string}) => {
+                // this.loading = false;
                 console.log(res.message);
                 this.dialogRef.close();
             }, (httpErrorResponse: HttpErrorResponse) => {
+                // this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

@@ -6,8 +6,8 @@
 <!--<input matInput [(ngModel)]="data.animal">-->
 <!--</mat-form-field>-->
 <!--</div>-->
-<mat-spinner style="margin: 0 auto" *ngIf="!smsPorts  && !groupNames"></mat-spinner>
-<form [formGroup]="periodicMessageModalForm" (ngSubmit)="periodicmessageModal(periodicMessageModalForm.value)" *ngIf="smsPorts && groupNames">
+<mat-spinner style="margin: 0 auto" *ngIf="!smsPorts  && !smsPorts"></mat-spinner>
+<form [formGroup]="periodicMessageContactsModalForm" (ngSubmit)="periodicmessageContactModal(periodicMessageContactsModalForm.value)" *ngIf="smsPorts && groupNames">
 
   <!--<mat-form-field>-->
   <!--<input matInput placeholder="Port Name" type="text" formControlName="port_name">-->
@@ -43,27 +43,22 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field >
-    <mat-label>Group Name</mat-label>
-    <mat-select formControlName="team">
-      <mat-option *ngFor="let groupName of groupNames.teams.data" [value]="groupName.name">
-        {{groupName.name }}
-      </mat-option>
-    </mat-select>
-    <mat-error style="color: red" *ngIf="periodicMessageModalForm.get('team').invalid && (periodicMessageModalForm.get('team').dirty ||
-      periodicMessageModalForm.get('team').touched) && !periodicMessageModalForm.get('team').errors?.minlength">
-      Please select group name!
-    </mat-error>
+  <mat-form-field>
+    <input matInput placeholder="Sent To" type="text" formControlName="sent_to">
+    <!--<mat-error style="color: red" *ngIf="periodicMessageModalForm.get('end_date').invalid && (periodicMessageModalForm.get('end_date').dirty ||-->
+    <!--periodicMessageModalForm.get('end_date').touched) && !periodicMessageModalForm.get('end_date').errors?.minlength">-->
+    <!--Please select end date!-->
+    <!--</mat-error>-->
   </mat-form-field>
 
   <!--<mat-form-field>-->
-    <!--<input [matDatepicker]="picker" placeholder="Choose a date" formControlName="start_date">-->
-    <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-    <!--<mat-datepicker #picker></mat-datepicker>-->
-    <!--&lt;!&ndash;<mat-error style="color: red" *ngIf="periodicMessageModalForm.get('start_date').invalid && (periodicMessageModalForm.get('start_date').dirty ||&ndash;&gt;-->
-      <!--&lt;!&ndash;periodicMessageModalForm.get('start_date').touched) && !periodicMessageModalForm.get('start_date').errors?.minlength">&ndash;&gt;-->
-      <!--&lt;!&ndash;Please select starting date!&ndash;&gt;-->
-    <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
+  <!--<input [matDatepicker]="picker" placeholder="Choose a date" formControlName="start_date">-->
+  <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+  <!--<mat-datepicker #picker></mat-datepicker>-->
+  <!--&lt;!&ndash;<mat-error style="color: red" *ngIf="periodicMessageModalForm.get('start_date').invalid && (periodicMessageModalForm.get('start_date').dirty ||&ndash;&gt;-->
+  <!--&lt;!&ndash;periodicMessageModalForm.get('start_date').touched) && !periodicMessageModalForm.get('start_date').errors?.minlength">&ndash;&gt;-->
+  <!--&lt;!&ndash;Please select starting date!&ndash;&gt;-->
+  <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
   <!--</mat-form-field>-->
 
   <mat-form-field>
@@ -82,8 +77,8 @@
   <mat-form-field>
     <input matInput placeholder="Sent Time" type="text" formControlName="sent_time">
     <!--<mat-error style="color: red" *ngIf="periodicMessageModalForm.get('end_date').invalid && (periodicMessageModalForm.get('end_date').dirty ||-->
-      <!--periodicMessageModalForm.get('end_date').touched) && !periodicMessageModalForm.get('end_date').errors?.minlength">-->
-      <!--Please select end date!-->
+    <!--periodicMessageModalForm.get('end_date').touched) && !periodicMessageModalForm.get('end_date').errors?.minlength">-->
+    <!--Please select end date!-->
     <!--</mat-error>-->
   </mat-form-field>
 

@@ -12,17 +12,12 @@ export interface PeriodicElement {
     id?: number;
     // port_name: string;
     // team: string;
+    sent_by: string;
+    team_id: string;
     message: string;
     // sent_msg_count: string;
     created_at: string;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-    // {position: 1, sent_message: 'Hey this is to inform you about your project', group_name: 'Main Leaders', campaign_name: '', date_time: '17/2/2012', sent_msg_count: '1'},
-    // {position: 2, sent_message: 'Hello tomorrow we will have worship rehearsal', group_name: 'Worship', campaign_name: '', date_time: '5/3/2012', sent_msg_count: '3'},
-    // {position: 3, sent_message: 'Hey friends next week we have NO program', group_name: 'Literature', campaign_name: '', date_time: '23/4/2012', sent_msg_count: '4'},
-    // {position: 4, sent_message: 'ነገ ጥናት አለን እንዳትቀሩ' , group_name: 'Bible study', campaign_name: '', date_time: '12/7/2012', sent_msg_count: '4'},
-];
 
 @Component({
     selector: 'app-group-messages',
@@ -35,7 +30,7 @@ export class GroupMessagesComponent implements OnInit {
     message: string;
 
 
-    displayedColumns: string[] = ['id', 'message', 'created_at', 'action'];
+    displayedColumns: string[] = ['id', 'message', 'sent_by', 'team_id', 'created_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
@@ -107,7 +102,7 @@ export class GroupMessagesComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.groupedMessageService.gets(headers, '/team-messages')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.team_message);
+                this.dataSource = new MatTableDataSource(res.team_message.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);

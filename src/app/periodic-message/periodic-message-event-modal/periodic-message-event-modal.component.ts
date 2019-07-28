@@ -1,16 +1,16 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { PeriodInterface } from '../periodic';
 import { FormBuilder, Validators } from '@angular/forms';
 import { StorageService } from '../../services/storage.service';
 import { SmsPortService } from '../../services/sms-port/sms-port.service';
 import { PeriodicMessageService } from '../../services/periodic-message/periodic-message.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { PeriodInterface } from '../periodic';
 import * as moment from 'moment';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 interface PeriodicMessageModalInterface {
     port_name: string;
-    team: string;
+    event: string;
     type: string;
     start_date: string;
     end_date: string;
@@ -19,18 +19,18 @@ interface PeriodicMessageModalInterface {
 }
 
 export interface DialogData {
-  animal: string;
-  name: string;
+    animal: string;
+    name: string;
 }
 
 @Component({
-  selector: 'app-periodic-message-modal',
-  templateUrl: './periodic-message-modal.component.html',
-  styleUrls: ['./periodic-message-modal.component.scss']
+  selector: 'app-periodic-message-event-modal',
+  templateUrl: './periodic-message-event-modal.component.html',
+  styleUrls: ['./periodic-message-event-modal.component.scss']
 })
-export class PeriodicMessageModalComponent implements OnInit {
+export class PeriodicMessageEventModalComponent implements OnInit {
 
-  periodicMessageModalForm: any;
+    periodicMessageEventModalForm: any;
     smsPorts: any;
     groupNames: any;
     periods: PeriodInterface[] = [
@@ -39,13 +39,12 @@ export class PeriodicMessageModalComponent implements OnInit {
         {type : 'monthly', name: 'Monthly'},
     ];
 
-  constructor(
-      private formBuilder: FormBuilder,
-      private storageService: StorageService,
-      private smsPortService: SmsPortService,
-      private periodicMessageService: PeriodicMessageService,
-      public dialogRef: MatDialogRef<PeriodicMessageModalComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+  constructor(private formBuilder: FormBuilder,
+              private storageService: StorageService,
+              private smsPortService: SmsPortService,
+              private periodicMessageService: PeriodicMessageService,
+              public dialogRef: MatDialogRef<PeriodicMessageEventModalComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
     onNoClick(): void {
         this.dialogRef.close();
@@ -54,19 +53,18 @@ export class PeriodicMessageModalComponent implements OnInit {
   ngOnInit(): void {
       this.getSmsPorts();
       this.getGroupName();
-    this.periodicMessageModalForm = this.formBuilder.group({
-        port_name: [null, [Validators.required]],
-        team: [null, [Validators.required]],
-        type: [null, [Validators.required]],
-        start_date: [null, [Validators.required]],
-        end_date: [null, [Validators.required]],
-        sent_time: [null, [Validators.required]],
-        message: [null, [Validators.required]]
-    });
-
+      this.periodicMessageEventModalForm = this.formBuilder.group({
+          port_name: [null, [Validators.required]],
+          event: [null, [Validators.required]],
+          type: [null, [Validators.required]],
+          start_date: [null, [Validators.required]],
+          end_date: [null, [Validators.required]],
+          sent_time: [null, [Validators.required]],
+          message: [null, [Validators.required]]
+      });
   }
 
-    periodicmessageModal(periodicMessageModalInterface: PeriodicMessageModalInterface) {
+    periodicmessageEventModal(periodicMessageModalInterface: PeriodicMessageModalInterface) {
         periodicMessageModalInterface['start_date'] =
             moment(periodicMessageModalInterface.start_date).format('YYYY-MM-DD').toString();
         periodicMessageModalInterface['end_date'] =

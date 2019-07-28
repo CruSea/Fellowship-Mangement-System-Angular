@@ -10,19 +10,22 @@ import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { ImportContactComponent } from '../contacts/import-contact/import-contact.component';
 import { UpdateGroupedContactsComponent } from './update-grouped-contacts/update-grouped-contacts.component';
+import { AssignMembersComponent } from './assign-members/assign-members.component';
 // import { UpdateContactComponent, UpdateContactInterface } from '../group-contacts/update-contact/update-contact.component';
 
-export interface PeriodicElement {
-    id: number;
-    full_name: string;
-    gender: string;
-    phone: string;
-    Acadamic_department: string;
-    // fellowship_id: number
-    // created_at: string;
-    // updated_at: string;
-    action?: string
-}
+// export interface PeriodicElement {
+//     id: number;
+//     full_name: string;
+//     gender: string;
+//     phone: string;
+//     Acadamic_department: string;
+//     // fellowship_id: number
+//     // created_at: string;
+//     // updated_at: string;
+//     action?: string
+//     groupedname: string;
+//     animal: string;
+// }
 
 
 @Component({
@@ -32,15 +35,21 @@ export interface PeriodicElement {
 })
 export class GroupedContactsComponent implements OnInit {
 
-    animal: string;
+    full_name: string;
+    gender: string;
+    id: string;
+    phone: string;
+    email: string;
+    Acadamic_department: string;
+    graduation_year: string;
     groupedname: string;
+    animal: string;
     group_id: string;
-
 
     team_detail: any;
 
 
-    displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'created_at', 'updated_at', 'action'];
+    displayedColumns: string[] = ['full_name', 'gender', 'phone', 'email', 'Acadamic_department', 'graduation_year', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
     constructor(
@@ -62,6 +71,19 @@ export class GroupedContactsComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
             this.animal = result;
+        });
+    }
+
+    assign(): void {
+        const dialogRef = this.matDialog.open(AssignMembersComponent, {
+            width: '500px',
+            data: {gname: this.groupedname, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.animal = result;
+            this.getGroupsContactByGroupName(this.groupedname)
         });
     }
 
@@ -101,6 +123,7 @@ export class GroupedContactsComponent implements OnInit {
             .subscribe((res: any) => {
                 console.log(res);
                 this.team_detail = res;
+                this.groupedname = res.team.name;
                 this.getGroupsContactByGroupName(res.team.name)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
@@ -135,7 +158,7 @@ export class GroupedContactsComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.groupedContactsService.delete(`/team/members/${this.team_detail.team.name}/${id}`, headers)
+        return this.groupedContactsService.delete(`team/members/${this.team_detail.team.name}/${id}`, headers)
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
                 this.getGroupsById();

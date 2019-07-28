@@ -13,7 +13,7 @@ export interface PeriodicElement {
     // description: string
     // number_of_contacts?: number;
     // fellowship_id: number;
-    created_by?: string;
+    created_by: string;
     updated_by?: string;
     action?: string
     // university: string;
@@ -32,7 +32,7 @@ export class GroupContactsComponent implements OnInit {
     groupname: string;
 
 
-    displayedColumns: string[] = ['id', 'name', 'created_at', 'updated_at', 'action'];
+    displayedColumns: string[] = ['id', 'name', 'created_by', 'created_at', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
@@ -97,7 +97,7 @@ export class GroupContactsComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.teamService.gets(headers, '/teams')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.teams);
+                this.dataSource = new MatTableDataSource(res.teams.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);

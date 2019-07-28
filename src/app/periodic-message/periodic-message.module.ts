@@ -11,6 +11,9 @@ import { PeriodicMessageService } from '../services/periodic-message/periodic-me
 import { StorageService } from '../services/storage.service';
 import { PeriodicMessageModalComponent } from './periodic-message-modal/periodic-message-modal.component';
 import { SmsPortService } from '../services/sms-port/sms-port.service';
+import { PeriodicMessageEventModalComponent } from './periodic-message-event-modal/periodic-message-event-modal.component';
+import { PeriodicMessageContactsModalComponent } from './periodic-message-contacts-modal/periodic-message-contacts-modal.component';
+import { PeriodicMessageFellowModalComponent } from './periodic-message-fellow-modal/periodic-message-fellow-modal.component';
 
 @NgModule({
   imports: [
@@ -23,8 +26,8 @@ import { SmsPortService } from '../services/sms-port/sms-port.service';
       Ng2SmartTableModule,
       PeriodicMessageRoutingModule
   ],
-  declarations: [PeriodicMessageComponent, PeriodicMessageModalComponent],
+  declarations: [PeriodicMessageComponent, PeriodicMessageModalComponent, PeriodicMessageEventModalComponent, PeriodicMessageContactsModalComponent, PeriodicMessageFellowModalComponent],
     providers: [ PeriodicMessageService, StorageService, SmsPortService],
-    entryComponents: [PeriodicMessageModalComponent]
+    entryComponents: [PeriodicMessageModalComponent, PeriodicMessageContactsModalComponent, PeriodicMessageEventModalComponent]
 })
 export class PeriodicMessageModule { }

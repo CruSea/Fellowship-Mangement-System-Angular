@@ -11,7 +11,6 @@ export interface PeriodicElement {
     id: number;
     port_name: string;
     port_type: string;
-    // api_key: string;
     negarit_campaign_id: string;
     negarit_sms_port_id: string;
     // created_at: string;
@@ -31,7 +30,7 @@ export class CampaignsComponent implements OnInit {
 
 
     // displayedColumns: string[] = ['position', 'firstname', 'lastname', 'negarit_campaign_id', 'port_type', 'action'];
-    displayedColumns: string[] = ['id', 'port_name', 'port_type','negarit_campaign_id', 'negarit_sms_port_id', 'created_at', 'updated_at', 'action'];
+    displayedColumns: string[] = ['id', 'port_name', 'port_type', 'negarit_campaign_id', 'negarit_sms_port_id', 'created_at', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 

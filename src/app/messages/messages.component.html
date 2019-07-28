@@ -8,7 +8,10 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">Send new message</button>
+<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">
+  <mat-icon>add</mat-icon>
+  new message
+</button>
 <!--<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>-->
 <!--</li>-->
 <!--<li *ngIf="animal">-->
@@ -65,10 +68,15 @@
       <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="sms_port_id">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Port Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.sms_port_id}} </td>
+    <ng-container matColumnDef="sent_by">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created by </th>
+      <td mat-cell *matCellDef="let element"> {{element.sent_by.full_name}} </td>
     </ng-container>
+
+    <!--<ng-container matColumnDef="sms_port_id">-->
+      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Port Id </th>-->
+      <!--<td mat-cell *matCellDef="let element"> {{element.sms_port_id}} </td>-->
+    <!--</ng-container>-->
 
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>

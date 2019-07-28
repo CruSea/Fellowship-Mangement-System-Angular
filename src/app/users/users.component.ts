@@ -14,17 +14,12 @@ export interface PeriodicElement {
     email: string;
     phone: string;
     password?: string;
-    role: string;
+    roles: string;
     created_at?: string;
     updated_at?: string;
     action?: string;
 }
 
-
-
-const ELEMENT_DATA: PeriodicElement[] = [
-
-];
 
 @Component({
     selector: 'app-users',
@@ -38,7 +33,7 @@ export class UsersComponent implements OnInit {
 
 
     // displayedColumns: string[] = ['position', 'firstname', 'lastname', 'user_role', 'phone', 'action'];
-    displayedColumns: string[] = ['id', 'full_name', 'email', 'phone', 'created_at', 'role', 'updated_at', 'action'];
+    displayedColumns: string[] = ['id', 'full_name', 'email', 'phone', 'created_at', 'roles', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
@@ -122,7 +117,7 @@ export class UsersComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.userService.gets(headers, '/users')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.users);
+                this.dataSource = new MatTableDataSource(res.users.data);
                 console.log(res);
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);

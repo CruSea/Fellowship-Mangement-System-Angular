@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm: any;
+  loading: boolean;
 
   constructor(
       private router: Router,
@@ -34,11 +35,14 @@ export class LoginComponent implements OnInit {
   }
 
   login(loginInterface: LoginInterface) {
+      this.loading = true;
       this.authenticationService.login(loginInterface)
         .subscribe((loginResponseInterface: LoginResponseInterface) => {
+            this.loading = false;
             console.log(loginResponseInterface.message);
             this.router.navigateByUrl('/').catch(error => console.log(error))
         }, (httpErrorResponse: HttpErrorResponse) => {
+            this.loading = false;
             console.log(httpErrorResponse)
         })
   }

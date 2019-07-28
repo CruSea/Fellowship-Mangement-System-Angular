@@ -1,9 +1,8 @@
 <div class="background">
   <div id="form">
-    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
-
+    <mat-spinner style="margin: 20% auto" *ngIf="loading"></mat-spinner>
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" *ngIf="!loading">
       <h1 style="text-align: center; font-weight: bolder">Login</h1>
-
       <!--<div class="sidebar-background" style="background-image: url(../../assets/img/sidebar-4.jpg)"></div>-->
       <mat-form-field>
         <input matInput placeholder="Email" type="text" formControlName="email">
@@ -12,7 +11,6 @@
           Please insert email!
         </mat-error>
       </mat-form-field>
-
       <mat-form-field>
         <!--<i class="fas fa-lock" ></i>-->
         <input matInput placeholder="Password" type="password" formControlName="password">
@@ -21,8 +19,6 @@
           Please insert password!
         </mat-error>
       </mat-form-field>
-
-
       <button style="width: 100%" class="btn btn-danger btn-round" type="submit" [disabled]="loginForm.invalid">Login</button>
       <p style="text-align: center; padding-top: 10%">Don't have an account?</p>
     </form>

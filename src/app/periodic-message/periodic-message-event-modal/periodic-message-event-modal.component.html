@@ -1,0 +1,108 @@
+<!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+<!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
+<!--<div mat-dialog-content>-->
+<!--<p>What's your favorite animal?</p>-->
+<!--<mat-form-field>-->
+<!--<input matInput [(ngModel)]="data.animal">-->
+<!--</mat-form-field>-->
+<!--</div>-->
+<mat-spinner style="margin: 0 auto" *ngIf="!smsPorts  && !smsPorts"></mat-spinner>
+<form [formGroup]="periodicMessageEventModalForm" (ngSubmit)="periodicmessageEventModal(periodicMessageEventModalForm.value)" *ngIf="smsPorts && groupNames">
+
+  <!--<mat-form-field>-->
+  <!--<input matInput placeholder="Port Name" type="text" formControlName="port_name">-->
+  <!--<mat-error style="color: red" *ngIf="periodicMessageEventModalForm.get('port_name').invalid && (periodicMessageEventModalForm.get('port_name').dirty ||-->
+  <!--periodicMessageEventModalForm.get('port_name').touched) && periodicMessageEventModalForm.get('port_name').errors?.required">-->
+  <!--Please Campaign !-->
+  <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <mat-form-field>
+    <mat-label>Port Name</mat-label>
+    <mat-select formControlName="port_name">
+      <mat-option *ngFor="let smsPort of smsPorts.sms_ports" [value]="smsPort.port_name">
+        {{smsPort.port_name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!--<mat-form-field>-->
+  <!--<input matInput placeholder="Last Name" type="text" formControlName="lastname">-->
+  <!--<mat-error style="color: red" *ngIf="periodicMessageEventModalForm.get('lastname').invalid && (periodicMessageEventModalForm.get('lastname').dirty ||-->
+  <!--periodicMessageEventModalForm.get('lastname').touched) && !periodicMessageEventModalForm.get('lastname').errors?.minlength">-->
+  <!--Please insert last name!-->
+  <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option *ngFor="let period of periods" [value]="period.type">
+        {{period.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!--<mat-form-field >-->
+    <!--<mat-label>Group Name</mat-label>-->
+    <!--<mat-select formControlName="team">-->
+      <!--<mat-option *ngFor="let groupName of groupNames.teams.data" [value]="groupName.name">-->
+        <!--{{groupName.name }}-->
+      <!--</mat-option>-->
+    <!--</mat-select>-->
+    <!--<mat-error style="color: red" *ngIf="periodicMessageEventModalForm.get('team').invalid && (periodicMessageEventModalForm.get('team').dirty ||-->
+      <!--periodicMessageEventModalForm.get('team').touched) && !periodicMessageEventModalForm.get('team').errors?.minlength">-->
+      <!--Please select group name!-->
+    <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <!--<mat-form-field>-->
+  <!--<input [matDatepicker]="picker" placeholder="Choose a date" formControlName="start_date">-->
+  <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+  <!--<mat-datepicker #picker></mat-datepicker>-->
+  <!--&lt;!&ndash;<mat-error style="color: red" *ngIf="periodicMessageEventModalForm.get('start_date').invalid && (periodicMessageEventModalForm.get('start_date').dirty ||&ndash;&gt;-->
+  <!--&lt;!&ndash;periodicMessageEventModalForm.get('start_date').touched) && !periodicMessageEventModalForm.get('start_date').errors?.minlength">&ndash;&gt;-->
+  <!--&lt;!&ndash;Please select starting date!&ndash;&gt;-->
+  <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
+  <!--</mat-form-field>-->
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Starting Date" formControlName="start_date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="pickerTo" placeholder="End Date" formControlName="end_date">
+    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <mat-datepicker #pickerTo></mat-datepicker>
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput placeholder="Sent Time" type="text" formControlName="sent_time">
+    <!--<mat-error style="color: red" *ngIf="periodicMessageEventModalForm.get('end_date').invalid && (periodicMessageEventModalForm.get('end_date').dirty ||-->
+    <!--periodicMessageEventModalForm.get('end_date').touched) && !periodicMessageEventModalForm.get('end_date').errors?.minlength">-->
+    <!--Please select end date!-->
+    <!--</mat-error>-->
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Event" type="text" formControlName="event">
+    <!--<mat-error style="color: red" *ngIf="periodicMessageEventModalForm.get('end_date').invalid && (periodicMessageEventModalForm.get('end_date').dirty ||-->
+    <!--periodicMessageEventModalForm.get('end_date').touched) && !periodicMessageEventModalForm.get('end_date').errors?.minlength">-->
+    <!--Please select end date!-->
+    <!--</mat-error>-->
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="write a message " type="text" formControlName="message"></textarea>
+
+  </mat-form-field>
+
+  <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Send Message</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

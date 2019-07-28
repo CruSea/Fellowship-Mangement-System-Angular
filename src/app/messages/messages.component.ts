@@ -15,6 +15,7 @@ export interface PeriodicElement {
     is_sent: string;
     is_delivered: string;
     id: number;
+    sent_by: string;
     created_at?: string;
     // campaign: string;
     sms_port_id: string;
@@ -38,7 +39,7 @@ export class MessagesComponent implements OnInit {
     message: string;
 
 
-    displayedColumns: string[] = ['id', 'message', 'sent_to', 'is_sent', 'is_delivered', 'created_at', 'sms_port_id', 'action'];
+    displayedColumns: string[] = ['id', 'message', 'sent_to', 'sent_by', 'is_sent', 'is_delivered', 'created_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
@@ -108,7 +109,7 @@ export class MessagesComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.sentMessagesService.gets(headers, '/messages')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.messages);
+                this.dataSource = new MatTableDataSource(res.messages.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);

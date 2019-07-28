@@ -8,7 +8,9 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px; left: 15px" mat-raised-button (click)="openCreate()">Add New Group Contact</button>
+<button style="margin-top: 61px; left: 15px" mat-raised-button (click)="openCreate()">
+  <mat-icon>add</mat-icon>
+  Group Contact</button>
 <!--</li>-->
 <!--<li *ngIf="animal">-->
 <!--You chose: <i>{{animal}}</i>-->
@@ -37,8 +39,13 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="created_at">
+    <ng-container matColumnDef="created_by">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created By </th>
+      <td mat-cell *matCellDef="let element"> {{element.created_by.full_name}} </td>
+    </ng-container>
+
+      <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created at </th>
       <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
     </ng-container>
 

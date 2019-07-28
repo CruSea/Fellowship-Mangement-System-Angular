@@ -42,12 +42,30 @@
     </mat-error>
   </mat-form-field>
 
+  <!--<mat-form-field>-->
+    <!--<input matInput placeholder="Fellowship Id" type="text" formControlName="fellowship_id">-->
+    <!--&lt;!&ndash;<mat-error style="color: red" *ngIf="contactsModalForm.get('fellowship_id').invalid && (contactsModalForm.get('fellowship_id').dirty ||&ndash;&gt;-->
+    <!--&lt;!&ndash;contactsModalForm.get('fellowship_id').touched) && !contactsModalForm.get('fellowship_id').errors?.minlength">&ndash;&gt;-->
+    <!--&lt;!&ndash;Please insert phone number!&ndash;&gt;-->
+    <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
+  <!--</mat-form-field>-->
+
   <mat-form-field>
-    <input matInput placeholder="Fellowship Id" type="text" formControlName="fellowship_id">
-    <!--<mat-error style="color: red" *ngIf="contactsModalForm.get('fellowship_id').invalid && (contactsModalForm.get('fellowship_id').dirty ||-->
-    <!--contactsModalForm.get('fellowship_id').touched) && !contactsModalForm.get('fellowship_id').errors?.minlength">-->
-    <!--Please insert phone number!-->
+    <input matInput placeholder="Email" type="text" formControlName="email">
+    <!--<mat-error style="color: red" *ngIf="contactsModalForm.get('email').invalid && (contactsModalForm.get('email').dirty ||-->
+    <!--contactsModalForm.get('email').touched) && !contactsModalForm.get('email').errors?.minlength">-->
+    <!--Please insert email!-->
     <!--</mat-error>-->
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="dp" placeholder="Graduation Year" [formControl]="date">
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker #dp
+                    startView="multi-year"
+                    (yearSelected)="chosenYearHandler($event, dp)"
+                    panelClass="example-month-picker">
+    </mat-datepicker>
   </mat-form-field>
 
   <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->

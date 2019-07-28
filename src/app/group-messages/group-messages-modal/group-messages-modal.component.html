@@ -6,8 +6,8 @@
 <!--<input matInput [(ngModel)]="data.animal">-->
 <!--</mat-form-field>-->
 <!--</div>-->
-
-<form [formGroup]="groupmessagesModalForm" (ngSubmit)="groupmessagesModal(groupmessagesModalForm.value)" *ngIf="smsPorts; groupNames" >
+<mat-spinner style="margin: 0 auto" *ngIf="!groupName && !smsPorts"></mat-spinner>
+<form [formGroup]="groupmessagesModalForm" (ngSubmit)="groupmessagesModal(groupmessagesModalForm.value)" *ngIf="smsPorts && groupNames" >
 
   <mat-form-field>
     <mat-label>Port Name</mat-label>
@@ -33,7 +33,7 @@
   <mat-form-field >
       <mat-label>Group Name</mat-label>
       <mat-select formControlName="team">
-        <mat-option *ngFor="let groupName of groupNames.teams" [value]="groupName.name">
+        <mat-option *ngFor="let groupName of groupNames.teams.data" [value]="groupName.name">
           {{groupName.name }}
         </mat-option>
       </mat-select>

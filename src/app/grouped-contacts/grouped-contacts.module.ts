@@ -12,6 +12,7 @@ import { ImportGroupedContactsComponent } from './import-grouped-contacts/import
 import { ContactService } from '../services/contact/contact.service';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { UpdateGroupedContactsComponent } from './update-grouped-contacts/update-grouped-contacts.component';
+import { AssignMembersComponent } from './assign-members/assign-members.component';
 // import { UpdateGroupedContactsComponent } from './update-grouped-contacts/update-grouped-contacts.component';
 
 @NgModule({
@@ -23,8 +24,8 @@ import { UpdateGroupedContactsComponent } from './update-grouped-contacts/update
       ReactiveFormsModule,
       GroupedContactsRoutingModule
   ],
-  declarations: [GroupedContactsComponent, GroupedContactsModalComponent, ImportGroupedContactsComponent, UpdateGroupedContactsComponent],
+  declarations: [GroupedContactsComponent, GroupedContactsModalComponent, ImportGroupedContactsComponent, AssignMembersComponent, UpdateGroupedContactsComponent, AssignMembersComponent],
     providers: [StorageService, TeamService, GroupedContactsService, ContactService],
-    entryComponents: [GroupedContactsModalComponent, UpdateGroupedContactsComponent]
+    entryComponents: [GroupedContactsModalComponent, UpdateGroupedContactsComponent, AssignMembersComponent]
 })
 export class GroupedContactsModule { }

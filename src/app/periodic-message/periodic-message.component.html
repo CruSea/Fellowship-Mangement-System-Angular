@@ -8,7 +8,12 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">new periodic message</button>
+<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">
+  <mat-icon>add</mat-icon>
+  periodic message for Group</button>
+<button style="margin-top: 61px; left: 30px; " mat-raised-button (click)="periodicContacts()">Periodic message for Contact</button>
+<button style="margin-top: 61px; left: 45px; " mat-raised-button (click)="periodicEvent()">Periodic message for Event</button>
+
 <!--<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>-->
 <!--</li>-->
 <!--<li *ngIf="animal">-->
@@ -25,32 +30,32 @@
   <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="periodic_message">
+    <ng-container matColumnDef="message">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Message </th>
-      <td mat-cell *matCellDef="let element"> {{element.periodic_message}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.message}} </td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="port_name">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Port Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.port_name}} </td>
+    <ng-container matColumnDef="sent_to">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Sent To </th>
+      <td mat-cell *matCellDef="let element"> {{element.sent_to}} </td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Type</th>
-      <td mat-cell *matCellDef="let element"> {{element.type }}</td>
-    </ng-container>
+    <!--<ng-container matColumnDef="type">-->
+      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold">Type</th>-->
+      <!--<td mat-cell *matCellDef="let element"> {{element.type }}</td>-->
+    <!--</ng-container>-->
 
     <ng-container matColumnDef="start_date">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Start Date</th>
-      <td mat-cell *matCellDef="let element"> {{element.start_date}}</td>
+      <td mat-cell *matCellDef="let element"> {{element.start_date | date :'fullDate'}}</td>
     </ng-container>
 
     <!--Weight Column -->
@@ -62,12 +67,27 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="end_date">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> End Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.end_date}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.end_date | date :'fullDate'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="sent_time">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Sent Time </th>
       <td mat-cell *matCellDef="let element"> {{element.sent_time}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="team_id">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Team Id </th>
+      <td mat-cell *matCellDef="let element"> {{element.team_id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Created At </th>
+      <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="updated_at">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Updated At </th>
+      <td mat-cell *matCellDef="let element"> {{element.updated_at | date :'fullDate'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="action">

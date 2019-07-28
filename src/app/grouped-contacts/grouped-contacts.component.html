@@ -6,7 +6,7 @@
     <!--</section>-->
   <!--</mat-card>-->
 
-
+<mat-spinner style="margin: 20%auto" *ngIf="!team_detail"></mat-spinner>
   <mat-card style=" margin: 10% 5% 0 5%; height: 50%" *ngIf="team_detail">
     <section>
       <h1 style="font-size: 20px; font-weight: bold" >{{team_detail.team.name}}</h1>
@@ -17,6 +17,7 @@
       <mat-icon>reply</mat-icon>Back to Groups</button><br>
     <button style="margin-top: 1%; margin-bottom: 2%; left: 3%; " class="btn btn-danger btn-round" (click)="openCreate()">Add New contact</button>
     <button class="btn btn-primary btn-round" mat-button color="primary" style="margin-top: 1%; margin-bottom: 2%; left: 6%"  (click)="openImportContact()"> Import Contact  </button>
+    <button style="margin-top: 1%; margin-bottom: 2%; left: 8%; " class="btn btn-danger btn-round" (click)="assign()">Assign Members</button>
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
     </mat-form-field>
@@ -24,63 +25,68 @@
     <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
       <!-- Position Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Id </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
-
-      <!-- Name Column -->
       <ng-container matColumnDef="full_name">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Full Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.full_name}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="gender">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Gender </th>
-        <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Full Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.data[0].full_name}} </td>
       </ng-container>
 
       <!-- Name Column -->
+      <ng-container matColumnDef="gender">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Gender </th>
+        <td mat-cell *matCellDef="let element"> {{element.data[0].gender}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="phone">
         <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Phone </th>
-        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.data[0].phone}} </td>
       </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Email </th>
+        <td mat-cell *matCellDef="let element"> {{element.data[0].email}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <!--<ng-container matColumnDef="phone">-->
+        <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold">Phone </th>-->
+        <!--<td mat-cell *matCellDef="let element"> {{element.phone}} </td>-->
+      <!--</ng-container>-->
 
       <ng-container matColumnDef="Acadamic_department">
         <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Academic Department </th>
-        <td mat-cell *matCellDef="let element"> {{element.Acadamic_department}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.data[0].Acadamic_department}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="fellowship_id">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Fellowship Id </th>
-        <td mat-cell *matCellDef="let element"> {{element.fellowship_id}} </td>
+      <ng-container matColumnDef="graduation_year">
+        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Graduation Year </th>
+        <td mat-cell *matCellDef="let element"> {{element.data[0].graduation_year}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="created_at">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created At </th>
-        <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
-      </ng-container>
+      <!--<ng-container matColumnDef="created_at">-->
+        <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created At </th>-->
+        <!--<td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>-->
+      <!--</ng-container>-->
 
 
-      <!-- Weight Column -->
-      <ng-container matColumnDef="updated_at">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated At </th>
-        <td mat-cell *matCellDef="let element"> {{element.updated_at | date :'fullDate'}} </td>
-      </ng-container>
+      <!--&lt;!&ndash; Weight Column &ndash;&gt;-->
+      <!--<ng-container matColumnDef="updated_at">-->
+        <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated At </th>-->
+        <!--<td mat-cell *matCellDef="let element"> {{element.updated_at | date :'fullDate'}} </td>-->
+      <!--</ng-container>-->
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
         <td mat-cell *matCellDef="let element">
-          <!--<button mat-button="">-->
-            <!--<mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon>-->
-          <!--</button>-->
+          <button mat-button="">
+            <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon>
+          </button>
           <button mat-button=""
                   mwlConfirmationPopover
                   [popoverTitle]="'Confirm Deletion'"
                   [popoverMessage]="'Are you sure you want to delete this contact'"
                   placement="left"
-                  (confirm)="deleteGroupedContact(element.id)"
+                  (confirm)="deleteGroupedContact(element.data[0].id)"
                   (cancel)="cancelClicked = true"
           >
 

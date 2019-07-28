@@ -6,7 +6,7 @@
     <!--<input matInput [(ngModel)]="data.animal">-->
   <!--</mat-form-field>-->
 <!--</div>-->
-<mat-spinner style="margin: 0 auto;" *ngIf="!groupNames"></mat-spinner>
+<mat-spinner style="margin: 20% auto" *ngIf="!groupNames"></mat-spinner>
 <form [formGroup]="contactsModalForm" (ngSubmit)="contactsModal(contactsModalForm.value)" *ngIf="groupNames">
 
   <mat-form-field>
@@ -45,7 +45,7 @@
   <mat-form-field >
     <mat-label>Group Name</mat-label>
     <mat-select formControlName="team">
-      <mat-option *ngFor="let groupName of groupNames.teams" [value]="groupName.name">
+      <mat-option *ngFor="let groupName of groupNames.teams.data" [value]="groupName.name">
         {{groupName.name }}
       </mat-option>
     </mat-select>

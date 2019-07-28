@@ -4,22 +4,19 @@ import { StorageService } from '../services/storage.service';
 import { PeriodicMessageService } from '../services/periodic-message/periodic-message.service';
 import { PeriodicMessageModalComponent } from './periodic-message-modal/periodic-message-modal.component';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { PeriodicMessageContactsModalComponent } from './periodic-message-contacts-modal/periodic-message-contacts-modal.component';
+import { PeriodicMessageEventModalComponent } from './periodic-message-event-modal/periodic-message-event-modal.component';
 
 export interface PeriodicElement {
     position: number;
     port_name: string;
-    type: string;
+    // type: string;
     start_date: string;
     end_date: string;
     sent_time: string;
     periodic_message: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, port_name: 'sms-port', type: 'weekly', start_date: '12/4/2012', end_date: '3/6/2012', sent_time: '8:00', periodic_message: 'Today is BS day'},
-    {position: 2, port_name: 'sms-port', type: 'daily', start_date: '12/4/2012', end_date: '3/6/2012', sent_time: '12:00', periodic_message: 'Today is BS day'},
-    {position: 3, port_name: 'sms-port', type: 'weekly', start_date: '12/4/2012', end_date: '3/6/2012', sent_time: '9:00', periodic_message: 'Today is BS day'},
-];
 
 @Component({
   selector: 'app-periodic-message',
@@ -31,8 +28,10 @@ export class PeriodicMessageComponent implements OnInit {
   animal: string;
   message: string;
 
-  displayedColumns: string[] = ['position', 'port_name', 'type', 'start_date', 'end_date', 'sent_time', 'periodic_message', 'action'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['id', 'sent_to', 'start_date', 'end_date', 'team_id', 'sent_time', 'message',
+       'created_at', 'updated_at', 'action'];
+    // dataSource = new MatTableDataSource(ELEMENT_DATA);
+    dataSource: any;
 
 
     constructor(
@@ -43,6 +42,32 @@ export class PeriodicMessageComponent implements OnInit {
 
     openCreate(): void {
         const dialogRef = this.matDialog.open(PeriodicMessageModalComponent, {
+            width: '500px',
+            data: {message: this.message, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.periodicMessage();
+            this.animal = result;
+        });
+    }
+
+    periodicContacts(): void {
+        const dialogRef = this.matDialog.open(PeriodicMessageContactsModalComponent, {
+            width: '500px',
+            data: {message: this.message, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.periodicMessage();
+            this.animal = result;
+        });
+    }
+
+    periodicEvent(): void {
+        const dialogRef = this.matDialog.open(PeriodicMessageEventModalComponent, {
             width: '500px',
             data: {message: this.message, animal: this.animal}
         });
@@ -70,9 +95,9 @@ export class PeriodicMessageComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.periodicMessageService.gets(headers, '/')
+        return this.periodicMessageService.gets(headers, '/scheduled-messages')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.messages);
+                this.dataSource = new MatTableDataSource(res.scheduled_messages.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
@@ -88,7 +113,7 @@ export class PeriodicMessageComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.periodicMessageService.delete(`/${id}`, headers)
+        return this.periodicMessageService.delete(`/scheduled-messages${id}`, headers)
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
                 this.periodicMessage();
