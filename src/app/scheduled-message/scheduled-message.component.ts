@@ -7,19 +7,14 @@ import { ScheduledMessageModalComponent } from './scheduled-message-modal/schedu
 
 
 export interface PeriodicElement {
-  position: number,
-  port_name: string;
-  date: string;
-  time: string;
-  scheduled_message: string
+    id: number,
+  // port_name: string;
+  sent_by: string;
+  // sent_to: string;
+  send_date: string;
+  send_time: string;
+  message: string
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-    {position: 1, port_name: 'sms-port', date: '12/6/2020', time: '12:30 am', scheduled_message: 'This is to remind you tomorrows program'},
-    {position: 3, port_name: 'fellow-port', date: '3/8/2018', time: '12:30 am', scheduled_message: 'This is to remind you tomorrows program'},
-    {position: 2, port_name: 'sms-port', date: '12/6/2019', time: '12:30 am', scheduled_message: 'Today is Worship day'}
-
-];
 
 @Component({
   selector: 'app-scheduled-message',
@@ -30,9 +25,10 @@ export class ScheduledMessageComponent implements OnInit {
 
   animal: string;
   message: string;
+  loading: boolean;
 
-  displayedColumns: string[] = ['position', 'port_name', 'date', 'time', 'scheduled_message', 'action'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+  displayedColumns: string[] = ['id', 'sent_by', 'sent_to', 'send_date', 'send_time', 'message', 'action'];
+    dataSource: any;
 
   constructor(
       private matDialog: MatDialog,
@@ -62,6 +58,7 @@ export class ScheduledMessageComponent implements OnInit {
     }
 
     scheduledMessage() {
+      this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -69,11 +66,13 @@ export class ScheduledMessageComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.scheduledMessageService.gets(headers, '/')
+        return this.scheduledMessageService.gets(headers, '/alarm-messages')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.messages);
+                this.loading = false;
+                this.dataSource = new MatTableDataSource(res.scheduled_messages.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

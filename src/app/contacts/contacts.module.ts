@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ContactService } from '../services/contact/contact.service';
 import { StorageService } from '../services/storage.service';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
       FormsModule,
       MaterialsModule,
       HttpClientModule,
+      NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       ConfirmationPopoverModule,
       ReactiveFormsModule,
       ContactsRoutingModule,

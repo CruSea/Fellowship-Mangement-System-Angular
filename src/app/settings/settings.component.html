@@ -1,24 +1,27 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
+
 <div style="width: 50%; margin: 10% auto">
     <div class="card card-profile">
         <div class="card-body">
             <h4 class="card-title" style="font-weight: bold">API KEY</h4>
             <mat-list>
                 <form [formGroup]="settingForm" (ngSubmit)="save(settingForm.value)">
-                    <mat-form-field>
-                        <input matInput placeholder="API Name" type="text" formControlName="name">
-                        <mat-error style="color: red" *ngIf="settingForm.get('name').invalid &&
-                        settingForm.get('name').errors?.minlength">
-                            Please insert api name!
-                        </mat-error>
-                    </mat-form-field>
+                    <!--<mat-form-field>-->
+                        <!--<input matInput placeholder="API Name" type="text" formControlName="name">-->
+                        <!--<mat-error style="color: red" *ngIf="settingForm.get('name').invalid &&-->
+                        <!--settingForm.get('name').errors?.minlength">-->
+                            <!--Please insert api name!-->
+                        <!--</mat-error>-->
+                    <!--</mat-form-field>-->
 
                     <mat-form-field>
-                        <input matInput placeholder="API Value" type="text" formControlName="value">
+                        <input matInput placeholder="API Value" type="text" formControlName="value" [type]="hide ? 'text' : 'text'">
                         <mat-error style="color: red" *ngIf="settingForm.get('value').invalid">
                             Please insert api value!
                         </mat-error>
                     </mat-form-field>
-                    <button style="color: white; width: 100%" type="submit"  class="btn btn-success btn-round">Save</button>
+                    <button style="color: white; width: 100%" type="submit"
+                            class="btn btn-success btn-round" >  {{hide ? 'Save' : 'Update'}}</button>
                 </form>
             </mat-list>
         </div>

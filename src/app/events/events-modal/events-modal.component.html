@@ -10,9 +10,9 @@
 <form [formGroup]="eventsModalForm" (ngSubmit)="eventsModal(eventsModalForm.value)">
 
   <mat-form-field>
-    <input matInput placeholder="Events Name" type="text" formControlName="events_name">
-    <mat-error style="color: red" *ngIf="eventsModalForm.get('events_name').invalid && (eventsModalForm.get('events_name').dirty ||
-      eventsModalForm.get('events_name').touched) && eventsModalForm.get('events_name').errors?.required">
+    <input matInput placeholder="Events Name" type="text" formControlName="event_name">
+    <mat-error style="color: red" *ngIf="eventsModalForm.get('event_name').invalid && (eventsModalForm.get('event_name').dirty ||
+      eventsModalForm.get('event_name').touched) && eventsModalForm.get('event_name').errors?.required">
       Please insert event name!
     </mat-error>
   </mat-form-field>
@@ -27,7 +27,7 @@
   <!--</mat-form-field>-->
 
   <mat-form-field>
-    <textarea matInput placeholder="Enter Event Description " type="text" formControlName="description"></textarea>
+    <textarea matInput placeholder="Enter Event Description " type="text" formControlName="event_description"></textarea>
     <!--<mat-error style="color: red" *ngIf="contactsModalForm.get('description').invalid && (contactsModalForm.get('description').dirty ||-->
       <!--contactsModalForm.get('description').touched) && !contactsModalForm.get('description').errors?.minlength">-->
       <!--Please insert phone number!-->

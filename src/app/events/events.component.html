@@ -1,4 +1,5 @@
-<p style="font-weight: bolder; font-size: x-large"> Events List </p>
+<p style="font-weight: bolder; font-size: x-large; margin-top: 61px; margin-left: 20px"> EVENTS LIST </p>
+
 <!--<ol>-->
 <!--<li>-->
 <!--<mat-form-field>-->
@@ -8,10 +9,18 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px; left: 15px" mat-raised-button (click)="openCreate()">
-  <mat-icon>add</mat-icon>
-  New Event</button>
-<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>
+<div style="margin-top: 30px; left: 30px ;display: flex; flex-flow: row">
+  <button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()">
+    <mat-icon>add</mat-icon>
+    New Event</button>
+
+  <button mat-raised-button style="height: 40px; left: 50px" (click)="openCreate()">
+    <mat-icon>send</mat-icon>
+    Send Registration message</button>
+  <mat-form-field class="col-md-4"  style="left: 100px; margin-bottom: 10px">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+</div>
 <!--<button mat-button color="" style="margin-top: 61px; left: 70px" mat-raised-button="" >-->
 <!--<mat-icon style="color: red;" mat-raised-button-->
 <!--(click)="refresh()"></mat-icon>-->
@@ -22,24 +31,23 @@
 <!--</li>-->
 <!--&lt;!&ndash;</ol>&ndash;&gt;-->
 <!--</div>-->
-
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
 <div class="container">
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-  </mat-form-field>
 
   <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Position </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="events_name">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Events Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.events_name }} </td>
+    <ng-container matColumnDef="event_name">
+      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Event Name </th>
+      <td mat-cell *matCellDef="let element">
+        <a routerLink="/events/{{element.id}}">{{element.event_name | uppercase}}</a>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="description">
@@ -50,7 +58,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="created_by">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Created By </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_by}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.created_by.full_name}} </td>
     </ng-container>
 
     <!--<ng-container matColumnDef="Acadamic_department">-->
@@ -61,13 +69,13 @@
     <!-- Weight Column -->
     <ng-container matColumnDef="created_at">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created At </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_at }} </td>
+      <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate' }} </td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="updated_at">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated At </th>
-      <td mat-cell *matCellDef="let element"> {{element.updated_at}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.updated_at | date :'fullDate'}} </td>
     </ng-container>
 
     <!-- Symbol Column -->

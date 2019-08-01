@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatPaginator, MatTableDataSource } from '@angular/material';
 import { ContactsModalComponent, ContactsModalInterface } from './contacts-modal/contacts-modal.component';
 import { UpdateContactComponent, UpdateContactInterface } from './update-contact/update-contact.component';
 import { ImportContactComponent } from './import-contact/import-contact.component';
@@ -24,12 +24,6 @@ export interface PeriodicElement {
     action?: string
 }
 
-const ELEMENT_DATA: any[] = [
-//     {id: 1, full_name: 'Yitages Berhanu', gender: 'male', phone: '0912342421', Academic_department: 'Computer Engineering', fellowship_id: '245', created_at: '12/4/2008', updated_at: '5/3/2011'},
-//     {id: 2, full_name: 'Meheret Tesfaye', gender: 'male', phone: '0911374382', Academic_department: 'Computer Science', fellowship_id: '825', created_at: '8/2/2009', updated_at: '5/3/2011'},
-//     {id: 3, full_name: 'Tsion Shimeles', gender: 'female', phone: '0916454563', Academic_department: 'Architecture', fellowship_id: '148', created_at: '23/6/2011', updated_at: '5/3/2011'},
-];
-
 @Component({
   selector: 'app-contacts',
   templateUrl: './contacts.component.html',
@@ -39,6 +33,16 @@ export class ContactsComponent implements OnInit {
 
     animal: string;
     firstname: string;
+    loading: boolean;
+
+    current_page: string;
+    _form: string;
+    last_page: string;
+    next_page_url: string;
+    per_page: string;
+    prev_page_url: string;
+    _to: string;
+    total: string;
 
 
     displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'email', 'Acadamic_department', 'graduation_year', 'status', 'updated_at', 'action'];
@@ -53,13 +57,16 @@ export class ContactsComponent implements OnInit {
   ) { }
 
     openCreate(): void {
+        // this.loading = true;
         const dialogRef = this.matDialog.open(ContactsModalComponent, {
             width: '500px',
             data: {firstname: this.firstname, animal: this.animal}
         });
 
         dialogRef.afterClosed().subscribe(result => {
+            // this.loading = false;
             console.log('The dialog was closed');
+            // this.loading = false;
             this.collectionOfcon();
             this.animal = result;
         });
@@ -96,7 +103,7 @@ export class ContactsComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.collectionOfcon()
+      this.collectionOfcon();
   }
 
 
@@ -105,6 +112,7 @@ export class ContactsComponent implements OnInit {
     }
 
     collectionOfcon() {
+        this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -114,9 +122,11 @@ export class ContactsComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.contactService.gets(headers, '/contacts')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.contacts);
+                this.loading = false;
+                this.dataSource = new MatTableDataSource(res.contacts.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

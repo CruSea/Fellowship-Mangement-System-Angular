@@ -8,20 +8,14 @@ import { EventsModalComponent } from './events-modal/events-modal.component';
 
 
 export interface PeriodicElement {
-  position?: number;
-  events_name: string;
+  id: number;
+  event_name: string;
   description: string;
   created_by: string;
   created_at: string;
   updated_at: string;
   action: string
 }
-
-const ELEMENT_DATA: any[] = [
-    {position: 1, events_name: 'Charity Day', description: 'Charity is an event for all fellow members', created_by: 'yitages berhanu', created_at: '11/5/2010', updated_at: '5/6/2011'},
-    {position: 2, events_name: 'Out-reach', description: 'Out-reach is an event for all fellow members', created_by: 'Eyosiyas desta', created_at: '11/5/2010', updated_at: '5/6/2011'},
-    {position: 3, events_name: 'Worship Concert', description: 'Worship concert is an event hosted by worship and choire teams', created_by: 'yitages berhanu', created_at: '11/5/2010', updated_at: '5/6/2011'},
-];
 
 @Component({
   selector: 'app-events',
@@ -32,9 +26,10 @@ export class EventsComponent implements OnInit {
 
     animal: string;
     eventname: string;
+    loading: boolean;
 
-    displayedColumns: string[] = ['position', 'events_name', 'description', 'created_by', 'created_at', 'updated_at', 'action'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+    displayedColumns: string[] = ['id', 'event_name', 'description', 'created_by', 'created_at', 'updated_at', 'action'];
+    dataSource: any;
 
   constructor(
       private matDialog: MatDialog,
@@ -94,6 +89,7 @@ export class EventsComponent implements OnInit {
     }
 
     collectionOfevents() {
+        this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -101,11 +97,13 @@ export class EventsComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.eventsService.gets(headers, '/contacts')
+        return this.eventsService.gets(headers, '/events')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+                this.loading = false;
+                this.dataSource = new MatTableDataSource(res.events.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

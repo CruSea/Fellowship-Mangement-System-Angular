@@ -8,6 +8,7 @@ import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { UserProfileComponent } from './user-profile.component';
 import { UserProfileService } from '../services/user-profile/user-profile.service';
 import { StorageService } from '../services/storage.service';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { StorageService } from '../services/storage.service';
       FormsModule,
       ReactiveFormsModule,
       MaterialsModule,
+      NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       HttpClientModule,
       SweetAlert2Module,
       UserProfileRoutingModule

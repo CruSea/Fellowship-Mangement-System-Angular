@@ -18,6 +18,7 @@ export class AppComponent {
     @HostListener('window:resize', ['$event'])
     getScreenSize(event?) {
         this.screenHeight = window.innerHeight.toString() + 'px';
-        this.screenWidth = window.innerWidth.toString() + 'px';
+        this.screenWidth = '100%';
+        // this.screenWidth = window.innerWidth.toString() + 'px';
     }
 }

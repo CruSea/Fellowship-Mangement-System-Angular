@@ -9,11 +9,13 @@ import { GroupMessagesModalComponent } from './group-messages-modal/group-messag
 import { GroupedMessageService } from '../services/group_message/grouped-message.service';
 import { StorageService } from '../services/storage.service';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         MaterialsModule,
+        NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
         ConfirmationPopoverModule,
         ReactiveFormsModule,
         GroupMessagesRoutingModule,

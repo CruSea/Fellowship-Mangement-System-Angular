@@ -44,19 +44,33 @@
                         <a class="dropdown-item" href="#">Another One</a>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/login">
-                        <div class = "nav-item">
-                            <i class="material-icons">person</i>
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" routerLink="/login">-->
+                        <!--<div class = "nav-item">-->
+                            <!--<i class="material-icons">person</i>-->
 
-                        </div>
+                        <!--</div>-->
+                        <!--<p>-->
+                            <!--<span class="d-lg-none d-md-block">Account</span>-->
+                        <!--</p>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<button mat-button (click)="logout()">Logout</button>-->
+                <!--</li>-->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" id="userDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="material-icons" style="cursor: pointer">person</i>
+                        <!--<span class="notification">5</span>-->
                         <p>
-                            <span class="d-lg-none d-md-block">Account</span>
+                            <span class="d-lg-none d-md-block">Some Actions</span>
                         </p>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <button mat-button (click)="logout()">Logout</button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdownMenuLink">
+                        <a class="dropdown-item" routerLink="/users">My Profile</a>
+                        <a class="dropdown-item" routerLink="/user-profile">Setting</a>
+                        <a class="dropdown-item" routerLink="/" (click)="logout()">Logout</a>
+                    </div>
                 </li>
             </ul>
         </div>

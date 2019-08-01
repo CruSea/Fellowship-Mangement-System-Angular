@@ -12,12 +12,14 @@ import { ScheduledMessageRoutingModule } from './scheduled-message-routing.modul
 import { ScheduledMessageService } from '../services/scheduled-message/scheduled-message.service';
 import { StorageService } from '../services/storage.service';
 import { SmsPortService } from '../services/sms-port/sms-port.service';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   imports: [
     CommonModule,
       FormsModule,
       NgPipesModule,
+      NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       MaterialsModule,
       ConfirmationPopoverModule,
       HttpClientModule,

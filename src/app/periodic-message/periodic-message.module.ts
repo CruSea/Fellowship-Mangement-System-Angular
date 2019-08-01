@@ -14,6 +14,7 @@ import { SmsPortService } from '../services/sms-port/sms-port.service';
 import { PeriodicMessageEventModalComponent } from './periodic-message-event-modal/periodic-message-event-modal.component';
 import { PeriodicMessageContactsModalComponent } from './periodic-message-contacts-modal/periodic-message-contacts-modal.component';
 import { PeriodicMessageFellowModalComponent } from './periodic-message-fellow-modal/periodic-message-fellow-modal.component';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { PeriodicMessageFellowModalComponent } from './periodic-message-fellow-m
       FormsModule,
       NgPipesModule,
       MaterialsModule,
+      NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       ConfirmationPopoverModule,
       ReactiveFormsModule,
       Ng2SmartTableModule,

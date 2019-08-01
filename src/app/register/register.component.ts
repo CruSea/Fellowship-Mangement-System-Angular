@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
 
     su = false;
     un = false;
+    hide = true;
 
     registerForm: any;
     // universities: UniversityInterface[] = [

@@ -1,4 +1,5 @@
-<p style="font-weight: bolder; font-size: x-large"> Group Messages </p>
+<p style="font-weight: bolder; font-size: x-large; margin-top: 61px; margin-left: 20px"> GROUP MESSAGES </p>
+
 <!--<ol>-->
 <!--<li>-->
 <!--<mat-form-field>-->
@@ -8,9 +9,15 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">
-  <mat-icon>add</mat-icon>
-  Group Message</button>
+<div style="margin-top: 30px; left: 30px ;display: flex; flex-flow: row">
+  <button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()">
+    <mat-icon>add</mat-icon>
+    New Group Message
+  </button>
+  <mat-form-field class="col-md-4"  style="left: 100px; margin-bottom: 10px">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+</div>
 <!--<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>-->
 <!--</li>-->
 <!--<li *ngIf="animal">-->
@@ -18,11 +25,8 @@
 <!--</li>-->
 <!--&lt;!&ndash;</ol>&ndash;&gt;-->
 <!--</div>-->
-
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
 <div class="container">
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-  </mat-form-field>
 
   <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

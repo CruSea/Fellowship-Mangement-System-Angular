@@ -6,8 +6,8 @@
 <!--<input matInput [(ngModel)]="data.animal">-->
 <!--</mat-form-field>-->
 <!--</div>-->
-<mat-spinner style="margin: 0 auto" *ngIf="!smsPorts"></mat-spinner>
-<form [formGroup]="scheduledMessageModalForm" (ngSubmit)="scheduledmessageModal(scheduledMessageModalForm.value)" *ngIf="smsPorts">
+<mat-spinner style="margin: 0 auto" *ngIf="!smsPorts && !groupNames"></mat-spinner>
+<form [formGroup]="scheduledMessageModalForm" (ngSubmit)="scheduledmessageModal(scheduledMessageModalForm.value)" *ngIf="smsPorts && groupNames">
 
   <!--<mat-form-field>-->
   <!--<input matInput placeholder="Port Name" type="text" formControlName="port_name">-->
@@ -24,6 +24,20 @@
         {{smsPort.port_name }}
       </mat-option>
     </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field >
+    <mat-label>Group Name</mat-label>
+    <mat-select formControlName="team">
+      <mat-option *ngFor="let groupName of groupNames.teams.data" [value]="groupName.name">
+        {{groupName.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error style="color: red" *ngIf="scheduledMessageModalForm.get('team').invalid && (scheduledMessageModalForm.get('team').dirty ||
+      scheduledMessageModalForm.get('team').touched) && !scheduledMessageModalForm.get('team').errors?.minlength">
+      Please select group name!
+    </mat-error>
   </mat-form-field>
 
   <!--<mat-form-field>-->
@@ -45,17 +59,18 @@
   <!--</mat-form-field>-->
 
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Date"  >
+    <input matInput [matDatepicker]="picker" formControlName="send_date" placeholder="Send Date"  >
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <!--<mat-form-field>-->
-    <!--<div class="md-form">-->
-      <!--<input type="time" id="input" formControlName="time" class="form-control" value="13:00" mdbInput>-->
-      <!--<label for="input">Choose your time</label>-->
-    <!--</div>-->
-  <!--</mat-form-field>-->
+  <mat-form-field>
+    <input matInput placeholder="Sent Time" type="text" formControlName="sent_time">
+    <!--<mat-error style="color: red" *ngIf="periodicMessageModalForm.get('end_date').invalid && (periodicMessageModalForm.get('end_date').dirty ||-->
+    <!--periodicMessageModalForm.get('end_date').touched) && !periodicMessageModalForm.get('end_date').errors?.minlength">-->
+    <!--Please select end date!-->
+    <!--</mat-error>-->
+  </mat-form-field>
 
 
   <!--<mat-form-field>-->

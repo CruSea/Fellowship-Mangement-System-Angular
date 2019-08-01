@@ -5,11 +5,13 @@ import { SmsPortService } from '../../services/sms-port/sms-port.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ScheduledMessageService } from '../../services/scheduled-message/scheduled-message.service';
+import * as moment from 'moment';
 
 interface ScheduledMessageModalInterface {
     port_name: string;
-    date: string;
-    time: string;
+    send_date: string;
+    sent_time: string;
+    team: string;
     message: string
 }
 
@@ -27,6 +29,7 @@ export class ScheduledMessageModalComponent implements OnInit {
 
   scheduledMessageModalForm: any;
   smsPorts: any;
+  groupNames: any;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -43,15 +46,18 @@ export class ScheduledMessageModalComponent implements OnInit {
     ngOnInit(): void {
         this.scheduledMessageModalForm = this.formBuilder.group({
             port_name: [null, [Validators.required]],
-            date: [null, [Validators.required]],
-            time: [null, [Validators.required]],
+            send_date: [null, [Validators.required]],
+            sent_time: [null, [Validators.required]],
+            team: [null, [Validators.required]],
             message: [null, [Validators.required]]
         });
-        this.getSmsPorts()
+        this.getSmsPorts();
+        this.getGroupName();
     }
 
     scheduledmessageModal(scheduledMessageModalInterface: ScheduledMessageModalInterface) {
-        scheduledMessageModalInterface['date'] = scheduledMessageModalInterface.date.toString();
+        scheduledMessageModalInterface['send_date'] =
+            moment(scheduledMessageModalInterface.send_date).format('YYYY-MM-DD').toString();
         console.log(scheduledMessageModalInterface);
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
@@ -60,7 +66,7 @@ export class ScheduledMessageModalComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.scheduledMessageService.create(scheduledMessageModalInterface, headers, '/message')
+        return this.scheduledMessageService.create(scheduledMessageModalInterface, headers, '/alarm-message/team')
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
                 this.dialogRef.close();
@@ -83,6 +89,24 @@ export class ScheduledMessageModalComponent implements OnInit {
             .subscribe((res: any) => {
                 console.log(res);
                 this.smsPorts = res
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    getGroupName() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.scheduledMessageService.gets(headers, '/teams')
+            .subscribe((res: any) => {
+                console.log(res);
+                this.groupNames = res
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);

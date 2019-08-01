@@ -6,7 +6,7 @@ import { StorageService } from '../services/storage.service';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 interface SettingInterface {
-    name: string;
+    // name: string;
     value: string;
 }
 
@@ -19,6 +19,7 @@ export class SettingsComponent implements OnInit {
 
 
   settingForm: any;
+  loading: boolean;
 
   constructor(
       private httpClient: HttpClient,
@@ -28,14 +29,16 @@ export class SettingsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+      this.getSetting();
       this.settingForm = this.formBuilder.group({
-          name: [null, [Validators.required]],
+          // name: [null, [Validators.required]],
           value: [null, [Validators.required]]
       });
   }
 
 
   save(settingInterface: SettingInterface) {
+      this.loading = true;
       console.log(settingInterface);
       const headers = new HttpHeaders()
           .append('Access-Control-Allow-Origin', '*')
@@ -44,10 +47,34 @@ export class SettingsComponent implements OnInit {
           .append('Access-Control-Allow-Headers', 'Content-Type')
           .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
       this.settingService.create(settingInterface, headers, '/setting').subscribe((res: any) => {
+          this.loading = false;
           console.log(res);
       }, (err: HttpErrorResponse) => {
+          this.loading = false;
           console.log(err);
       })
   }
+
+    getSetting() {
+        this.loading = true;
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.settingService.gets(headers, '/settings')
+            .subscribe((res: any) => {
+                this.loading = false;
+                console.log(res);
+                this.settingForm.get('value').setValue(res.settings[0].value);
+                // this.fellowshipForm.get('university_city').setValue(res.fellowship.university_city);
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
 
 }

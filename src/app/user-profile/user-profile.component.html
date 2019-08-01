@@ -1,3 +1,5 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
+
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
@@ -7,12 +9,13 @@
                         <h4 class="card-title">Edit Fellowship</h4>
                         <p class="card-category">Update Fellowship Information</p>
                     </div>
+
                     <div class="card-body">
-                        <form>
+                        <form [formGroup]="fellowshipForm" (ngSubmit)="submit(fellowshipForm.value)">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="University Name">
+                                        <input formControlName="university_name" matInput placeholder="University Name">
                                     </mat-form-field>
                                 </div>
                                 <!--<div class="col-md-3">-->
@@ -29,14 +32,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="University Place" type="text">
+                                        <input formControlName="university_city" matInput placeholder="University City" type="text">
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <mat-form-field class="example-full-width">
-                                        <input matInput placeholder="Specific Place" type="text">
+                                        <input formControlName="specific_place" matInput placeholder="Specific Place" type="text">
                                     </mat-form-field>
                                 </div>
                                 <!--<div class="col-md-4">-->

@@ -6,7 +6,11 @@ const routes: Routes = [
   {
     path: '',
     component: PostGraduatesGroupsComponent
-  }
+  },
+    {
+        path: ':post_graduates_groups_id',
+        loadChildren: '../post-graduates-groups-detail/post-graduates-groups-detail.module#PostGraduatesGroupsDetailModule'
+    }
 ];
 
 @NgModule({

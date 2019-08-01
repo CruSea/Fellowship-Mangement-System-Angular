@@ -56,23 +56,51 @@
   </div>
     <ul class="nav">
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <a class="nav-link" *ngIf="menuItem.title === 'Contacts'" style="cursor: pointer ">
-                <i class="material-icons">{{menuItem.icon}}</i>
-                <p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Contacts'">{{menuItem.title}}</p>
-                <mat-menu #menu="matMenu" style="width: 100%">
-                    <a mat-menu-item routerLink="/contacts">Contacts List</a>
-                    <a mat-menu-item routerLink="/group-contacts">Group Contacts</a>
-                </mat-menu>
-            </a>
+            <!--<a class="nav-link" *ngIf="menuItem.title === 'Contacts'" style="cursor: pointer ">-->
+                <!--<i class="material-icons">{{menuItem.icon}}</i>-->
+                <!--<p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Contacts'">{{menuItem.title}}</p>-->
+                <!--<mat-menu #menu="matMenu" style="width: 100%">-->
+                    <!--<a mat-menu-item routerLink="/contacts">Contacts List</a>-->
+                    <!--<a mat-menu-item routerLink="/group-contacts">Group Contacts</a>-->
+                <!--</mat-menu>-->
+            <!--</a>-->
 
-            <a class="nav-link" *ngIf="menuItem.title === 'Post Graduates'" style="cursor: pointer ">
-                <i class="material-icons">{{menuItem.icon}}</i>
-                <p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Post Graduates'">{{menuItem.title}}</p>
-                <mat-menu #menu="matMenu" style="width: 100%">
-                    <a mat-menu-item routerLink="/post-graduates">Graduates List</a>
-                    <a mat-menu-item routerLink="/post-graduates-groups">Graduates Group</a>
-                </mat-menu>
-            </a>
+            <mat-expansion-panel *ngIf="menuItem.title === 'Contacts'" style="cursor: pointer ">
+                <mat-expansion-panel-header style="margin-bottom: 0">
+                    <mat-panel-title> <i class="material-icons">{{menuItem.icon}}</i> Contacts </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list style="margin-top: 0">
+                    <mat-list-item>
+                        <a class="Flink" routerLink="/contacts">Contacts List</a>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <a class="Flink" routerLink="/group-contacts">Teams</a>
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+
+            <!--<a class="nav-link" *ngIf="menuItem.title === 'Post Graduates'" style="cursor: pointer;">-->
+                <!--<i class="material-icons">{{menuItem.icon}}</i>-->
+                <!--<p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Post Graduates'">{{menuItem.title}}</p>-->
+                <!--<mat-menu #menu="matMenu" style="width: 100%">-->
+                    <!--<a mat-menu-item routerLink="/post-graduates">Graduates List</a>-->
+                    <!--<a mat-menu-item routerLink="/post-graduates-groups">Graduates Group</a>-->
+                <!--</mat-menu>-->
+            <!--</a>-->
+
+            <mat-expansion-panel *ngIf="menuItem.title === 'Post Graduates'" style="cursor: pointer;">
+                <mat-expansion-panel-header style="margin-bottom: 0">
+                    <mat-panel-title><i class="material-icons">{{menuItem.icon}}</i> Post Graduates</mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list style="margin-top: 0">
+                    <mat-list-item>
+                        <a class="Flink"  routerLink="/post-graduates">Graduates List</a>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <a class="Flink" routerLink="/post-graduates-groups">Graduates Group</a>
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
 
             <!--</a> <a class="nav-link" *ngIf="menuItem.title === 'Users'" style="cursor: pointer ">-->
                 <!--<i class="material-icons">{{menuItem.icon}}</i>-->
@@ -82,17 +110,40 @@
                 <!--</mat-menu>-->
             <!--</a>-->
 
-            <a class="nav-link" *ngIf="menuItem.title === 'Messages'" style="cursor: pointer ">
-                <i class="material-icons">{{menuItem.icon}}</i>
-                <p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Messages'">{{menuItem.title}}</p>
-                <mat-menu #menu="matMenu" style="width: 100%">
-                    <a mat-menu-item routerLink="/messages">Sent messages</a>
-                    <a mat-menu-item routerLink="/received-messages">Received Messages</a>
-                    <a mat-menu-item routerLink="/group-messages">Group Messages</a>
-                    <a mat-menu-item routerLink="/periodic-message">Periodic Messages</a>
-                    <a mat-menu-item routerLink="/scheduled-message">Scheduled Messages</a>
-                </mat-menu>
-            </a>
+            <!--<a class="nav-link" *ngIf="menuItem.title === 'Messages'" style="cursor: pointer ">-->
+                <!--<i class="material-icons">{{menuItem.icon}}</i>-->
+                <!--<p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Messages'">{{menuItem.title}}</p>-->
+                <!--<mat-menu #menu="matMenu" style="width: 100%">-->
+                    <!---->
+                <!--</mat-menu>-->
+            <!--</a>-->
+
+            <mat-expansion-panel *ngIf="menuItem.title === 'Messages'" style="padding: 0">
+                <mat-expansion-panel-header style="margin-bottom: 0">
+                    <mat-panel-title>
+                        <i class="material-icons">{{menuItem.icon}}</i>
+                        Message
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list style="margin-top: 0">
+                    <mat-list-item>
+                        <a class="Flink" routerLink="/messages">Sent messages</a>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <a class="Flink" routerLink="/received-messages">Received Messages</a>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <a class="Flink" routerLink="/group-messages">Group Messages</a>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <a class="Flink" routerLink="/periodic-message">Periodic Messages</a>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <a class="Flink" routerLink="/scheduled-message">Scheduled Messages</a>
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+
             <a class="nav-link" [routerLink]="menuItem.path"
                *ngIf="menuItem.title !== 'Contacts' && menuItem.title !== 'Messages' && menuItem.title !== 'Post Graduates'">
                 <i class="material-icons">{{menuItem.icon}}</i>

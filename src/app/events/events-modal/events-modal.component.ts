@@ -6,8 +6,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 export interface EventsModalInterface {
-  events_name: string;
-  description: string
+  event_name: string;
+  event_description: string
 }
 
 export interface DialogData {
@@ -36,10 +36,8 @@ export class EventsModalComponent implements OnInit {
       }
   ngOnInit(): void {
       this.eventsModalForm = this.formBuilder.group({
-          events_name: [null, [Validators.required]],
-          // gender: [null, [Validators.required]],
-          description: [null, [Validators.required]],
-          // acadamic_department: [null, [Validators.required]],
+          event_name: [null, [Validators.required]],
+          event_description: [null, [Validators.required]],
       });
   }
 
@@ -52,7 +50,7 @@ export class EventsModalComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.eventsService.create(eventsModalInterface, headers, '/contact')
+        return this.eventsService.create(eventsModalInterface, headers, '/event')
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
                 this.dialogRef.close();

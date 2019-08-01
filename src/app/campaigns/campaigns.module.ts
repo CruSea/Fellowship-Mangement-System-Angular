@@ -12,6 +12,7 @@ import { StorageService } from '../services/storage.service';
 import { SmsPortService } from '../services/sms-port/sms-port.service';
 import { UpdateCampaignsComponent } from './update-campaigns/update-campaigns.component';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
     imports: [
@@ -19,6 +20,7 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
         FormsModule,
         MaterialsModule,
         HttpClientModule,
+        NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
         ConfirmationPopoverModule,
         ReactiveFormsModule,
         Ng2SmartTableModule,

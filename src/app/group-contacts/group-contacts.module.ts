@@ -10,6 +10,7 @@ import { StorageService } from '../services/storage.service';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { UpdateGroupContactsComponent } from './update-group-contacts/update-group-contacts.component';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { UpdateGroupContactsComponent } from './update-group-contacts/update-gro
       FormsModule,
       MaterialsModule,
       ConfirmationPopoverModule,
+      NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       HttpClientModule,
       ReactiveFormsModule,
       GroupContactsRoutingModule

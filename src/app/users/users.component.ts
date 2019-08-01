@@ -30,6 +30,7 @@ export class UsersComponent implements OnInit {
 
     animal: string;
     firstname: string;
+    loading: boolean;
 
 
     // displayedColumns: string[] = ['position', 'firstname', 'lastname', 'user_role', 'phone', 'action'];
@@ -108,6 +109,7 @@ export class UsersComponent implements OnInit {
     }
 
     collectionOfu() {
+        this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -117,9 +119,11 @@ export class UsersComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.userService.gets(headers, '/users')
             .subscribe((res: any) => {
+                this.loading = false;
                 this.dataSource = new MatTableDataSource(res.users.data);
                 console.log(res);
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

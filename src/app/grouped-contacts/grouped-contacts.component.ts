@@ -59,7 +59,6 @@ export class GroupedContactsComponent implements OnInit {
       private groupedContactsService: GroupedContactsService
   ) {
         this.group_id = activatedRoute.snapshot.params.id;
-
     }
 
     openCreate(): void {
@@ -123,6 +122,7 @@ export class GroupedContactsComponent implements OnInit {
             .subscribe((res: any) => {
                 console.log(res);
                 this.team_detail = res;
+                // this.getGroupsContactByGroupName(this.groupedname);
                 this.groupedname = res.team.name;
                 this.getGroupsContactByGroupName(res.team.name)
             }, (httpErrorResponse: HttpErrorResponse) => {
@@ -142,7 +142,7 @@ export class GroupedContactsComponent implements OnInit {
         return this.groupedContactsService.gets(headers, '/team/members/' + name)
             .subscribe((res: any) => {
                 console.log(res);
-                this.dataSource = new MatTableDataSource(res.contacts);
+                this.dataSource = new MatTableDataSource(res.contacts.data);
                 // this.team_detail = res;
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);

@@ -6,7 +6,11 @@ const routes: Routes = [
   {
     path: '',
     component: EventsComponent
-  }
+  },
+    {
+        path: ':event_id',
+        loadChildren: '../events-detail/events-detail.module#EventsDetailModule'
+    }
 ];
 
 @NgModule({

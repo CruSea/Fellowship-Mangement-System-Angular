@@ -1,4 +1,5 @@
-<p style="font-weight: bolder; font-size: x-large"> Post Graduates </p>
+<p style="font-weight: bolder; font-size: x-large; margin-top: 61px; margin-left: 20px"> POST GRADUATES </p>
+
 <!--<ol>-->
 <!--<li>-->
 <!--<mat-form-field>-->
@@ -8,8 +9,13 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px; left: 15px" mat-raised-button (click)="openCreate()">Add New graduate</button>
-<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>
+<div style="margin-top: 30px; left: 30px ;display: flex; flex-flow: row">
+  <button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()">Add Post Graduate</button>
+  <button mat-button color="primary" style="height: 40px; left: 60px"  mat-raised-button (click)="openImportContact()"> Import Post Graduate</button>
+  <mat-form-field class="col-md-4"  style="left: 100px; margin-bottom: 10px">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+</div>
 <!--<button mat-button color="" style="margin-top: 61px; left: 70px" mat-raised-button="" >-->
 <!--<mat-icon style="color: red;" mat-raised-button-->
 <!--(click)="refresh()"></mat-icon>-->
@@ -20,13 +26,9 @@
 <!--</li>-->
 <!--&lt;!&ndash;</ol>&ndash;&gt;-->
 <!--</div>-->
-
-
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
 
 <div class="container">
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-  </mat-form-field>
 
   <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -53,9 +55,9 @@
       <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="acadamic_department">
+    <ng-container matColumnDef="Acadamic_department">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Academic Department </th>
-      <td mat-cell *matCellDef="let element"> {{element.acadamic_department | titlecase}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Acadamic_department | titlecase}} </td>
     </ng-container>
 
     <ng-container matColumnDef="graduation_year">

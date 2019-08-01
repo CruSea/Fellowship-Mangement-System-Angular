@@ -37,6 +37,7 @@ export class MessagesComponent implements OnInit {
 
     animal: string;
     message: string;
+    loading: boolean;
 
 
     displayedColumns: string[] = ['id', 'message', 'sent_to', 'sent_by', 'is_sent', 'is_delivered', 'created_at', 'action'];
@@ -100,6 +101,7 @@ export class MessagesComponent implements OnInit {
     }
 
     sentMessages() {
+        this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -109,9 +111,11 @@ export class MessagesComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.sentMessagesService.gets(headers, '/messages')
             .subscribe((res: any) => {
+                this.loading = false;
                 this.dataSource = new MatTableDataSource(res.messages.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

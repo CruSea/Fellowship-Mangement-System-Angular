@@ -1,0 +1,89 @@
+<!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
+<!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
+<!--<div mat-dialog-content>-->
+<!--<p>What's your favorite animal?</p>-->
+<!--<mat-form-field>-->
+<!--<input matInput [(ngModel)]="data.animal">-->
+<!--</mat-form-field>-->
+<!--</div>-->
+<mat-spinner style="margin: 20% auto" *ngIf="!groupNames"></mat-spinner>
+<form [formGroup]="postGraduatesModalForm" (ngSubmit)="postGraduatesModal(postGraduatesModalForm.value)" *ngIf="groupNames">
+
+  <mat-form-field>
+    <input matInput placeholder="Full Name" type="text" formControlName="full_name">
+    <mat-error style="color: red" *ngIf="postGraduatesModalForm.get('full_name').invalid && (postGraduatesModalForm.get('full_name').dirty ||
+      postGraduatesModalForm.get('full_name').touched) && postGraduatesModalForm.get('full_name').errors?.required">
+      Please insert full name!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Gender</mat-label>
+    <mat-select formControlName="gender">
+      <mat-option *ngFor="let gender of genders" [value]="gender.type">
+        {{gender.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Phone number" type="text" formControlName="phone">
+    <mat-error style="color: red" *ngIf="postGraduatesModalForm.get('phone').invalid && (postGraduatesModalForm.get('phone').dirty ||
+      postGraduatesModalForm.get('phone').touched) && !postGraduatesModalForm.get('phone').errors?.minlength">
+      Please insert phone number!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Email" type="text" formControlName="email">
+    <!--<mat-error style="color: red" *ngIf="postGraduatesModalForm.get('email').invalid && (postGraduatesModalForm.get('email').dirty ||-->
+    <!--postGraduatesModalForm.get('email').touched) && !postGraduatesModalForm.get('email').errors?.minlength">-->
+    <!--Please insert email!-->
+    <!--</mat-error>-->
+  </mat-form-field>
+
+  <mat-form-field >
+    <mat-label>Group Name</mat-label>
+    <mat-select formControlName="team">
+      <mat-option *ngFor="let groupName of groupNames.teams.data" [value]="groupName.name">
+        {{groupName.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error style="color: red" *ngIf="postGraduatesModalForm.get('team').invalid">
+      Please select group name!
+    </mat-error>
+  </mat-form-field>
+
+  <!--<mat-form-field>-->
+  <!--<input matInput placeholder="Graduation Year" type="text" formControlName="graduation_year">-->
+  <!--<mat-error style="color: red" *ngIf="postGraduatesModalForm.get('graduation_year').invalid && (postGraduatesModalForm.get('graduation_year').dirty ||-->
+  <!--postGraduatesModalForm.get('graduation_year').touched) && !postGraduatesModalForm.get('graduation_year').errors?.minlength">-->
+  <!--Please insert graduation year!-->
+  <!--</mat-error>-->
+  <!--</mat-form-field>-->
+
+  <mat-form-field>
+    <input matInput placeholder="Academic Department" type="text" formControlName="acadamic_department">
+    <mat-error style="color: red" *ngIf="postGraduatesModalForm.get('acadamic_department').invalid && (postGraduatesModalForm.get('acadamic_department').dirty ||
+      postGraduatesModalForm.get('acadamic_department').touched) && !postGraduatesModalForm.get('acadamic_department').errors?.minlength">
+      Please insert your department!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="dp" placeholder="Graduation Year" [formControl]="date">
+    <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+    <mat-datepicker #dp
+                    startView="multi-year"
+                    (yearSelected)="chosenYearHandler($event, dp)"
+                    panelClass="example-month-picker">
+    </mat-datepicker>
+  </mat-form-field>
+
+
+  <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Add contact</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

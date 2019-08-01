@@ -1,18 +1,22 @@
 .background{
   height: 100%;
-  width: 100%;
-  background: linear-gradient(rgba(26, 26, 26, 0.5), rgba(26, 26, 26, 0.5)), url(../../assets/img/background-connection-contemporary-303383.jpg);
-  background-repeat: no-repeat;
-  /*background-position: center center;*/
-  background-size: 100% auto;
+  display: flex;
+  /*flex-flow: column;*/
+  align-items: center;
+  background-image: linear-gradient(to right, #E22D2D, #FB6060);
+}
+
+#fellow {
+  margin-left: 60px;
+  margin-bottom: 600px;
 }
 
 #form {
   border-radius: 2%;
-  -webkit-box-shadow: 10px 14px 35px 0px rgba(0,0,0,1);
-  -moz-box-shadow: 10px 14px 35px 0px rgba(0,0,0,1);
-  box-shadow: 10px 14px 35px 0px rgba(0,0,0,1);
-  z-index: 10000;
+  -webkit-box-shadow: 14px 27px 70px -45px rgba(0,0,0,0.75);
+  -moz-box-shadow: 14px 27px 70px -45px rgba(0,0,0,0.75);
+  box-shadow: 14px 27px 70px -45px rgba(0,0,0,0.75);
+  z-index: 1000;
   position: absolute;
   top: 50%;
   left: 50%;

@@ -27,8 +27,9 @@ export class PeriodicMessageComponent implements OnInit {
 
   animal: string;
   message: string;
+  loading: boolean;
 
-  displayedColumns: string[] = ['id', 'sent_to', 'start_date', 'end_date', 'team_id', 'sent_time', 'message',
+  displayedColumns: string[] = ['id', 'message', 'sent_to', 'start_date', 'end_date', 'sent_time',
        'created_at', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
@@ -88,6 +89,7 @@ export class PeriodicMessageComponent implements OnInit {
     }
 
     periodicMessage() {
+        this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -97,9 +99,11 @@ export class PeriodicMessageComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.periodicMessageService.gets(headers, '/scheduled-messages')
             .subscribe((res: any) => {
+                this.loading = false;
                 this.dataSource = new MatTableDataSource(res.scheduled_messages.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

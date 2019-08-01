@@ -27,6 +27,13 @@ const routes: Routes = [
         canActivate: [ PublicGuard ],
         loadChildren: './register/register.module#RegisterModule'
     },
+
+    {
+        path: 'password',
+        canActivate: [ PublicGuard ],
+        loadChildren: './password/password.module#PasswordModule'
+    },
+
     {
         path: '**',
         component: P404Component

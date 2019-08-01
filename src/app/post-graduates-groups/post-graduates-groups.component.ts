@@ -8,6 +8,7 @@ import {
     UpdateGroupContactsInterface
 } from '../group-contacts/update-group-contacts/update-group-contacts.component';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { PostGraduatesGroupsModalComponent } from './post-graduates-groups-modal/post-graduates-groups-modal.component';
 
 
 export interface PeriodicElement {
@@ -19,11 +20,6 @@ export interface PeriodicElement {
   action: string
 }
 
-const ELEMENT_DATA: any[] = [
-    {id: 1, name: 'WORSHIP', description: 'this is worship team for post graduates', created_by: 'Yitages Berhanu'},
-    {id: 1, name: 'PRAYER', description: 'this is prayer team for post graduates', created_by: 'Yitages Berhanu'}
-];
-
 @Component({
   selector: 'app-post-graduates-groups',
   templateUrl: './post-graduates-groups.component.html',
@@ -33,9 +29,10 @@ export class PostGraduatesGroupsComponent implements OnInit {
 
   animal: string;
   groupname: string;
+  loading: boolean;
 
     displayedColumns: string[] = ['id', 'name', 'description', 'created_by', 'updated_at', 'action'];
-    dataSource = new MatTableDataSource(ELEMENT_DATA);
+    dataSource: any;
 
   constructor(
       private matDialog: MatDialog,
@@ -43,18 +40,18 @@ export class PostGraduatesGroupsComponent implements OnInit {
       private storageService: StorageService
   ) { }
 
-    // openCreate(): void {
-    //     const dialogRef = this.matDialog.open(GroupContactsModalComponent, {
-    //         width: '500px',
-    //         data: {groupname: this.groupname, animal: this.animal}
-    //     });
-    //
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         console.log('The dialog was closed');
-    //         this.collectionOfcon();
-    //         this.animal = result;
-    //     });
-    // }
+    openCreate(): void {
+        const dialogRef = this.matDialog.open(PostGraduatesGroupsModalComponent, {
+            width: '500px',
+            data: {groupname: this.groupname, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.collectionOfcon();
+            this.animal = result;
+        });
+    }
     //
     // openUpdate(data: UpdateGroupContactsInterface): void {
     //     console.log(data);
@@ -90,6 +87,7 @@ export class PostGraduatesGroupsComponent implements OnInit {
     }
 
     collectionOfcon() {
+      this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -99,9 +97,11 @@ export class PostGraduatesGroupsComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.postGraduatesGroupsService.gets(headers, '/teams')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.teams);
+                this.loading = false;
+                this.dataSource = new MatTableDataSource(res.teams.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

@@ -1,4 +1,5 @@
-<p style="font-weight: bolder; font-size: x-large"> Post Graduates Groups </p>
+<p style="font-weight: bolder; font-size: x-large; margin-top: 61px; margin-left: 20px"> POST GRADUATE TEAMS </p>
+
 <!--<ol>-->
 <!--<li>-->
 <!--<mat-form-field>-->
@@ -8,18 +9,21 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px; left: 15px" mat-raised-button (click)="openCreate()">Add New Graduates Group</button>
+<div style="margin-top: 30px; left: 30px ;display: flex; flex-flow: row">
+  <button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()">Add Post Graduates Team</button>
+  <mat-form-field class="col-md-4"  style="left: 100px; margin-bottom: 10px">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+</div>
 <!--</li>-->
 <!--<li *ngIf="animal">-->
 <!--You chose: <i>{{animal}}</i>-->
 <!--</li>-->
 <!--&lt;!&ndash;</ol>&ndash;&gt;-->
 <!--</div>-->
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
 
 <div class="container">
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-  </mat-form-field>
 
   <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -33,13 +37,13 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Group Name </th>
       <td mat-cell *matCellDef="let element">
-        <a routerLink="/group-contacts/{{element.id}}">{{element.name | uppercase}}</a>
+        <a routerLink="/post-graduates-groups/{{element.id}}">{{element.name | uppercase}}</a>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="created_by">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created By </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_by | date :'fullDate'}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.created_by.full_name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="description">

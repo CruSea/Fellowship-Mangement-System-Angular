@@ -28,6 +28,7 @@ export class GroupMessagesComponent implements OnInit {
 
     animal: string;
     message: string;
+    loading: boolean;
 
 
     displayedColumns: string[] = ['id', 'message', 'sent_by', 'team_id', 'created_at', 'action'];
@@ -93,6 +94,7 @@ export class GroupMessagesComponent implements OnInit {
     }
 
     groupMessages() {
+        this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -102,9 +104,11 @@ export class GroupMessagesComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.groupedMessageService.gets(headers, '/team-messages')
             .subscribe((res: any) => {
+                this.loading = false;
                 this.dataSource = new MatTableDataSource(res.team_message.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

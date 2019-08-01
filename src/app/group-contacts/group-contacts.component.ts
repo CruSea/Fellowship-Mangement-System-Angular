@@ -30,6 +30,7 @@ export class GroupContactsComponent implements OnInit {
 
     animal: string;
     groupname: string;
+    loading: boolean;
 
 
     displayedColumns: string[] = ['id', 'name', 'created_by', 'created_at', 'updated_at', 'action'];
@@ -88,6 +89,7 @@ export class GroupContactsComponent implements OnInit {
     }
 
     collectionOfcon() {
+        this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -97,9 +99,11 @@ export class GroupContactsComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.teamService.gets(headers, '/teams')
             .subscribe((res: any) => {
+                this.loading = false;
                 this.dataSource = new MatTableDataSource(res.teams.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

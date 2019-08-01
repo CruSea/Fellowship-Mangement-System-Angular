@@ -8,9 +8,9 @@ import { UpdateContactInterface } from '../../contacts/update-contact/update-con
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 export interface UpdateEventsInterface {
-    events_name: string;
+    event_name: string;
     description: string;
-    created_by: string
+    // created_by: string
 }
 
 @Component({
@@ -36,9 +36,9 @@ export class UpdateEventsComponent implements OnInit {
   ngOnInit(): void {
       console.log(this.data);
       this.updateEventsForm = this.formBuilder.group({
-          events_name: [this.data.events_name, [Validators.required]],
+          event_name: [this.data.event_name, [Validators.required]],
           description: [this.data.description, [Validators.required]],
-          created_by: [this.data.created_by, [Validators.required]],
+          // created_by: [this.data.created_by, [Validators.required]],
           // acadamic_department: [this.data.Acadamic_department, [Validators.required]],
           // fellowship_id: [this.data.fellowship_id, [Validators.required]],
       });
@@ -53,7 +53,7 @@ export class UpdateEventsComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.eventsService.patch(`contact/${this.data}`, eventsModalInterface, headers)
+        return this.eventsService.patch(`event/${this.data}`, eventsModalInterface, headers)
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
                 this.dialogRef.close();

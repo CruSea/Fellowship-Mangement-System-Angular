@@ -9,12 +9,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventsRoutingModule } from './events-routing.module';
 import { EventsModalComponent } from './events-modal/events-modal.component';
 import { UpdateEventsComponent } from './update-events/update-events.component';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
   imports: [
     CommonModule,
       FormsModule,
       MaterialsModule,
+      NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       HttpClientModule,
       ReactiveFormsModule,
       EventsRoutingModule

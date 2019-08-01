@@ -11,12 +11,14 @@ import { UserService } from '../services/user/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { StorageService } from '../services/storage.service';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         MaterialsModule,
+        NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
         HttpClientModule,
         ConfirmationPopoverModule,
         ReactiveFormsModule,

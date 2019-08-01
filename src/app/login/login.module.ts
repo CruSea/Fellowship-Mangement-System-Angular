@@ -6,6 +6,7 @@ import { MaterialsModule } from '../utils/materials.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from '../services/authentication/authentication.service';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { AuthenticationService } from '../services/authentication/authentication
     CommonModule,
     FormsModule,
     MaterialsModule,
+    NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
     HttpClientModule,
     ReactiveFormsModule,
     LoginRoutingModule

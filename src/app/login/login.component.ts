@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: any;
   loading: boolean;
+  hide = true;
+    // public loading = false;
 
   constructor(
       private router: Router,
@@ -30,7 +32,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: [null],
-      password: [null]
+      password: [null],
     });
   }
 

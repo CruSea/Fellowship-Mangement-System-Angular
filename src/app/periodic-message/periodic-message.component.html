@@ -1,4 +1,5 @@
-<p style="font-weight: bolder; font-size: x-large">Periodic messages List </p>
+<p style="font-weight: bolder; font-size: x-large; margin-top: 61px; margin-left: 20px"> PERIODIC MESSAGES </p>
+
 <!--<ol>-->
 <!--<li>-->
 <!--<mat-form-field>-->
@@ -10,9 +11,9 @@
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
 <button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">
   <mat-icon>add</mat-icon>
-  periodic message for Group</button>
+  periodic message</button>
 <button style="margin-top: 61px; left: 30px; " mat-raised-button (click)="periodicContacts()">Periodic message for Contact</button>
-<button style="margin-top: 61px; left: 45px; " mat-raised-button (click)="periodicEvent()">Periodic message for Event</button>
+<button style="margin-top: 61px; left: 35px; " mat-raised-button (click)="openCreate()">Periodic message for Contact</button>
 
 <!--<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>-->
 <!--</li>-->
@@ -21,6 +22,7 @@
 <!--</li>-->
 <!--&lt;!&ndash;</ol>&ndash;&gt;-->
 <!--</div>-->
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
 
 <div class="container">
   <mat-form-field>
@@ -75,10 +77,10 @@
       <td mat-cell *matCellDef="let element"> {{element.sent_time}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="team_id">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Team Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.team_id}} </td>
-    </ng-container>
+    <!--<ng-container matColumnDef="team_id">-->
+      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold">Team Id </th>-->
+      <!--<td mat-cell *matCellDef="let element"> {{element.team_id}} </td>-->
+    <!--</ng-container>-->
 
     <ng-container matColumnDef="created_at">
       <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Created At </th>

@@ -10,10 +10,10 @@
 <form [formGroup]="updateEventsForm" (ngSubmit)="updateEvent(updateEventsForm.value)">
 
   <mat-form-field>
-    <input matInput placeholder="Events Name" type="text" formControlName="events_name">
-    <mat-error style="color: red" *ngIf="updateEventsForm.get('events_name').invalid && (updateEventsForm.get('events_name').dirty ||
-      updateEventsForm.get('events_name').touched) && updateEventsForm.get('events_name').errors?.required">
-      Please insert first name!
+    <input matInput placeholder="Events Name" type="text" formControlName="event_name">
+    <mat-error style="color: red" *ngIf="updateEventsForm.get('event_name').invalid && (updateEventsForm.get('event_name').dirty ||
+      updateEventsForm.get('event_name').touched) && updateEventsForm.get('event_name').errors?.required">
+      Please event name!
     </mat-error>
   </mat-form-field>
 

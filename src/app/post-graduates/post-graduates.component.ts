@@ -3,13 +3,14 @@ import { PostGraduatesService } from '../services/post-graduates/post-graduates.
 import { StorageService } from '../services/storage.service';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { PostGraduatesModalComponent } from './post-graduates-modal/post-graduates-modal.component';
 
 export interface PeriodicElement {
   id: number;
   full_name: string;
   gender: string;
   phone: string;
-  acadamid_department: string;
+  Acadamic_department: string;
   graduation_year: string;
   action?: string
 }
@@ -29,8 +30,9 @@ export class PostGraduatesComponent implements OnInit {
 
   animal: string;
   firstname: string;
+  loading: boolean;
 
-    displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'acadamic_department', 'graduation_year', 'created_at', 'updated_at', 'action'];
+    displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'Acadamic_department', 'graduation_year', 'created_at', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
@@ -41,18 +43,18 @@ export class PostGraduatesComponent implements OnInit {
   ) { }
 
 
-    // openCreate(): void {
-    //     const dialogRef = this.matDialog.open(ContactsModalComponent, {
-    //         width: '500px',
-    //         data: {firstname: this.firstname, animal: this.animal}
-    //     });
-    //
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         console.log('The dialog was closed');
-    //         this.collectionOfcon();
-    //         this.animal = result;
-    //     });
-    // }
+    openCreate(): void {
+        const dialogRef = this.matDialog.open(PostGraduatesModalComponent, {
+            width: '500px',
+            data: {firstname: this.firstname, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.collectionOfcon();
+            this.animal = result;
+        });
+    }
     //
     // openImportContact(): void {
     //     const dialogRef = this.matDialog.open(ImportContactComponent, {
@@ -85,6 +87,7 @@ export class PostGraduatesComponent implements OnInit {
     // }
 
   ngOnInit() {
+      this.collectionOfcon()
   }
 
     applyFilter(filterValue: string) {
@@ -92,6 +95,7 @@ export class PostGraduatesComponent implements OnInit {
     }
 
     collectionOfcon() {
+      this.loading = true;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -101,9 +105,11 @@ export class PostGraduatesComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.postGraduatesService.gets(headers, '/post-graduates')
             .subscribe((res: any) => {
-                this.dataSource = new MatTableDataSource(res.contacts);
+                this.loading = false;
+                this.dataSource = new MatTableDataSource(res.post_graduates.data);
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })
