@@ -1,6 +1,12 @@
-.Flink:hover {
+.Flink:hover  {
     color: #E22D2D;
 }
+
+.mat-expansion-panel:not([class*='mat-elevation-z']) {
+    box-shadow: none;
+}
+
+
 
 /*.disable_ripple:hover{*/
     /*background: currentColor !important;*/

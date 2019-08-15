@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { UserProfileService } from '../services/user-profile/user-profile.service';
+import { StorageService } from '../services/storage.service';
+import { AuthenticationService } from '../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +12,19 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+    datas: any[];
+    loading: boolean;
+    count: number;
+    under_graduate_count: number;
+    this_year_graduates_count: number;
+    post_gradutes_number: number;
+    number_of_teams: number;
+    number_of_events: number;
+
+  constructor(
+      private userProfileService: UserProfileService,
+      private storageService: StorageService,
+  ) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -66,6 +82,12 @@ export class DashboardComponent implements OnInit {
       seq2 = 0;
   };
   ngOnInit() {
+      this.getUnderGradutesList();
+      this.getThisYearGraduatesNumber();
+      this.getPostGraduatesNumber();
+      this.getNumberOfTeams();
+      this.getNumberOfEvents();
+      this.getEventsList();
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {
@@ -146,5 +168,122 @@ export class DashboardComponent implements OnInit {
       //start animation for the Emails Subscription Chart
       this.startAnimationForBarChart(websiteViewsChart);
   }
+
+    getUnderGradutesList() {
+        this.loading = true;
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/under_graduates_number')
+            .subscribe((res: any) => {
+                this.under_graduate_count = res.count;
+                console.log('under_graduate_count: ', this.under_graduate_count)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    getThisYearGraduatesNumber() {
+        this.loading = true;
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/this_year_graduates_number')
+            .subscribe((res: any) => {
+                this.this_year_graduates_count = res.message;
+                console.log('this_year_graduates_count: ', this.this_year_graduates_count);
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    getPostGraduatesNumber() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/post_graduates_number')
+            .subscribe((res: any) => {
+                this.post_gradutes_number = res.count;
+                console.log('post_gradutes_number: ', res);
+                console.log('post_gradutes_number: ', this.post_gradutes_number)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    getNumberOfTeams() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/number_of_teams')
+            .subscribe((res: any) => {
+                this.number_of_teams = res.count;
+                console.log('number_of_teams: ', this.number_of_teams)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    getNumberOfEvents() {
+        this.loading = true;
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/number_of_events')
+            .subscribe((res: any) => {
+                this.number_of_events = res.count;
+                console.log('number_of_events: ', this.number_of_events)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
+
+    getEventsList() {
+        this.loading = true;
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/events_list')
+            .subscribe((res: any) => {
+                this.loading = false;
+                this.datas = res.count;
+                this.count = res.count;
+                console.log(this.datas)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+            })
+    }
 
 }

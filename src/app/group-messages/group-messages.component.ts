@@ -4,6 +4,12 @@ import { GroupMessagesModalComponent } from './group-messages-modal/group-messag
 import { StorageService } from '../services/storage.service';
 import { GroupedMessageService } from '../services/group_message/grouped-message.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { PeriodicMessageContactsModalComponent } from '../periodic-message/periodic-message-contacts-modal/periodic-message-contacts-modal.component';
+import { PeriodicMessageEventModalComponent } from '../periodic-message/periodic-message-event-modal/periodic-message-event-modal.component';
+import { GroupMessageFellowshipModalComponent } from './group-message-fellowship-modal/group-message-fellowship-modal.component';
+import { GroupMessageEventModalComponent } from './group-message-event-modal/group-message-event-modal.component';
+import { GroupMessagePostgraduatesContactModalComponent } from './group-message-postgraduates-contact-modal/group-message-postgraduates-contact-modal.component';
+import { GroupMessagePostgraduatesModalComponent } from './group-message-postgraduates-modal/group-message-postgraduates-modal.component';
 // import { UpdateContactComponent, UpdateContactInterface } from './update-contact/update-contact.component';
 // import { ImportContactComponent } from './import-contact/import-contact.component';
 
@@ -29,6 +35,8 @@ export class GroupMessagesComponent implements OnInit {
     animal: string;
     message: string;
     loading: boolean;
+    panelOpenState: boolean;
+    panelOpenPosr: boolean;
 
 
     displayedColumns: string[] = ['id', 'message', 'sent_by', 'team_id', 'created_at', 'action'];
@@ -40,7 +48,7 @@ export class GroupMessagesComponent implements OnInit {
                 private groupedMessageService: GroupedMessageService
         ) { }
 
-    openCreate(): void {
+    openForGroup(): void {
         const dialogRef = this.matDialog.open(GroupMessagesModalComponent, {
             width: '500px',
             data: {message: this.message, animal: this.animal}
@@ -49,6 +57,66 @@ export class GroupMessagesComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
             this.groupMessages();
+            this.panelOpenState = false;
+            this.panelOpenPosr = false;
+            this.animal = result;
+        });
+    }
+
+    openForFellowship(): void {
+        const dialogRef = this.matDialog.open(GroupMessageFellowshipModalComponent, {
+            width: '500px',
+            data: {message: this.message, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.groupMessages();
+            this.panelOpenState = false;
+            this.panelOpenPosr = false;
+            this.animal = result;
+        });
+    }
+
+    forevent(): void {
+        const dialogRef = this.matDialog.open(GroupMessageEventModalComponent, {
+            width: '500px',
+            data: {message: this.message, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.groupMessages();
+            this.animal = result;
+        });
+    }
+
+    openForPostContacts(): void {
+        const dialogRef = this.matDialog.open(GroupMessagePostgraduatesContactModalComponent, {
+            width: '500px',
+            data: {message: this.message, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.groupMessages();
+            this.panelOpenPosr = false;
+            this.panelOpenState = false;
+            this.animal = result;
+        });
+    }
+
+    openForPostTeam(): void {
+        const dialogRef = this.matDialog.open(GroupMessagePostgraduatesModalComponent, {
+            width: '500px',
+            data: {message: this.message, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.groupMessages();
+            this.panelOpenPosr = false;
+            this.panelOpenState = false;
             this.animal = result;
         });
     }

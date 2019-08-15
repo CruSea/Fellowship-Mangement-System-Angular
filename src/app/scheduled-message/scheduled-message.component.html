@@ -9,9 +9,38 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">
-  <mat-icon>add</mat-icon>
-  scheduled message</button>
+<!--<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">-->
+  <!--<mat-icon>add</mat-icon>-->
+  <!--scheduled message</button>-->
+
+<mat-expansion-panel (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false" style="cursor: pointer; width: 30%; margin-left: 20px">
+  <mat-expansion-panel-header >Scheduled Messages
+  </mat-expansion-panel-header>
+  <mat-list style="margin-top: 0">
+    <mat-list-item>
+      <a class="Flink" (click)="scheduledGroup()">
+        <mat-icon style="margin-right: 5px">group</mat-icon>
+        For Group</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="Flink" (click)="scheduledContact()">
+        <i style="font-size: 22px; margin-right: 5px " class="fa fa-user"></i>
+        For Contact</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="Flink" (click)="scheduledEvent()">
+        <mat-icon style="margin-right: 5px">event_note</mat-icon>
+        For Event</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="Flink" (click)="scheduledFellowship()">
+        <i style="font-size: 22px; margin-right: 5px" class="fa fa-users"></i>
+        For Fellowship</a>
+    </mat-list-item>
+  </mat-list>
+</mat-expansion-panel>
+
 <!--<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>-->
 <!--</li>-->
 <!--<li *ngIf="animal">-->

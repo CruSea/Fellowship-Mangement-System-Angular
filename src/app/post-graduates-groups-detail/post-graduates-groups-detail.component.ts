@@ -12,6 +12,7 @@ import { ImportContactComponent } from '../contacts/import-contact/import-contac
 // import { UpdateGroupedContactsComponent } from './update-grouped-contacts/update-grouped-contacts.component';
 // import { AssignMembersComponent } from './assign-members/assign-members.component';
 import { PostGraduatesGroupsService } from '../services/post-graduates-groups/post-graduates-groups.service';
+import { AssingPostGraduatesComponent } from './assing-post-graduates/assing-post-graduates.component';
 // import { UpdateContactComponent, UpdateContactInterface } from '../group-contacts/update-contact/update-contact.component';
 
 // export interface PeriodicElement {
@@ -36,15 +37,15 @@ import { PostGraduatesGroupsService } from '../services/post-graduates-groups/po
 })
 export class PostGraduatesGroupsDetailComponent implements OnInit {
 
-    // full_name: string;
-    // gender: string;
-    // id: string;
-    // phone: string;
-    // email: string;
-    // Acadamic_department: string;
-    // graduation_year: string;
-    // groupedname: string;
-    // animal: string;
+    full_name: string;
+    gender: string;
+    id: string;
+    phone: string;
+    email: string;
+    Acadamic_department: string;
+    graduation_year: string;
+    groupedname: string;
+    animal: string;
     //
 
     post_graduates_groups_id: string;
@@ -78,18 +79,18 @@ export class PostGraduatesGroupsDetailComponent implements OnInit {
     //     });
     // }
     //
-    // assign(): void {
-    //     const dialogRef = this.matDialog.open(AssignMembersComponent, {
-    //         width: '500px',
-    //         data: {gname: this.groupedname, animal: this.animal}
-    //     });
-    //
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         console.log('The dialog was closed');
-    //         this.animal = result;
-    //         this.getGroupsContactByGroupName(this.groupedname)
-    //     });
-    // }
+    assign(): void {
+        const dialogRef = this.matDialog.open(AssingPostGraduatesComponent, {
+            width: '500px',
+            data: {gname: this.groupedname, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.animal = result;
+            this.getPostGradutesByGroupName(this.groupedname)
+        });
+    }
     //
     // openImportContact(): void {
     //     const dialogRef = this.matDialog.open(ImportContactComponent, {
@@ -127,7 +128,7 @@ export class PostGraduatesGroupsDetailComponent implements OnInit {
             .subscribe((res: any) => {
                 console.log(res);
                 this.team_detail = res;
-                // this.groupedname = res.team.name;
+                this.groupedname = res.team.name;
                 this.getPostGradutesByGroupName(res.team.name);
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);

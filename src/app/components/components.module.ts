@@ -7,6 +7,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MaterialsModule } from '../utils/materials.module';
 import { AuthenticationService } from '../services/authentication/authentication.service';
+import { StorageService } from '../services/storage.service';
+import { UserProfileService } from '../services/user-profile/user-profile.service';
 
 @NgModule({
   imports: [
@@ -25,7 +27,7 @@ import { AuthenticationService } from '../services/authentication/authentication
     SidebarComponent
   ],
     providers: [
-        AuthenticationService
+        AuthenticationService, StorageService, UserProfileService
     ]
 })
 export class ComponentsModule { }

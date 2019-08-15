@@ -44,6 +44,8 @@ export class CampaignsModalComponent implements OnInit {
 
     ngOnInit(): void {
         // this.getEvent();
+        this.getCampaigns();
+        this.getSmsPortId();
         this.campaignsModalForm = this.formBuilder.group({
             port_name: [null, [Validators.required, Validators.minLength(4)]],
             port_type: [null, [Validators.required]],
@@ -71,4 +73,39 @@ export class CampaignsModalComponent implements OnInit {
                 this.dialogRef.close();
             })
     }
+
+    getCampaigns() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.smsPortService.gets(headers, '/campaigns')
+            .subscribe((res: any) => {
+                console.log(res)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                // console.log(httpErrorResponse);
+            })
+    }
+
+    getSmsPortId() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.smsPortService.gets(headers, '/get-sms-ports')
+            .subscribe((res: any) => {
+                console.log(res)
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                // console.log(httpErrorResponse);
+            })
+    }
+
 }

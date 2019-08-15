@@ -10,10 +10,10 @@
     <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
 <div style="margin-top: 30px; left: 30px ;display: flex; flex-flow: row">
 <button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()">
-  <mat-icon>add</mat-icon>
+  <i style="font-size: 22px" class="fa fa-user-plus"></i>
   New contact</button>
 <button mat-button color="primary" style="height: 40px; left: 60px"  mat-raised-button (click)="openImportContact()">
-  <mat-icon>arrow_downward</mat-icon>
+  <i style="font-size: 22px" class="fa  fa-get-pocket"></i>
   Import Contact</button>
 <mat-form-field class="col-md-4"  style="left: 100px; margin-bottom: 10px">
   <input matInput (keyup)="applyFilter($event.target.value)"  placeholder="Search">
@@ -130,6 +130,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="total" (page)="current_page" [pageSize]="per_page"  showFirstLastButtons>
-  </mat-paginator>
+  <!--<mat-paginator [pageSizeOptions]="total" (page)="current_page" [pageSize]="per_page"  showFirstLastButtons>-->
+  <!--</mat-paginator>-->
 </div>

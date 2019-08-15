@@ -20,6 +20,7 @@ export class SettingsComponent implements OnInit {
 
   settingForm: any;
   loading: boolean;
+  isDisabled: boolean;
 
   constructor(
       private httpClient: HttpClient,
@@ -38,6 +39,11 @@ export class SettingsComponent implements OnInit {
 
 
   save(settingInterface: SettingInterface) {
+      if (this.isDisabled) {
+          this.settingForm.get('value').enable();
+          this.isDisabled = false;
+          return;
+      }
       this.loading = true;
       console.log(settingInterface);
       const headers = new HttpHeaders()
@@ -49,9 +55,13 @@ export class SettingsComponent implements OnInit {
       this.settingService.create(settingInterface, headers, '/setting').subscribe((res: any) => {
           this.loading = false;
           console.log(res);
+          this.isDisabled = true;
+          this.settingForm.get('value').disable();
       }, (err: HttpErrorResponse) => {
           this.loading = false;
           console.log(err);
+          this.isDisabled = false;
+          this.settingForm.get('value').enable();
       })
   }
 
@@ -67,11 +77,20 @@ export class SettingsComponent implements OnInit {
         return this.settingService.gets(headers, '/settings')
             .subscribe((res: any) => {
                 this.loading = false;
+                if (res.settings.value) {
+                    this.isDisabled = true;
+                    this.settingForm.get('value').disable()
+                } else {
+                    this.isDisabled = false;
+                    this.settingForm.get('value').enable();
+                }
                 console.log(res);
-                this.settingForm.get('value').setValue(res.settings[0].value);
+                this.settingForm.get('value').setValue(res.settings.value);
                 // this.fellowshipForm.get('university_city').setValue(res.fellowship.university_city);
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;
+                this.isDisabled = false;
+                this.settingForm.get('value').enable();
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })

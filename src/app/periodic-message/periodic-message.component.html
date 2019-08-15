@@ -9,11 +9,40 @@
 <!--<div class="create" style="color: yellow; width: 100%">-->
 <!--<li>-->
 <!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">
-  <mat-icon>add</mat-icon>
-  periodic message</button>
-<button style="margin-top: 61px; left: 30px; " mat-raised-button (click)="periodicContacts()">Periodic message for Contact</button>
-<button style="margin-top: 61px; left: 35px; " mat-raised-button (click)="openCreate()">Periodic message for Contact</button>
+<mat-expansion-panel (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false" style="cursor: pointer; width: 30%; margin-left: 20px">
+  <mat-expansion-panel-header >Periodic Messages
+    <!--<mat-panel-title style="margin-top: 61px; left: 15px;">Periodic Messages</mat-panel-title>-->
+  </mat-expansion-panel-header>
+  <mat-list style="margin-top: 0">
+    <mat-list-item>
+      <a class="Flink" (click)="openCreate()">
+        <mat-icon style="margin-right: 5px">group</mat-icon>
+        For Group</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="Flink" (click)="periodicContacts()">
+        <mat-icon style="margin-right: 5px">perm_contact_calender</mat-icon>
+        For Contact</a>
+    </mat-list-item>
+    <mat-list-item>
+      <a class="Flink" (click)="openCreate()">
+        <mat-icon style="margin-right: 5px">event_note</mat-icon>
+        For Event</a>
+    </mat-list-item>
+  </mat-list>
+</mat-expansion-panel>
+
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+</mat-form-field>
+
+
+<!--<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">-->
+  <!--<mat-icon>add</mat-icon>-->
+  <!--periodic message</button>-->
+<!--<button style="margin-top: 61px; left: 40px; " mat-raised-button (click)="periodicContacts()">Periodic message for Contact</button>-->
+<!--<button style="margin-top: 61px; left: 60px; " mat-raised-button (click)="openCreate()">Periodic message for Event</button>-->
 
 <!--<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>-->
 <!--</li>-->
@@ -25,9 +54,6 @@
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
 
 <div class="container">
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-  </mat-form-field>
 
   <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

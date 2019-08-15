@@ -21,7 +21,7 @@
   <mat-form-field>
     <mat-label>Port Name</mat-label>
     <mat-select formControlName="port_name">
-      <mat-option *ngFor="let smsPort of smsPorts.sms_ports" [value]="smsPort.port_name">
+      <mat-option *ngFor="let smsPort of smsPorts.sms_ports.data" [value]="smsPort.port_name">
         {{smsPort.port_name }}
       </mat-option>
     </mat-select>

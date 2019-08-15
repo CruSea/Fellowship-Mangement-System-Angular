@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+.mat-expansion-panel-content > .mat-expansion-panel-body {
+    padding: 0 !important;
+    margin: 0;
+    margin-top: 0;
+}
 /* fallback */
 @font-face {
     font-family: 'Material Icons';

@@ -21,6 +21,7 @@ import { UpdatePostGraduatesComponent } from './update-post-graduates/update-pos
       PostGraduatesGroupsDetailRoutingModule
   ],
   declarations: [PostGraduatesGroupsDetailComponent, PostGraduatesGroupModalComponent, AssingPostGraduatesComponent, UpdatePostGraduatesComponent],
-    providers: [StorageService, PostGraduatesGroupsService]
+    providers: [StorageService, PostGraduatesGroupsService],
+    entryComponents: [PostGraduatesGroupModalComponent, AssingPostGraduatesComponent, UpdatePostGraduatesComponent]
 })
 export class PostGraduatesGroupsDetailModule { }

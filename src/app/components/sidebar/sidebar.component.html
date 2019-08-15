@@ -65,16 +65,20 @@
                 <!--</mat-menu>-->
             <!--</a>-->
 
-            <mat-expansion-panel *ngIf="menuItem.title === 'Contacts'" style="cursor: pointer ">
+            <mat-expansion-panel *ngIf="menuItem.title === 'Contacts'" style="cursor: pointer; ">
                 <mat-expansion-panel-header style="margin-bottom: 0">
                     <mat-panel-title> <i class="material-icons">{{menuItem.icon}}</i> Contacts </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-list style="margin-top: 0">
                     <mat-list-item>
-                        <a class="Flink" routerLink="/contacts">Contacts List</a>
+                        <a class="Flink" routerLink="/contacts">
+                            <i style="font-size: 22px" class="fa fa-user"></i>
+                            Contacts List</a>
                     </mat-list-item>
                     <mat-list-item>
-                        <a class="Flink" routerLink="/group-contacts">Teams</a>
+                        <a class="Flink" routerLink="/group-contacts">
+                            <i style="font-size: 22px" class="fa fa-users"></i>
+                            Teams</a>
                     </mat-list-item>
                 </mat-list>
             </mat-expansion-panel>
@@ -94,10 +98,14 @@
                 </mat-expansion-panel-header>
                 <mat-list style="margin-top: 0">
                     <mat-list-item>
-                        <a class="Flink"  routerLink="/post-graduates">Graduates List</a>
+                        <a class="Flink"   routerLink="/post-graduates">
+                            <i style="font-size: 22px" class="fa fa-user"></i>
+                            Graduates List</a>
                     </mat-list-item>
                     <mat-list-item>
-                        <a class="Flink" routerLink="/post-graduates-groups">Graduates Group</a>
+                        <a class="Flink" routerLink="/post-graduates-groups">
+                            <i style="font-size: 22px" class="fa fa-users"></i>
+                            Graduates Team</a>
                     </mat-list-item>
                 </mat-list>
             </mat-expansion-panel>
@@ -127,19 +135,36 @@
                 </mat-expansion-panel-header>
                 <mat-list style="margin-top: 0">
                     <mat-list-item>
-                        <a class="Flink" routerLink="/messages">Sent messages</a>
+                        <a style="margin-right: 5px" class="Flink" routerLink="/messages">
+                            <i style="font-size: 20px" class="fa fa-envelope-open"></i>
+                            Sent messages</a>
                     </mat-list-item>
                     <mat-list-item>
-                        <a class="Flink" routerLink="/received-messages">Received Messages</a>
+                        <a style="margin-right: 5px" class="Flink" routerLink="/received-messages">
+                            <i style="font-size: 22px" class="fa fa-inbox"></i>
+                            Received Messages</a>
                     </mat-list-item>
                     <mat-list-item>
-                        <a class="Flink" routerLink="/group-messages">Group Messages</a>
+                        <a style="margin-right: 5px" class="Flink" routerLink="/group-messages">
+                            <i style="font-size: 22px" class="fa fa-comments"></i>
+                            Group Messages</a>
                     </mat-list-item>
                     <mat-list-item>
-                        <a class="Flink" routerLink="/periodic-message">Periodic Messages</a>
+                        <a style="margin-right: 5px" class="Flink" routerLink="/periodic-message">
+                            <i style="font-size: 20px" class="fa fa-bell"></i>
+                            Periodic Messages</a>
                     </mat-list-item>
                     <mat-list-item>
-                        <a class="Flink" routerLink="/scheduled-message">Scheduled Messages</a>
+                        <a style="margin-right: 5px" class="Flink" routerLink="/scheduled-message">
+                            <i style="font-size: 20px" class="fa fa-hourglass-end"></i>
+                            Scheduled Messages</a>
+                    </mat-list-item>
+
+                    <mat-list-item>
+                        <a style="margin-right: 5px" class="Flink" routerLink="/registeration-message">
+                            <!--<mat-icon>access_time</mat-icon>-->
+                            <i style="font-size: 20px; height: 10px" class="fa fa-bookmark"></i>
+                            Registration Messages</a>
                     </mat-list-item>
                 </mat-list>
             </mat-expansion-panel>

@@ -21,13 +21,14 @@ export interface PeriodicElement {
 @Component({
   selector: 'app-periodic-message',
   templateUrl: './periodic-message.component.html',
-  styleUrls: ['./periodic-message.component.scss']
+  styleUrls: ['./periodic-message.component.scss', 'periodic-message-component.css']
 })
 export class PeriodicMessageComponent implements OnInit {
 
   animal: string;
   message: string;
   loading: boolean;
+    panelOpenState: boolean;
 
   displayedColumns: string[] = ['id', 'message', 'sent_to', 'start_date', 'end_date', 'sent_time',
        'created_at', 'updated_at', 'action'];
@@ -50,6 +51,7 @@ export class PeriodicMessageComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
             this.periodicMessage();
+            this.panelOpenState = false;
             this.animal = result;
         });
     }
@@ -63,6 +65,7 @@ export class PeriodicMessageComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
             this.periodicMessage();
+            this.panelOpenState = false;
             this.animal = result;
         });
     }
@@ -76,6 +79,7 @@ export class PeriodicMessageComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
             this.periodicMessage();
+            this.panelOpenState = false;
             this.animal = result;
         });
     }

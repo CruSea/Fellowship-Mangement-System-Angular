@@ -4,6 +4,12 @@ import { StorageService } from '../services/storage.service';
 import { ScheduledMessageService } from '../services/scheduled-message/scheduled-message.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ScheduledMessageModalComponent } from './scheduled-message-modal/scheduled-message-modal.component';
+import { PeriodicMessageModalComponent } from '../periodic-message/periodic-message-modal/periodic-message-modal.component';
+import { PeriodicMessageContactsModalComponent } from '../periodic-message/periodic-message-contacts-modal/periodic-message-contacts-modal.component';
+import { PeriodicMessageEventModalComponent } from '../periodic-message/periodic-message-event-modal/periodic-message-event-modal.component';
+import { ScheduledMessageContactModalComponent } from './scheduled-message-contact-modal/scheduled-message-contact-modal.component';
+import { ScheduledMessageEventModalComponent } from './scheduled-message-event-modal/scheduled-message-event-modal.component';
+import { ScheduledMessageFellowshipModalComponent } from './scheduled-message-fellowship-modal/scheduled-message-fellowship-modal.component';
 
 
 export interface PeriodicElement {
@@ -26,6 +32,7 @@ export class ScheduledMessageComponent implements OnInit {
   animal: string;
   message: string;
   loading: boolean;
+    panelOpenState: boolean;
 
   displayedColumns: string[] = ['id', 'sent_by', 'sent_to', 'send_date', 'send_time', 'message', 'action'];
     dataSource: any;
@@ -36,8 +43,8 @@ export class ScheduledMessageComponent implements OnInit {
       private scheduledMessageService: ScheduledMessageService
   ) { }
 
-    openCreate(): void {
-        const dialogRef = this.matDialog.open(ScheduledMessageModalComponent, {
+    scheduledGroup(): void {
+        const dialogRef = this.matDialog.open(ScheduledMessageComponent, {
             width: '500px',
             data: {message: this.message, animal: this.animal}
         });
@@ -45,6 +52,48 @@ export class ScheduledMessageComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
             this.scheduledMessage();
+            this.panelOpenState = false;
+            this.animal = result;
+        });
+    }
+
+    scheduledContact(): void {
+        const dialogRef = this.matDialog.open(ScheduledMessageContactModalComponent, {
+            width: '500px',
+            data: {message: this.message, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.scheduledMessage();
+            this.panelOpenState = false;
+            this.animal = result;
+        });
+    }
+
+    scheduledEvent(): void {
+        const dialogRef = this.matDialog.open(ScheduledMessageEventModalComponent, {
+            width: '500px',
+            data: {message: this.message, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.scheduledMessage();
+            this.panelOpenState = false;
+            this.animal = result;
+        });
+    }
+    scheduledFellowship(): void {
+        const dialogRef = this.matDialog.open(ScheduledMessageFellowshipModalComponent, {
+            width: '500px',
+            data: {message: this.message, animal: this.animal}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed');
+            this.scheduledMessage();
+            this.panelOpenState = false;
             this.animal = result;
         });
     }

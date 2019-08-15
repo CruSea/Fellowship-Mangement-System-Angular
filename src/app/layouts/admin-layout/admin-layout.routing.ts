@@ -32,5 +32,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'received-messages',  loadChildren: '../../received-messages/received-messages.module#ReceivedMessagesModule' },
     { path: 'periodic-message',   loadChildren: '../../periodic-message/periodic-message.module#PeriodicMessageModule' },
     { path: 'scheduled-message',   loadChildren: '../../scheduled-message/scheduled-message.module#ScheduledMessageModule' },
+    { path: 'registeration-message',   loadChildren: '../../registeration-message/registeration-message.module#RegisterationMessageModule' },
     { path: 'group-messages',     loadChildren: '../../group-messages/group-messages.module#GroupMessagesModule' },
 ];

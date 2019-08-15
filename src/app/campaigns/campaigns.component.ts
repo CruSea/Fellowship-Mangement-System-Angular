@@ -97,7 +97,7 @@ export class CampaignsComponent implements OnInit {
         return this.smsPortService.gets(headers, '/sms-ports')
             .subscribe((res: any) => {
                 this.loading = false;
-                this.dataSource = new MatTableDataSource(res.sms_ports);
+                this.dataSource = new MatTableDataSource(res.sms_ports.data);
                 console.log(res);
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;

@@ -18,12 +18,12 @@
                     <p>We provide you an Environment to Send Scheduled and Periodic messages additionally. </p>
                 </div>
 
-                <div style="width: 50%; color: white; margin: 50px auto 0 auto">
-                    <h4 class="font-weight-bold">
-                        <mat-icon style="margin-right: 5px">insert_invitation</mat-icon>
-                        Global Support</h4>
-                    <p>We provide 24 / 7 support for our clients, We are Happy to help! </p>
-                </div>
+                <!--<div style="width: 50%; color: white; margin: 50px auto 0 auto">-->
+                    <!--<h4 class="font-weight-bold">-->
+                        <!--<mat-icon style="margin-right: 5px">insert_invitation</mat-icon>-->
+                        <!--Global Support</h4>-->
+                    <!--<p>We provide 24 / 7 support for our clients, We are Happy to help! </p>-->
+                <!--</div>-->
             </div>
             <div class="col-md-5" style="border-radius: 5px; background-color: whitesmoke">
                 <div  *ngIf="su" style="text-align: center; color: green">
@@ -53,7 +53,15 @@
                         </mat-error>
                     </mat-form-field>
 
-                      <mat-form-field>
+                    <mat-form-field >
+                        <input matInput placeholder="Fellowship Name" type="text" formControlName="university_name">
+                        <mat-error style="color: red" *ngIf="registerForm.get('university_name').invalid && (registerForm.get('university_name').dirty ||
+                          registerForm.get('university_name').touched) && !registerForm.get('university_name').errors?.minlength">
+                            Please insert Fellowship name!
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
                           <input matInput placeholder="University City" type="text" formControlName="university_city">
                           <mat-error style="color: red" *ngIf="registerForm.get('university_city').invalid && (registerForm.get('university_city').dirty ||
                           registerForm.get('university_city').touched) && !registerForm.get('university_city').errors?.minlength">
@@ -61,13 +69,6 @@
                           </mat-error>
                       </mat-form-field>
 
-                      <mat-form-field >
-                          <input matInput placeholder="University Name" type="text" formControlName="university_name">
-                          <mat-error style="color: red" *ngIf="registerForm.get('university_name').invalid && (registerForm.get('university_name').dirty ||
-                          registerForm.get('university_name').touched) && !registerForm.get('university_name').errors?.minlength">
-                            Please insert university name!
-                          </mat-error>
-                      </mat-form-field>
 
                       <mat-form-field>
                           <input matInput placeholder="Specific Place" type="text" formControlName="specific_place">

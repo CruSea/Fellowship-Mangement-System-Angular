@@ -1,3 +1,17 @@
-<p>
-  assing-post-graduates works!
-</p>
+<form [formGroup]="assignModalForm" (ngSubmit)="assingMembers(assignModalForm.value)">
+
+  <mat-form-field>
+    <input matInput placeholder="Phone number" type="text" formControlName="sent_to">
+    <mat-error style="color: red" *ngIf="assignModalForm.get('sent_to').invalid && (assignModalForm.get('sent_to').dirty ||
+      assignModalForm.get('sent_to').touched) && !assignModalForm.get('sent_to').errors?.minlength">
+      Please insert sent_to number!
+    </mat-error>
+  </mat-form-field>
+
+
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Add contact</button>
+    <button mat-button type="button" (click)="onNoClick()">Cancel</button>
+  </div>
+
+</form>

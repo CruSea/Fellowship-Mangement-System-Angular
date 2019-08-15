@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material';
 interface UserProfileInterface {
     old_password: string;
     new_password: string;
-    confirm_password: string;
+    password_confirmation: string;
 }
 
 @Component({
@@ -19,6 +19,11 @@ interface UserProfileInterface {
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
+
+    @ViewChild('fellowship_update') private fellowshipUpdate: SwalComponent;
+    @ViewChild('fellowship_update_error') private fellowshipUpdateError: SwalComponent;
+
+
     @ViewChild('password_reset') private passwordReset: SwalComponent;
     @ViewChild('password_reset_error') private passwordResetError: SwalComponent;
     @ViewChild('password_confirmation_error') private passwordConfirmationError: SwalComponent;
@@ -50,9 +55,15 @@ export class UserProfileComponent implements OnInit {
           .subscribe((res: any) => {
                   this.loading = false;
                   console.log(res);
+                  if (res.error) {
+                      this.fellowshipUpdateError.show();
+                  } else {
+                      this.fellowshipUpdate.show();
+                  }
               },
               (httpErrorResponse: HttpErrorResponse) => {
                   this.loading = false;
+                  this.fellowshipUpdateError.show();
                   console.log(httpErrorResponse);
               })
   }
@@ -62,7 +73,7 @@ export class UserProfileComponent implements OnInit {
       this.settingForm = this.formBuilder.group({
           new_password: [null, [Validators.required, Validators.minLength(6)]],
           old_password: [null],
-          confirm_password: [null, [Validators.required]]
+          password_confirmation: [null, [Validators.required]]
       });
       this.fellowshipForm = this.formBuilder.group({
           university_name: [null, [Validators.required, Validators.minLength(6)]],
@@ -83,7 +94,7 @@ export class UserProfileComponent implements OnInit {
         return this.userProfileService.gets(headers, '/fellowship')
             .subscribe((res: any) => {
                 this.loading = false;
-                console.log(res)
+                console.log(res);
                 this.fellowshipForm.get('university_name').setValue(res.fellowship.university_name);
                 this.fellowshipForm.get('university_city').setValue(res.fellowship.university_city);
                 this.fellowshipForm.get('specific_place').setValue(res.fellowship.specific_place);
@@ -117,7 +128,7 @@ export class UserProfileComponent implements OnInit {
                         this.passwordReset.show();
                         this.settingForm.get('new_password').setValue('');
                         this.settingForm.get('old_password').setValue('');
-                        this.settingForm.get('confirm_password').setValue('');
+                        this.settingForm.get('password_confirmation').setValue('');
                     }
                 },
                 (httpErrorResponse: HttpErrorResponse) => {
