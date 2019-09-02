@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { UserProfileService } from '../services/user-profile/user-profile.service';
 import { StorageService } from '../services/storage.service';
@@ -20,11 +21,22 @@ export class DashboardComponent implements OnInit {
     post_gradutes_number: number;
     number_of_teams: number;
     number_of_events: number;
+    total_successful_messages: number;
+    last_month_messages: number;
+    today_successful_messages: number;
+    notify_today_messages: any;
+    teams: any;
+    events: any;
+    sms_registered_members: any;
+    per_page: number;
+    page: number;
+    total: number;
+    // p: number = 1;
 
   constructor(
       private userProfileService: UserProfileService,
       private storageService: StorageService,
-  ) { }
+  ) { this.page = 1}
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -88,6 +100,13 @@ export class DashboardComponent implements OnInit {
       this.getNumberOfTeams();
       this.getNumberOfEvents();
       this.getEventsList();
+      this.getTodaySuccessfulMessages();
+      this.getLastMonthSuccessfulMessage();
+      this.getTotalSuccessfulMessage();
+      this.getTodayMessages();
+      this.getTeams();
+      this.getEvents();
+      this.getSmsRegisteredMembers(this.page);
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {
@@ -181,10 +200,7 @@ export class DashboardComponent implements OnInit {
         return this.userProfileService.gets(headers, '/under_graduates_number')
             .subscribe((res: any) => {
                 this.under_graduate_count = res.count;
-                console.log('under_graduate_count: ', this.under_graduate_count)
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 
@@ -200,10 +216,7 @@ export class DashboardComponent implements OnInit {
         return this.userProfileService.gets(headers, '/this_year_graduates_number')
             .subscribe((res: any) => {
                 this.this_year_graduates_count = res.message;
-                console.log('this_year_graduates_count: ', this.this_year_graduates_count);
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 
@@ -218,11 +231,7 @@ export class DashboardComponent implements OnInit {
         return this.userProfileService.gets(headers, '/post_graduates_number')
             .subscribe((res: any) => {
                 this.post_gradutes_number = res.count;
-                console.log('post_gradutes_number: ', res);
-                console.log('post_gradutes_number: ', this.post_gradutes_number)
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 
@@ -237,10 +246,7 @@ export class DashboardComponent implements OnInit {
         return this.userProfileService.gets(headers, '/number_of_teams')
             .subscribe((res: any) => {
                 this.number_of_teams = res.count;
-                console.log('number_of_teams: ', this.number_of_teams)
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 
@@ -256,11 +262,8 @@ export class DashboardComponent implements OnInit {
         return this.userProfileService.gets(headers, '/number_of_events')
             .subscribe((res: any) => {
                 this.number_of_events = res.count;
-                console.log('number_of_events: ', this.number_of_events)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 
@@ -278,11 +281,138 @@ export class DashboardComponent implements OnInit {
                 this.loading = false;
                 this.datas = res.count;
                 this.count = res.count;
-                console.log(this.datas)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+            })
+    }
+    getTodaySuccessfulMessages() {
+      this.loading = true;
+      const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+      return this.userProfileService.gets(headers, '/today_messages')
+            .subscribe((res: any) => {
+                this.loading = false;
+                this.today_successful_messages = res.count;
+                this.count = res.count;
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
+            })
+    }
+    getLastMonthSuccessfulMessage() {
+      this.loading = true;
+      const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+      return this.userProfileService.gets(headers, '/last_month_messages')
+            .subscribe((res: any) => {
+                this.loading = false;
+                this.last_month_messages = res.count;
+                this.count = res.count;
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
+            })
+    }
+    getTotalSuccessfulMessage() {
+      this.loading = true;
+      const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+
+      return this.userProfileService.gets(headers, '/total_messages')
+            .subscribe((res: any) => {
+                this.loading = false;
+                this.total_successful_messages = res.count;
+                this.count = res.count;
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
+            })
+    }
+
+     getTodayMessages() {
+        this.loading = true;
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/notify_today_messages')
+            .subscribe((res: any) => {
+                this.loading = false;
+                // this.notify_today_messages = new MatTableDataSource(res.scheduled_messages.data);
+                this.notify_today_messages = res.today_messages;
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
+            })
+    }
+    getTeams() {
+        this.loading = true;
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/get_teams')
+            .subscribe((res: any) => {
+                this.loading = false;
+                // this.notify_today_messages = new MatTableDataSource(res.scheduled_messages.data);
+                this.teams = res.teams;
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
+            })
+    }
+    getEvents() {
+        this.loading = true;
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/get_events')
+            .subscribe((res: any) => {
+                this.loading = false;
+                // this.notify_today_messages = new MatTableDataSource(res.scheduled_messages.data);
+                this.events = res.events;
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
+            })
+    }
+    getSmsRegisteredMembers(e) {
+      this.loading = true;
+      if(e) {
+        this.page = e;
+      }
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/sms_registered_members?page='+this.page)
+            .subscribe((res: any) => {
+                this.loading = false;
+                // this.notify_today_messages = new MatTableDataSource(res.scheduled_messages.data);
+                this.sms_registered_members = res.registered_members.data;
+                this.per_page = res.registered_members.per_page;
+                this.total = res.registered_members.total;
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
             })
     }
 

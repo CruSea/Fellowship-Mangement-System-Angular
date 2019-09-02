@@ -10,6 +10,7 @@ import { PostGraduatesService } from '../services/post-graduates/post-graduates.
 import { StorageService } from '../services/storage.service';
 import { PostGraduatesModalComponent } from './post-graduates-modal/post-graduates-modal.component';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
       NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       HttpClientModule,
       ConfirmationPopoverModule,
+      NgxPaginationModule,
       ReactiveFormsModule,
       PostGraduatesRoutingModule
   ],

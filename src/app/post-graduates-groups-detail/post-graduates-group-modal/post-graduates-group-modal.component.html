@@ -1,3 +1,22 @@
-<p>
-  post-graduates-group-modal works!
-</p>
+<form [formGroup]="groupContactsModalForm" (ngSubmit)="groupContactsModal(groupContactsModalForm.value)">
+
+  <mat-form-field>
+    <input matInput placeholder="Add Team Name" type="text" formControlName="name">
+    <mat-error style="color: red" *ngIf="groupContactsModalForm.get('name').invalid && (groupContactsModalForm.get('name').dirty ||
+      groupContactsModalForm.get('name').touched) && groupContactsModalForm.get('name').errors?.required">
+      Please insert Team Name!
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Enter description of the Team " type="text" formControlName="description"></textarea>
+    <mat-error style="color: red" *ngIf="groupContactsModalForm.get('description').invalid && (groupContactsModalForm.get('description').dirty ||
+      groupContactsModalForm.get('description').touched) && groupContactsModalForm.get('description').errors?.required">
+      Please insert description!
+    </mat-error>
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Add Team</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+  </div>
+</form>

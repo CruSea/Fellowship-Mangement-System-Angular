@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { LoginInterface } from './login.interface';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+
+import { ToastrService } from 'ngx-toastr';
 // import { AuthService } from '../auth.service';
 import { AuthenticationService } from '../services/authentication/authentication.service';
 import { LoginResponseInterface } from '../services/authentication/authentication.interface';
@@ -26,13 +28,14 @@ export class LoginComponent implements OnInit {
       private router: Router,
       private httpClient: HttpClient,
       private authenticationService: AuthenticationService,
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private toastr: ToastrService
   ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: [null],
-      password: [null],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -41,11 +44,14 @@ export class LoginComponent implements OnInit {
       this.authenticationService.login(loginInterface)
         .subscribe((loginResponseInterface: LoginResponseInterface) => {
             this.loading = false;
-            console.log(loginResponseInterface.message);
+            this.toastr.success('Welcome to Fellowship Mangement System', 'Welcom!', {timeOut: 2000});
             this.router.navigateByUrl('/').catch(error => console.log(error))
         }, (httpErrorResponse: HttpErrorResponse) => {
             this.loading = false;
-            console.log(httpErrorResponse)
+            this.toastr.error(httpErrorResponse.error.message, 'Login Error');
+            this.loginForm.controls['email'].setValue('');
+            this.loginForm.controls['password'].setValue('');
+            // window.location.reload();
         })
   }
 }

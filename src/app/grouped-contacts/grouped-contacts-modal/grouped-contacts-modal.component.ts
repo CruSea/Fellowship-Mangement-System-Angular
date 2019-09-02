@@ -88,7 +88,7 @@ export class GroupedContactsModalComponent implements OnInit {
             phone: [null, [Validators.required]],
             acadamic_department: [null, [Validators.required]],
             fellowship_id: [null, [Validators.required]],
-            email: [null, [Validators.required]],
+            email: [null, []],
             graduation_year: [null, [Validators.required]],
         });
     }
@@ -102,7 +102,7 @@ export class GroupedContactsModalComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.contactService.create(contactsModalInterface, headers, '/team/addMember/id')
+        return this.contactService.create(contactsModalInterface, headers, '/team/addMember/prayer')
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
                 this.dialogRef.close();

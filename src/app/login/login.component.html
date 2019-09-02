@@ -8,9 +8,9 @@
                 <h2 style="font-weight: bold; text-align: center">Login</h2>
                 <!--<div class="sidebar-background" style="background-image: url(../../assets/img/sidebar-4.jpg)"></div>-->
                 <mat-form-field>
-                    <input matInput placeholder="Email" type="text" formControlName="email">
+                    <input matInput placeholder="Email" type="email" formControlName="email">
                     <mat-error style="color: red" *ngIf="loginForm.get('email').invalid && (loginForm.get('email').dirty ||
-    loginForm.get('email').touched) && loginForm.get('email').errors?.required">
+                        loginForm.get('email').touched) && loginForm.get('email').errors?.required">
                         Please insert email!
                     </mat-error>
                 </mat-form-field>
@@ -22,7 +22,7 @@
                         {{hide ? 'visibility' : 'visibility_off'}}
                     </mat-icon>
                     <mat-error style="color: red" *ngIf="loginForm.get('password').invalid && (loginForm.get('password').dirty ||
-    loginForm.get('password').touched) && loginForm.get('password').errors?.minlength">
+                        loginForm.get('password').touched) && loginForm.get('password').errors?.minlength">
                         Please insert password!
                     </mat-error>
                 </mat-form-field>

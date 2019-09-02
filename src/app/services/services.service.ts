@@ -8,7 +8,7 @@ import { ServicesInterface } from './services.interface';
 export class ServicesService implements ServicesInterface, OnInit {
 
   protected MODEL: string;
-  protected BASE_URL = 'http://localhost:3232/';
+  protected BASE_URL = 'http://localhost:8000/';
 
   constructor (
     public httpClient: HttpClient,

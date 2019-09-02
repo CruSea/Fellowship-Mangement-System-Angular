@@ -1,96 +1,71 @@
 <p style="font-weight: bolder; font-size: x-large; margin-top: 61px; margin-left: 20px"> TEAMS </p>
 
-<!--<ol>-->
-<!--<li>-->
-<!--<mat-form-field>-->
-<!--<input matInput [(ngModel)]="name" placeholder="What's your name?">-->
-<!--</mat-form-field>-->
-<!--</li>-->
-<!--<div class="create" style="color: yellow; width: 100%">-->
-<!--<li>-->
-<!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
 <div style="margin-top: 30px; left: 30px ;display: flex; flex-flow: row">
-<button style="height: 40px; left: 20px" mat-raised-button (click)="openCreate()">
+  <button style="height: 40px; left: 20px" mat-raised-button (click)="openCreate()">
   <mat-icon>add</mat-icon>
-  <i style="font-size: 22px; margin-left: 5px" class="fa fa-users"></i>
   Add Team</button>
   <mat-form-field  class="col-md-4"  style="left: 80px; margin-bottom: 10px">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
   </mat-form-field>
 </div>
-<!--</li>-->
-<!--<li *ngIf="animal">-->
-<!--You chose: <i>{{animal}}</i>-->
-<!--</li>-->
-<!--&lt;!&ndash;</ol>&ndash;&gt;-->
-<!--</div>-->
+
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
-<div class="container">
 
-  <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+      <div class="card-header card-header-warning">
+          <h4 class="card-title">Teams</h4>
+          <p class="card-category">list of different teams</p>
+      </div>
+    <div class="card-body table-responsive">
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Team</th>
+              <th>Description</th>
+              <th>Created By</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let team of dataSource | paginate: { id: 'listing_pagination',
+                                                          itemsPerPage: per_page,
+                                                          currentPage: page,
+                                                          totalItems: total }; let i = index">
+              <td>{{i+1}}</td>
+              <td><a routerLink="/group-contacts/{{team.id}}">{{team.name | uppercase}}</a></td>
+              <td>{{team.description}}</td>
+              <td>{{team.created_by.full_name}}</td>
+              <td>{{team.created_at | date : 'fullDate'}}</td>
+              <td>{{team.updated_at | date: 'fullDate'}}</td>
+              <td>
+                <button mat-button="">
+                  <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon>
+                </button>
+                <button mat-button=""
+                        mwlConfirmationPopover
+                        [popoverTitle]="'Confirm Deletion'"
+                        [popoverMessage]="'Are you sure you want to delete this team?'"
+                        placement="left"
+                        (confirm)="deleteContact(team.id)"
+                        (cancel)="cancelClicked = true"
+                >
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Group Name </th>
-      <td mat-cell *matCellDef="let element">
-        <a routerLink="/group-contacts/{{element.id}}">{{element.name | uppercase}}</a>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="created_by">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created By </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_by.full_name}} </td>
-    </ng-container>
-
-      <ng-container matColumnDef="created_at">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created at </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="updated_at">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated By </th>
-      <td mat-cell *matCellDef="let element"> {{element.updated_at | date :'fullDate'}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <!--<ng-container matColumnDef="phone">-->
-      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Phone </th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.phone}} </td>-->
-    <!--</ng-container>-->
-
-    <!-- Symbol Column -->
-    <!--<ng-container matColumnDef="university">-->
-      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> University </th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.university}} </td>-->
-    <!--</ng-container>-->
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-button="">
-          <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>
-        <button mat-button=""
-                mwlConfirmationPopover
-                [popoverTitle]="'Confirm Deletion'"
-                [popoverMessage]="'Are you sure you want to delete this group'"
-                placement="left"
-                (confirm)="deleteContact(element.id)"
-                (cancel)="cancelClicked = true"
-        >
-
-          <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+                  <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <pagination-controls  id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="collectionOfcon($event)"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+

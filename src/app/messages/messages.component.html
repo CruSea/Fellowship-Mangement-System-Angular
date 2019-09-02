@@ -1,106 +1,138 @@
 <p style="font-weight: bolder; font-size: x-large; margin-top: 61px; margin-left: 20px"> SENT MESSAGES </p>
 
-<!--<ol>-->
-<!--<li>-->
-<!--<mat-form-field>-->
-<!--<input matInput [(ngModel)]="name" placeholder="What's your name?">-->
-<!--</mat-form-field>-->
-<!--</li>-->
-<!--<div class="create" style="color: yellow; width: 100%">-->
-<!--<li>-->
-<!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
 <div style="margin-top: 30px; left: 30px ;display: flex; flex-flow: row">
-  <button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()">
+  <!-- <button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()">
     <mat-icon>add</mat-icon>
     New Message
-  </button>
+  </button> -->
+  <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sent Message</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <i class="fas fa-envelope prefix grey-text"></i>
+          <input type="textarea" id="defaultForm-email" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+        </div>
+
+        <div class="md-form mb-4">
+          <i class="fas fa-lock prefix grey-text"></i>
+          <input type="password" id="defaultForm-pass" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+        </div>
+
+      </div> -->
+      <form [formGroup]="messageModalForm" (ngSubmit)="sendMessage(messageModalForm.value)">
+        <div style="margin-left:5%; margin-right:5%" >
+        <mat-form-field>
+          <mat-label>Sms Port</mat-label>
+          <mat-select formControlName="port_name">
+            <div *ngIf="smsPorts">
+            <mat-option *ngFor="let smsPort of smsPorts"  [value]="smsPort.port_name">
+              {{smsPort.port_name }}
+            </mat-option>
+          </div>
+          </mat-select>
+          <mat-error style="color: red" *ngIf="messageModalForm.get('port_name').invalid && (messageModalForm.get('port_name').dirty ||
+            messageModalForm.get('port_name').touched) && !messageModalForm.get('port_name').errors?.minlength">
+            Please insert Sms Port!
+          </mat-error>
+        </mat-form-field>
+      </div>
+        <div class="modal-body mx-3">
+        <mat-form-field>
+          <input matInput placeholder="Phone number" type="number" formControlName="sent_to">
+          <mat-error style="color: red" *ngIf="messageModalForm.get('sent_to').invalid && (messageModalForm.get('sent_to').dirty ||
+            messageModalForm.get('sent_to').touched) && !messageModalForm.get('sent_to').errors?.minlength">
+            Please insert phone number!
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="md-form mb-4" style="margin-left:3%; margin-right:3%" >
+        <mat-form-field >
+          <textarea matInput placeholder="write a message " type="text" formControlName="message"></textarea>
+          <mat-error style="color: red" *ngIf="messageModalForm.get('message').invalid && (messageModalForm.get('message').dirty ||
+            messageModalForm.get('message').touched) && !messageModalForm.get('message').errors?.minlength">
+            Please insert a message!
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <!-- <button class="btn btn-default">Login</button> -->
+        <button mat-button mat-raised-button color="primary" type="submit" cdkFocusInitial >Send Message</button>
+          <button mat-button data-dismiss="modal">Cancel</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <a href="" class="btn btn-default btn-rounded mb-4" style="height: 40px; left: 20px" data-toggle="modal" data-target="#modalLoginForm">New Message</a>
+</div>
   <mat-form-field class="col-md-4"  style="left: 100px; margin-bottom: 10px">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
   </mat-form-field>
 </div>
-<!--<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>-->
-<!--</li>-->
-<!--<li *ngIf="animal">-->
-<!--You chose: <i>{{animal}}</i>-->
-<!--</li>-->
-<!--&lt;!&ndash;</ol>&ndash;&gt;-->
-<!--</div>-->
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
-<div class="container">
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+      <div class="card-header card-header-warning">
+          <h4 class="card-title">Messages</h4>
+          <p class="card-category">list of sent messages for Fellowship members</p>
+      </div>
+    <div class="card-body table-responsive">
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Message</th>
+              <th>Sent To</th>
+              <th>sent|deliverd</th>
+              <th>sent_by</th>
+              <th>Date Time</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let message of dataSource | paginate: { id: 'listing_pagination',
+                                                          itemsPerPage: per_page,
+                                                          currentPage: page,
+                                                          totalItems: total }; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{message.message}}</td>
+              <td>{{message.sent_to}}</td>
+              <td>{{message.is_sent}}|{{message.is_delivered}}</td>
+              <td>{{message.sent_by.full_name}}</td>
+              <td>{{message.created_at | date : 'fullDate'}}</td>
+              <td>
+                <button mat-button=""
+                        mwlConfirmationPopover
+                        [popoverTitle]="'Confirm Deletion'"
+                        [popoverMessage]="'This message will never be seen again'"
+                        placement="left"
+                        (confirm)="removeMessage(message.id)"
+                        (cancel)="cancelClicked = true"
+                >
 
-  <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="message">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Message </th>
-      <td mat-cell *matCellDef="let element"> {{element.message}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="sent_to">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Sent To </th>
-      <td mat-cell *matCellDef="let element"> {{element.sent_to}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="is_sent">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Sent</th>
-      <td mat-cell *matCellDef="let element"> {{element.is_sent | isEqualTo: 1 }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="is_delivered">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Delivered</th>
-      <td mat-cell *matCellDef="let element"> {{element.is_delivered | isEqualTo: 1 }}</td>
-    </ng-container>
-
-     <!--Weight Column -->
-    <!--<ng-container matColumnDef="campaign">-->
-      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Campaign </th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.campaign}} </td>-->
-    <!--</ng-container>-->
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="created_at">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created At </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="sent_by">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created by </th>
-      <td mat-cell *matCellDef="let element"> {{element.sent_by.full_name}} </td>
-    </ng-container>
-
-    <!--<ng-container matColumnDef="sms_port_id">-->
-      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Port Id </th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.sms_port_id}} </td>-->
-    <!--</ng-container>-->
-
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
-      <td mat-cell *matCellDef="let element">
-        <!--<button mat-button="">-->
-          <!--<mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>-->
-        <button mat-button=""
-                mwlConfirmationPopover
-                [popoverTitle]="'Confirm Deletion'"
-                [popoverMessage]="'Are you sure you want to delete this contact'"
-                placement="left"
-                (confirm)="deleteMessage(element.id)"
-                (cancel)="cancelClicked = true"
-        >
-
-          <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+                  <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <pagination-controls  id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="sentMessages($event)"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

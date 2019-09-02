@@ -34,4 +34,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'scheduled-message',   loadChildren: '../../scheduled-message/scheduled-message.module#ScheduledMessageModule' },
     { path: 'registeration-message',   loadChildren: '../../registeration-message/registeration-message.module#RegisterationMessageModule' },
     { path: 'group-messages',     loadChildren: '../../group-messages/group-messages.module#GroupMessagesModule' },
+    { path: 'registration-keys', loadChildren: '../../registration-key/registration-key-module/registration-key-module.module#RegistrationKeyModuleModule'},
 ];

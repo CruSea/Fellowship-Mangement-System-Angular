@@ -2,12 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet, MatBottomSheetRef, MatDialog, MatTableDataSource } from '@angular/material';
 import { MessageModalComponent } from './message-modal/message-modal.component';
 import { StorageService } from '../services/storage.service';
+import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { SentMessagesService } from '../services/sent_messages/sent-messages.service';
 import { SmsPortService } from '../services/sms-port/sms-port.service';
+import { FormBuilder, Validators } from '@angular/forms';
 // import { UpdateContactComponent, UpdateContactInterface } from './update-contact/update-contact.component';
 // import { ImportContactComponent } from './import-contact/import-contact.component';
 
+interface MessageModalInterface {
+    port_name: string;
+    sent_to: string;
+    message: string;
+}
 
 export interface PeriodicElement {
     message: string;
@@ -38,17 +45,27 @@ export class MessagesComponent implements OnInit {
     animal: string;
     message: string;
     loading: boolean;
+    per_page: number;
+    total: number;
+    page: number;
 
+    errorResponse: string;
+
+    messageModalForm: any;
+    smsPorts: any;
 
     displayedColumns: string[] = ['id', 'message', 'sent_to', 'sent_by', 'is_sent', 'is_delivered', 'created_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
     dataSource: any;
 
     constructor(
+        private formBuilder: FormBuilder,
         private matDialog: MatDialog,
         private storageService: StorageService,
-        private sentMessagesService: SentMessagesService
-    ) { }
+        private sentMessagesService: SentMessagesService,
+        private smsPortService: SmsPortService,
+        private toastr: ToastrService
+    ) { this.page = 1; }
 
     openCreate(): void {
         const dialogRef = this.matDialog.open(MessageModalComponent, {
@@ -57,42 +74,46 @@ export class MessagesComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            this.sentMessages();
+            this.sentMessages(this.page);
             this.animal = result;
         });
     }
 
-    // openImportContact(): void {
-    //     const dialogRef = this.matDialog.open(ImportContactComponent, {
-    //         width: '1000px'
-    //     });
-    //
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         console.log('The dialog was closed');
-    //         this.animal = result;
-    //     });
-    // }
-
-    // openUpdate(data: UpdateContactInterface): void {
-    //     console.log(data);
-    //     const dialogRef = this.matDialog.open(UpdateContactComponent, {
-    //         data: data,
-    //         width: '500px'
-    //     });
-    //
-    //     dialogRef.afterClosed().subscribe(result => {
-    //         console.log('The dialog was closed');
-    //         this.animal = result;
-    //     });
-    // }
-
     delete(uni: string) {
-        console.log(uni);
     }
 
     ngOnInit() {
-        this.sentMessages()
+        this.messageModalForm = this.formBuilder.group({
+            port_name: [null, [Validators.required]],
+            sent_to: [null, [Validators.required]],
+            message: [null, [Validators.required]],
+        });
+        this.sentMessages(this.page)
+        this.getSmsPorts();
+    }
+
+    sendMessage(messageModalInterface: MessageModalInterface) {
+        console.log(messageModalInterface);
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'POST')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.sentMessagesService.create(messageModalInterface, headers, '/message')
+            .subscribe((res: {message: string}) => {
+                console.log(res);
+                this.toastr.success('message sent successfully', 'Sent', {timeOut: 3000});
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                console.log(httpErrorResponse.status);
+                console.log(httpErrorResponse);
+                this.errorResponse = httpErrorResponse.error.response;
+                // if(httpErrorResponse.error.error.port_name != null) {
+                //     this.errorResponse = httpErrorResponse.error.error.port_name;
+                // }
+                this.toastr.error(this.errorResponse, 'Error', {timeOut: 10000});
+            })
     }
 
 
@@ -100,8 +121,11 @@ export class MessagesComponent implements OnInit {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    sentMessages() {
+    sentMessages(e) {
         this.loading = true;
+        if(e) {
+            this.page = e;
+        }
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -109,19 +133,34 @@ export class MessagesComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.sentMessagesService.gets(headers, '/messages')
+        return this.sentMessagesService.gets(headers, '/messages?page='+this.page)
             .subscribe((res: any) => {
                 this.loading = false;
-                this.dataSource = new MatTableDataSource(res.messages.data);
-                console.log(res)
+                // this.dataSource = new MatTableDataSource(res.messages.data);
+                this.dataSource = res.messages.data;
+                this.total = res.messages.total;
+                this.per_page = res.messages.per_page;
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 
-    deleteMessage (id: string) {
+    getSmsPorts() {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.smsPortService.gets(headers, '/sms-ports')
+            .subscribe((res: any) => {
+                this.smsPorts = res.sms_ports.data;
+            }, (httpErrorResponse: HttpErrorResponse) => {
+            })
+    }
+
+    removeMessage(id: string) {
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'DELETE')
@@ -131,11 +170,10 @@ export class MessagesComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.sentMessagesService.delete(`message/${id}`, headers)
             .subscribe((res: {message: string}) => {
-                console.log(res.message);
-                this.sentMessages();
+                this.toastr.success('message removed successfully', 'Removed', {timeOut: 3000});
+                this.sentMessages(this.page);
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+                this.toastr.error('Ooops! something went wrong, message is not removed', 'Error', {timeOut: 3000});
             })
     }
 

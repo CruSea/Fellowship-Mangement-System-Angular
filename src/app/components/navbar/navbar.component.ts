@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { UserProfileService } from '../../services/user-profile/user-profile.service';
 import { StorageService } from '../../services/storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit {
     private sidebarVisible: boolean;
     loading: boolean;
     datas: any[];
+    fellowship: string;
     count: number;
 
     constructor(
@@ -28,14 +30,16 @@ export class NavbarComponent implements OnInit {
         private storageService: StorageService,
         private authenticationService: AuthenticationService,
         private element: ElementRef,
-        private router: Router
+        private router: Router,
+        private toastr: ToastrService
     ) {
       this.location = location;
           this.sidebarVisible = false;
     }
 
     ngOnInit() {
-        this.getNotification();
+      this.getFellowship();
+      this.getNotification();
       this.listTitles = ROUTES.filter(listTitle => listTitle);
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
@@ -153,11 +157,56 @@ export class NavbarComponent implements OnInit {
                 this.loading = false;
                 this.datas = res.notifications.data;
                 this.count = res.count;
-                console.log(this.datas)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+            })
+    }
+    notificationSeen() {
+      const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'DELETE')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.delete(`notification-seen`, headers)
+            .subscribe((res: {message: string}) => {
+                this.getNotification();
+            }, (httpErrorResponse: HttpErrorResponse) => {
+            })
+    }
+    deleteNotification(id: string) {
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'DELETE')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.delete(`notification/${id}`, headers)
+            .subscribe((res: {message: string}) => {
+                this.toastr.success('notification removed successfully', 'Deleted', {timeOut: 3000});
+                this.getNotification();
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.toastr.error('Ooops! something went wrong, notification is not removed', 'Error', {timeOut: 3000});
+            })
+    }
+
+    getFellowship() {
+      this.loading = true;
+        const headers = new HttpHeaders()
+            .append('Access-Control-Allow-Origin', '*')
+            .append('Access-Control-Allow-Methods', 'GET')
+            .append('X-Requested-With', 'XMLHttpRequest')
+            .append('Access-Control-Allow-Headers', 'Content-Type')
+            .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
+        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
+        return this.userProfileService.gets(headers, '/fellowship')
+            .subscribe((res: any) => {
+                this.loading = false;
+                this.fellowship = res.fellowship.university_name;
+            }, (httpErrorResponse: HttpErrorResponse) => {
+                this.loading = false;
             })
     }
 

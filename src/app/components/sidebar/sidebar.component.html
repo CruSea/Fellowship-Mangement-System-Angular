@@ -1,70 +1,37 @@
-<div class="logo">
+<!-- <div class="logo">
     <a href="https://www.creative-tim.com" class="simple-text">
-        <!--<div class="logo-img">-->
-            <!--<img src="/assets/img/angular2-logo-red.png"/>-->
-        <!--</div>-->
-        FELLOWSHIP SMS SERVICE
+        FM Fellowship Mangement System
     </a>
+</div> -->
+<div class="logo">
+    <mat-expansion-panel style="cursor: pointer; margin-left: 10%; margin-right: 5%">
+    <mat-expansion-panel-header style="margin-bottom: 0">
+        <mat-panel-title> <i class="fa fa-user" style="margin-right: 10%; font-size: 22px"></i> {{user}} </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-list style="margin-top: 0;">
+        <mat-list-item>
+            <span style="margin-right: 10%;">MP</span>
+            <a class="Flink" routerLink="/my-profile">
+                My Profile</a>
+        </mat-list-item>
+        <mat-list-item>
+            <span style="margin-right: 10%;">EP</span>
+            <a class="Flink" routerLink="/edit-profile">
+                Edit Profile</a>
+        </mat-list-item>
+        <mat-list-item>
+            <span style="margin-right: 10%;">CP</span>
+            <a class="Flink" routerLink="/edit-password">
+                Change Password</a>
+        </mat-list-item>
+    </mat-list>
+    </mat-expansion-panel>
 </div>
 <div class="sidebar-wrapper">
   <div *ngIf="isMobileMenu()">
-    <form class="navbar-form">
-      <span class="bmd-form-group">
-        <div class="input-group no-border">
-          <input type="text" value="" class="form-control" placeholder="Search...">
-          <button mat-raised-button type="submit" class="btn btn-white btn-round btn-just-icon">
-            <i class="material-icons">search</i>
-            <div class="ripple-container"></div>
-          </button>
-        </div>
-      </span>
-    </form>
-    <ul class="nav navbar-nav nav-mobile-menu">
-        <li class="nav-item">
-            <a class="nav-link" href="#pablo">
-                <i class="material-icons">dashboard</i>
-                <p>
-                    <span class="d-lg-none d-md-block">Stats</span>
-                </p>
-            </a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link" href="#pablo" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="material-icons">notifications</i>
-                <span class="notification">5</span>
-                <p>
-                    <span class="d-lg-none d-md-block">Some Actions</span>
-                </p>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                <a class="dropdown-item" href="#">Another Notification</a>
-                <a class="dropdown-item" href="#">Another One</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#pablo">
-                <i class="material-icons">person</i>
-                <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                </p>
-            </a>
-        </li>
-    </ul>
   </div>
     <ul class="nav">
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
-            <!--<a class="nav-link" *ngIf="menuItem.title === 'Contacts'" style="cursor: pointer ">-->
-                <!--<i class="material-icons">{{menuItem.icon}}</i>-->
-                <!--<p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Contacts'">{{menuItem.title}}</p>-->
-                <!--<mat-menu #menu="matMenu" style="width: 100%">-->
-                    <!--<a mat-menu-item routerLink="/contacts">Contacts List</a>-->
-                    <!--<a mat-menu-item routerLink="/group-contacts">Group Contacts</a>-->
-                <!--</mat-menu>-->
-            <!--</a>-->
-
             <mat-expansion-panel *ngIf="menuItem.title === 'Contacts'" style="cursor: pointer; ">
                 <mat-expansion-panel-header style="margin-bottom: 0">
                     <mat-panel-title> <i class="material-icons">{{menuItem.icon}}</i> Contacts </mat-panel-title>
@@ -82,16 +49,6 @@
                     </mat-list-item>
                 </mat-list>
             </mat-expansion-panel>
-
-            <!--<a class="nav-link" *ngIf="menuItem.title === 'Post Graduates'" style="cursor: pointer;">-->
-                <!--<i class="material-icons">{{menuItem.icon}}</i>-->
-                <!--<p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Post Graduates'">{{menuItem.title}}</p>-->
-                <!--<mat-menu #menu="matMenu" style="width: 100%">-->
-                    <!--<a mat-menu-item routerLink="/post-graduates">Graduates List</a>-->
-                    <!--<a mat-menu-item routerLink="/post-graduates-groups">Graduates Group</a>-->
-                <!--</mat-menu>-->
-            <!--</a>-->
-
             <mat-expansion-panel *ngIf="menuItem.title === 'Post Graduates'" style="cursor: pointer;">
                 <mat-expansion-panel-header style="margin-bottom: 0">
                     <mat-panel-title><i class="material-icons">{{menuItem.icon}}</i> Post Graduates</mat-panel-title>
@@ -110,22 +67,23 @@
                 </mat-list>
             </mat-expansion-panel>
 
-            <!--</a> <a class="nav-link" *ngIf="menuItem.title === 'Users'" style="cursor: pointer ">-->
-                <!--<i class="material-icons">{{menuItem.icon}}</i>-->
-                <!--<p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Users'">{{menuItem.title}}</p>-->
-                <!--<mat-menu #menu="matMenu" style="width: 100%">-->
-                    <!--<a mat-menu-item routerLink="/dashboard/users">Users</a>-->
-                <!--</mat-menu>-->
-            <!--</a>-->
-
-            <!--<a class="nav-link" *ngIf="menuItem.title === 'Messages'" style="cursor: pointer ">-->
-                <!--<i class="material-icons">{{menuItem.icon}}</i>-->
-                <!--<p [matMenuTriggerFor]="menu" *ngIf="menuItem.title === 'Messages'">{{menuItem.title}}</p>-->
-                <!--<mat-menu #menu="matMenu" style="width: 100%">-->
-                    <!---->
-                <!--</mat-menu>-->
-            <!--</a>-->
-
+            <mat-expansion-panel *ngIf="menuItem.title === 'Events'" style="cursor: pointer;">
+                <mat-expansion-panel-header style="margin-bottom: 0">
+                    <mat-panel-title><i class="material-icons">{{menuItem.icon}}</i>Events</mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list style="margin-top: 0">
+                    <mat-list-item>
+                        <a class="Flink" routerLink="/events">
+                            <i style="font-size: 22px" class="material-icons">{{menuItem.icon}}</i>
+                            events</a>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <a class="Flink"   routerLink="/registration-keys">
+                            <i style="font-size: 22px" class="fa fa-key"></i>
+                            registration key</a>
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
             <mat-expansion-panel *ngIf="menuItem.title === 'Messages'" style="padding: 0">
                 <mat-expansion-panel-header style="margin-bottom: 0">
                     <mat-panel-title>
@@ -137,7 +95,7 @@
                     <mat-list-item>
                         <a style="margin-right: 5px" class="Flink" routerLink="/messages">
                             <i style="font-size: 20px" class="fa fa-envelope-open"></i>
-                            Sent messages</a>
+                            Sent Messages</a>
                     </mat-list-item>
                     <mat-list-item>
                         <a style="margin-right: 5px" class="Flink" routerLink="/received-messages">
@@ -159,18 +117,13 @@
                             <i style="font-size: 20px" class="fa fa-hourglass-end"></i>
                             Scheduled Messages</a>
                     </mat-list-item>
-
-                    <mat-list-item>
-                        <a style="margin-right: 5px" class="Flink" routerLink="/registeration-message">
-                            <!--<mat-icon>access_time</mat-icon>-->
-                            <i style="font-size: 20px; height: 10px" class="fa fa-bookmark"></i>
-                            Registration Messages</a>
-                    </mat-list-item>
                 </mat-list>
             </mat-expansion-panel>
 
+            
+
             <a class="nav-link" [routerLink]="menuItem.path"
-               *ngIf="menuItem.title !== 'Contacts' && menuItem.title !== 'Messages' && menuItem.title !== 'Post Graduates'">
+               *ngIf="menuItem.title !== 'Contacts' && menuItem.title !== 'Messages' && menuItem.title !== 'Post Graduates' && menuItem.title !== 'Events'">
                 <i class="material-icons">{{menuItem.icon}}</i>
                 <p>{{menuItem.title}}</p>
             </a>

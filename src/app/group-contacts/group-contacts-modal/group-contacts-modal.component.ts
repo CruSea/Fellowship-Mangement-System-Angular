@@ -7,12 +7,11 @@ import { GroupContactsService } from '../../services/group_contacts/group-contac
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { TeamService } from '../../services/team/team.service';
 // import { ELEMENT_DATA } from '../group-contacts.component';
+import { ToastrService } from 'ngx-toastr';
 
 interface GroupContactsModalInterface {
     name: string;
     description: string;
-    // phone: string;
-    // university: string;
 }
 
 export interface DialogData {
@@ -38,6 +37,7 @@ export class GroupContactsModalComponent implements OnInit {
         private formBuilder: FormBuilder,
         private storageService: StorageService,
         private teamService: TeamService,
+        private toastr: ToastrService,
         public dialogRef: MatDialogRef<GroupContactsModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
@@ -46,12 +46,9 @@ export class GroupContactsModalComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.getEvent();
         this.groupContactsModalForm = this.formBuilder.group({
             name: [null, [Validators.required]],
             description: [null, [Validators.required]],
-            // phone: [null, [Validators.required]],
-            // university: [null, [Validators.required]],
         });
     }
 
@@ -67,11 +64,10 @@ export class GroupContactsModalComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.teamService.create(groupContactsModalInterface, headers, '/team')
             .subscribe((res: {message: string}) => {
-                console.log(res.message);
                 this.dialogRef.close();
+                this.toastr.success('new team added successfully', 'Team', {timeOut: 3000});
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+                this.toastr.error(httpErrorResponse.error.error, 'Error', {timeOut: 10000});
             })
     }
 

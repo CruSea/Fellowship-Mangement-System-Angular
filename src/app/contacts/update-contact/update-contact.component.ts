@@ -58,7 +58,6 @@ export class UpdateContactComponent implements OnInit {
     }
 
     updateContact(contactsModalInterface: UpdateContactInterface) {
-        console.log(contactsModalInterface);
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'POST')

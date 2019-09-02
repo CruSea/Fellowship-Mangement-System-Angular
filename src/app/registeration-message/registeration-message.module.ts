@@ -16,17 +16,19 @@ import { RegistrationMessageGroupModalComponent } from './registration-message-g
 import { RegistrationMessageContactModalComponent } from './registration-message-contact-modal/registration-message-contact-modal.component';
 import { RegistrationMessageEventModalComponent } from './registration-message-event-modal/registration-message-event-modal.component';
 import { RegistrationMessageFellowModalComponent } from './registration-message-fellow-modal/registration-message-fellow-modal.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
     CommonModule,
       FormsModule,
       NgPipesModule,
-      // NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
+      NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       MaterialsModule,
       ConfirmationPopoverModule,
       HttpClientModule,
       ReactiveFormsModule,
+      NgxPaginationModule,
       Ng2SmartTableModule,
       RegisterationMessageRoutingModule
   ],

@@ -16,6 +16,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { Moment } from 'moment';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { ToastrService } from 'ngx-toastr';
 
 const moment = _moment;
 
@@ -83,6 +84,7 @@ export class ContactsModalComponent implements OnInit {
         private formBuilder: FormBuilder,
         private contactService: ContactService,
         private storageService: StorageService,
+        private toastr: ToastrService,
         public dialogRef: MatDialogRef<ContactsModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
@@ -97,16 +99,15 @@ export class ContactsModalComponent implements OnInit {
             full_name: [null, [Validators.required]],
             gender: [null, [Validators.required]],
             phone: [null, [Validators.required]],
-            team: [null, [Validators.required]],
+            team: [null, []],
             acadamic_department: [null, [Validators.required]],
-            email: [null, [Validators.required]],
+            email: [null, []],
             graduation_year: [null, [Validators.required]],
         });
     }
 
     contactsModal(contactsModalInterface: ContactsModalInterface) {
         contactsModalInterface['graduation_year'] = moment(this.date.value.toString()).year().toString();
-        console.log(contactsModalInterface);
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'POST')
@@ -116,12 +117,10 @@ export class ContactsModalComponent implements OnInit {
             // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.contactService.create(contactsModalInterface, headers, '/contact')
             .subscribe((res: {message: string}) => {
-                // this.loading = false;
-                console.log(res.message);
                 this.dialogRef.close();
+                this.toastr.success('new under graduate member added successfully', 'Contact', {timeOut: 3000});
             }, (httpErrorResponse: HttpErrorResponse) => {
-                // this.loading = false;
-                console.log(httpErrorResponse.status);
+                this.toastr.error(httpErrorResponse.error.error, 'Error', {timeOut: 10000});
                 console.log(httpErrorResponse);
             })
     }
@@ -136,11 +135,8 @@ export class ContactsModalComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.contactService.gets(headers, '/teams')
             .subscribe((res: any) => {
-                console.log(res);
                 this.groupNames = res
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 }

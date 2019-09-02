@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { UpdateGroupContactsComponent } from './update-group-contacts/update-group-contacts.component';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
       NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       HttpClientModule,
       ReactiveFormsModule,
+      NgxPaginationModule,
       GroupContactsRoutingModule
   ],
   declarations: [GroupContactsComponent, GroupContactsModalComponent, UpdateGroupContactsComponent],

@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StorageService } from '../services/storage.service';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
         HttpClientModule,
         ConfirmationPopoverModule,
         ReactiveFormsModule,
+        NgxPaginationModule,
         Ng2SmartTableModule,
         UsersRoutingModule
     ],

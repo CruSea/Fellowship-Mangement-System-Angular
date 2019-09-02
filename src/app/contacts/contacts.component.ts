@@ -4,6 +4,7 @@ import { ContactsModalComponent, ContactsModalInterface } from './contacts-modal
 import { UpdateContactComponent, UpdateContactInterface } from './update-contact/update-contact.component';
 import { ImportContactComponent } from './import-contact/import-contact.component';
 import { ContactsService } from './contacts.service';
+import { ToastrService } from 'ngx-toastr';
 import { ContactService } from '../services/contact/contact.service';
 import { StorageService } from '../services/storage.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -17,10 +18,6 @@ export interface PeriodicElement {
     email: string;
     Acadamic_department: string;
     status: string;
-    // fellowship_id: number;
-    // created_by: string;
-    // created_at: string;
-    // updated_at: string;
     action?: string
 }
 
@@ -37,12 +34,10 @@ export class ContactsComponent implements OnInit {
 
     current_page: string;
     _form: string;
-    last_page: string;
-    next_page_url: string;
-    per_page: string;
-    prev_page_url: string;
-    _to: string;
-    total: string;
+    per_page: number;
+    total: number;
+    page: number;
+
 
 
     displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'email', 'Acadamic_department', 'graduation_year', 'status', 'updated_at', 'action'];
@@ -54,7 +49,8 @@ export class ContactsComponent implements OnInit {
       private contactsService: ContactsService,
       private contactService: ContactService,
       private storageService: StorageService,
-  ) { }
+      private toastr: ToastrService
+  ) { this.page = 1; }
 
     openCreate(): void {
         // this.loading = true;
@@ -65,9 +61,8 @@ export class ContactsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             // this.loading = false;
-            console.log('The dialog was closed');
             // this.loading = false;
-            this.collectionOfcon();
+            this.collectionOfcon(this.page);
             this.animal = result;
         });
     }
@@ -78,32 +73,28 @@ export class ContactsComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            this.collectionOfcon();
+            this.collectionOfcon(this.page);
             this.animal = result;
         });
     }
 
     openUpdate(data: UpdateContactInterface): void {
-        console.log(data);
         const dialogRef = this.matDialog.open(UpdateContactComponent, {
             data: data,
             width: '500px'
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            this.collectionOfcon();
+            this.collectionOfcon(this.page);
             this.animal = result;
         });
     }
 
     delete(uni: string) {
-      console.log(uni);
     }
 
     ngOnInit() {
-      this.collectionOfcon();
+      this.collectionOfcon(this.page);
   }
 
 
@@ -111,24 +102,25 @@ export class ContactsComponent implements OnInit {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    collectionOfcon() {
+    collectionOfcon(e) {
         this.loading = true;
+        if(e) {
+            this.page = e;
+        }
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
             .append('X-Requested-With', 'XMLHttpRequest')
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
-        // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.contactService.gets(headers, '/contacts')
+        return this.contactService.gets(headers, '/contacts?page='+this.page)
             .subscribe((res: any) => {
                 this.loading = false;
-                this.dataSource = new MatTableDataSource(res.contacts.data);
-                console.log(res)
+                this.dataSource = res.contacts.data;
+                this.total = res.contacts.total;
+                this.per_page = res.contacts.per_page;
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 
@@ -142,11 +134,10 @@ export class ContactsComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.contactService.delete(`contact/${id}`, headers)
             .subscribe((res: {message: string}) => {
-                console.log(res.message);
-                this.collectionOfcon();
+                this.toastr.success('contact deleted successfully', 'Deleted', {timeOut: 3000});
+                this.collectionOfcon(this.page);
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+                this.toastr.error('Ooops! something went wrong, contact is not deleted', 'Error', {timeOut: 3000});
             })
     }
 }

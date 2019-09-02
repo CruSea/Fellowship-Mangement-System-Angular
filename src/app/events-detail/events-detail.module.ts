@@ -11,13 +11,17 @@ import { AssignMembersComponent } from './assign-members/assign-members.componen
 import { EventsContactsModalComponent } from './events-contacts-modal/events-contacts-modal.component';
 import { ImportEventsContactsComponent } from './import-events-contacts/import-events-contacts.component';
 import { UpdateEventsContactsComponent } from './update-events-contacts/update-events-contacts.component';
+import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
     CommonModule,
       FormsModule,
       MaterialsModule,
+      NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       ConfirmationPopoverModule,
+      NgxPaginationModule,
       ReactiveFormsModule,
       EventsDetailRoutingModule
   ],

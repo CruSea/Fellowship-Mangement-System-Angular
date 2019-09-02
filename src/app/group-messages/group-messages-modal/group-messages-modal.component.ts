@@ -79,7 +79,7 @@ export class GroupMessagesModalComponent implements OnInit {
         return this.groupedMessageService.gets(headers, '/sms-ports')
             .subscribe((res: any) => {
                 console.log(res);
-                this.smsPorts = res
+                this.smsPorts = res.sms_ports.data;
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
@@ -97,7 +97,7 @@ export class GroupMessagesModalComponent implements OnInit {
         return this.groupedMessageService.gets(headers, '/teams')
             .subscribe((res: any) => {
                 console.log(res);
-                this.groupNames = res
+                this.groupNames = res.teams.data;
             }, (httpErrorResponse: HttpErrorResponse) => {
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);

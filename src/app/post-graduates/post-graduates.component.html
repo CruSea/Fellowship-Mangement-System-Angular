@@ -1,103 +1,75 @@
 <p style="font-weight: bolder; font-size: x-large; margin-top: 61px; margin-left: 20px"> POST GRADUATES </p>
 
-<!--<ol>-->
-<!--<li>-->
-<!--<mat-form-field>-->
-<!--<input matInput [(ngModel)]="name" placeholder="What's your name?">-->
-<!--</mat-form-field>-->
-<!--</li>-->
-<!--<div class="create" style="color: yellow; width: 100%">-->
-<!--<li>-->
-<!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
 <div style="margin-top: 30px; left: 30px ;display: flex; flex-flow: row">
-  <button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()">Add Post Graduate</button>
+  <button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()"><mat-icon>add</mat-icon>Add Post Graduate</button>
   <button mat-button color="primary" style="height: 40px; left: 60px"  mat-raised-button (click)="openImportContact()"> Import Post Graduate</button>
   <mat-form-field class="col-md-4"  style="left: 100px; margin-bottom: 10px">
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
   </mat-form-field>
 </div>
-<!--<button mat-button color="" style="margin-top: 61px; left: 70px" mat-raised-button="" >-->
-<!--<mat-icon style="color: red;" mat-raised-button-->
-<!--(click)="refresh()"></mat-icon>-->
-<!--</button>-->
-<!--</li>-->
-<!--<li *ngIf="animal">-->
-<!--You chose: <i>{{animal}}</i>-->
-<!--</li>-->
-<!--&lt;!&ndash;</ol>&ndash;&gt;-->
-<!--</div>-->
+
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
 
-<div class="container">
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+      <div class="card-header card-header-warning">
+          <h4 class="card-title">Post Graduates</h4>
+          <p class="card-category">list of post graduate contacts</p>
+      </div>
+    <div class="card-body table-responsive">
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Gender</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Acadamic Department</th>
+              <th>Graduation Year</th>
+              <th>created By</th>
+              <th>created at</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let post_graduate of dataSource | paginate: { id: 'listing_pagination',
+                                                          itemsPerPage: per_page,
+                                                          currentPage: page,
+                                                          totalItems: total }; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{post_graduate.full_name}}</td>
+            <td>{{post_graduate.gender}}</td>
+            <td>{{post_graduate.phone}}</td>
+            <td>{{post_graduate.email}}</td>
+            <td>{{post_graduate.Acadamic_department}}</td>
+            <td>{{post_graduate.graduation_year | date :'fullDate'}}</td>
+            <td>{{post_graduate.created_by}}</td>
+            <td>{{post_graduate.created_at}}</td>
+            <td>
+              <button mat-button="">
+                    <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon>
+                  </button>
+                  <button mat-button=""
+                          mwlConfirmationPopover
+                          [popoverTitle]="'Confirm Deletion'"
+                          [popoverMessage]="'Are you sure you want to delete this contact'"
+                          placement="left"
+                          (confirm)="deleteContact(post_graduate.id)"
+                          (cancel)="cancelClicked = true"
+                  >
 
-  <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id | number : fractionsize}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="full_name">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Full Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.full_name | titlecase}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="gender">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Gender </th>
-      <td mat-cell *matCellDef="let element"> {{element.gender | titlecase}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="phone">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Phone </th>
-      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Acadamic_department">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Academic Department </th>
-      <td mat-cell *matCellDef="let element"> {{element.Acadamic_department | titlecase}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="graduation_year">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Graduation Year </th>
-      <td mat-cell *matCellDef="let element"> {{element.graduation_year | titlecase}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="created_at">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created At </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_at  | date :'fullDate'}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="updated_at">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated At </th>
-      <td mat-cell *matCellDef="let element"> {{element.updated_at  | date :'fullDate'}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-button="">
-          <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>
-        <button mat-button=""
-                mwlConfirmationPopover
-                [popoverTitle]="'Confirm Deletion'"
-                [popoverMessage]="'Are you sure you want to delete this graduate'"
-                placement="left"
-                (confirm)="deleteContact(element.id)"
-                (cancel)="cancelClicked = true"
-        >
-
-          <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+                    <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
+                  </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <pagination-controls  id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="collectionOfcon($event)"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

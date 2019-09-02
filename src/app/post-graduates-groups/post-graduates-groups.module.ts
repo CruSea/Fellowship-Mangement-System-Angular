@@ -10,6 +10,7 @@ import { StorageService } from '../services/storage.service';
 import { PostGraduatesGroupsService } from '../services/post-graduates-groups/post-graduates-groups.service';
 import { PostGraduatesGroupsModalComponent } from './post-graduates-groups-modal/post-graduates-groups-modal.component';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
       HttpClientModule,
       ConfirmationPopoverModule,
       ReactiveFormsModule,
+      NgxPaginationModule,
       PostGraduatesGroupsRoutingModule
   ],
   declarations: [PostGraduatesGroupsComponent, PostGraduatesGroupsModalComponent],

@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Router } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ToastrModule } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
+// import { MzButtonModule, MzInputModule } from 'ngx-materialize';
 
 
 import { AppRoutingModule } from './app.routing';
@@ -31,12 +35,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { P404Component } from './p404/p404.component';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { RegistrationKeyComponent } from './registration-key/registration-key.component';
+import { RegistrationKeyModalComponent } from './registration-key/registration-key-modal/registration-key-modal.component';
 @NgModule({
   imports: [
       CommonModule,
       BrowserModule,
+      NgxPaginationModule,
+      ReactiveFormsModule,
+      // MzButtonModule,
+      // MzInputModule,
       // FormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     HttpModule,
       HttpClientModule,
       AuthenticationModule,
@@ -54,6 +65,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     AdminLayoutComponent,
     ImageComponent,
     P404Component,
+    RegistrationKeyModalComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,6 +17,7 @@ import * as _moment from 'moment';
 import { StorageService } from '../../services/storage.service';
 import { PostGraduatesService } from '../../services/post-graduates/post-graduates.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 const moment = _moment;
 
@@ -77,6 +78,7 @@ export class PostGraduatesModalComponent implements OnInit {
       private formBuilder: FormBuilder,
       private postGraduatesService: PostGraduatesService,
       private storageService: StorageService,
+      private toastr: ToastrService,
       public dialogRef: MatDialogRef<PostGraduatesModalComponent>,
       @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) { }
@@ -91,9 +93,9 @@ export class PostGraduatesModalComponent implements OnInit {
           full_name: [null, [Validators.required]],
           gender: [null, [Validators.required]],
           phone: [null, [Validators.required]],
-          team: [null, [Validators.required]],
+          team: [null, []],
           acadamic_department: [null, [Validators.required]],
-          email: [null, [Validators.required]],
+          email: [null, []],
           graduation_year: [null, [Validators.required]],
       });
   }
@@ -110,13 +112,10 @@ export class PostGraduatesModalComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.postGraduatesService.create(postGraduatesModalInterface, headers, '/post-graduate')
             .subscribe((res: {message: string}) => {
-                // this.loading = false;
-                console.log(res.message);
                 this.dialogRef.close();
+                this.toastr.success('new post graduate member added successfully', 'Contact', {timeOut: 3000});
             }, (httpErrorResponse: HttpErrorResponse) => {
-                // this.loading = false;
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+                this.toastr.error(httpErrorResponse.error.error, 'Error', {timeOut: 10000});
             })
     }
 

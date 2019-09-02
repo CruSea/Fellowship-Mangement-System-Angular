@@ -1,6 +1,6 @@
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
 
-<div style="width: 50%; margin: 10% auto">
+<div style="width: 50%; margin-top: 10%; margin-left: 10%; margin-right: 10%;margin-bottom: 1% auto">
     <div class="card card-profile">
         <div class="card-body">
             <h4 class="card-title" style="font-weight: bold">API KEY</h4>
@@ -27,4 +27,70 @@
             </mat-list>
         </div>
     </div>
+</div>
+<div style="margin-top: 30px; left: 30px ;display: flex; flex-flow: row">
+<button mat-raised-button style="height: 40px; left: 20px" (click)="openCreate()">
+  <i style="font-size: 22px" class="fa fa-plug" aria-hidden="true"></i>
+  New Sms Port</button>
+</div>
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+      <div class="card-header card-header-warning">
+          <h4 class="card-title">Sms Ports</h4>
+          <p class="card-category">list of Sms Ports</p>
+      </div>
+    <div class="card-body table-responsive">
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Sms Port</th>
+              <th>Port Type</th>
+              <th>Negarit Campaign</th>
+              <th>Negarit Sms Port</th>
+              <th>Created By</th>
+              <th>Created At</th>
+              <th>Updated At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let sms_port of dataSource | paginate: { id: 'listing_pagination',
+                                                          itemsPerPage: per_page,
+                                                          currentPage: page,
+                                                          totalItems: total }; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{sms_port.port_name}}</td>
+            <td>{{sms_port.port_type}}</td>
+            <td>{{sms_port.negarit_campaign_id}}</td>
+            <td>{{sms_port.negarit_sms_port_id}}</td>
+            <td>{{sms_port.created_by.full_name}}</td>
+            <td>{{sms_port.created_at | date :'fullDate'}}</td>
+            <td>{{sms_port.updated_at | date :'fullDate'}}</td>
+            <td>
+              <button mat-button="">
+                  <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon>
+                </button>
+                <button mat-button=""
+                        mwlConfirmationPopover
+                        [popoverTitle]="'Confirm Deletion'"
+                        [popoverMessage]="'Are you sure you want to delete this contact'"
+                        placement="left"
+                        (confirm)="deleteCampaign(sms_port.id)"
+                        (cancel)="cancelClicked = true"
+                >
+
+                  <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
+                </button>
+            </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <pagination-controls  id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="collectionOfSmsPorts($event)"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

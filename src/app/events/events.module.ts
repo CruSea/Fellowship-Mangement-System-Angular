@@ -10,6 +10,8 @@ import { EventsRoutingModule } from './events-routing.module';
 import { EventsModalComponent } from './events-modal/events-modal.component';
 import { UpdateEventsComponent } from './update-events/update-events.component';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
       MaterialsModule,
       NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       HttpClientModule,
+      ConfirmationPopoverModule,
       ReactiveFormsModule,
+      NgxPaginationModule,
       EventsRoutingModule
   ],
   declarations: [EventsComponent, EventsModalComponent, UpdateEventsComponent],

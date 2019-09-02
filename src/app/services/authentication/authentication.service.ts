@@ -60,7 +60,6 @@ export class AuthenticationService implements AuthService, OnInit {
       .append('Access-Control-Allow-Methods', 'POST')
       .append('X-Requested-With', 'XMLHttpRequest')
       .append('Access-Control-Allow-Headers', 'Content-Type');
-    console.log(loginInterface);
     return this.loginService.create(loginInterface, headers, '/signin')
       .pipe(tap((loginResponseInterface: LoginResponseInterface) => {
         console.log('...................................................................................');

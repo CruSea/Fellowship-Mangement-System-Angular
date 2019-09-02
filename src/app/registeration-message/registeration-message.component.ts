@@ -9,6 +9,7 @@ import { RegistrationMessageGroupModalComponent } from './registration-message-g
 import { RegistrationMessageContactModalComponent } from './registration-message-contact-modal/registration-message-contact-modal.component';
 import { RegistrationMessageEventModalComponent } from './registration-message-event-modal/registration-message-event-modal.component';
 import { RegistrationMessageFellowModalComponent } from './registration-message-fellow-modal/registration-message-fellow-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 export interface PeriodicElement {
@@ -28,7 +29,12 @@ export class RegisterationMessageComponent implements OnInit {
 
   animal: string;
   message: string;
-    panelOpenState: boolean;
+  panelOpenState: boolean;
+  loading: boolean;
+
+  per_page: number;
+  total: number;
+  page: number;
 
     displayedColumns: string[] = ['id', 'message', 'sent_by', 'team_id', 'created_at', 'action'];
     dataSource: any;
@@ -36,8 +42,9 @@ export class RegisterationMessageComponent implements OnInit {
   constructor(
       private matDialog: MatDialog,
       private storageService: StorageService,
-      private registerationMessageService: RegisterationMessageService
-  ) { }
+      private registerationMessageService: RegisterationMessageService,
+      private toastr: ToastrService
+  ) { this.page = 1; }
 
     forGroup(): void {
         const dialogRef = this.matDialog.open(RegistrationMessageGroupModalComponent, {
@@ -47,7 +54,7 @@ export class RegisterationMessageComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.getRegisterationMessage();
+            this.getRegisterationMessage(this.page);
             this.panelOpenState = false;
             this.animal = result;
         });
@@ -61,7 +68,7 @@ export class RegisterationMessageComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.getRegisterationMessage();
+            this.getRegisterationMessage(this.page);
             this.panelOpenState = false;
             this.animal = result;
         });
@@ -75,7 +82,7 @@ export class RegisterationMessageComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.getRegisterationMessage();
+            this.getRegisterationMessage(this.page);
             this.panelOpenState = false;
             this.animal = result;
         });
@@ -89,22 +96,25 @@ export class RegisterationMessageComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.getRegisterationMessage();
+            this.getRegisterationMessage(this.page);
             this.panelOpenState = false;
             this.animal = result;
         });
     }
 
   ngOnInit() {
-    this.getRegisterationMessage()
+    this.getRegisterationMessage(this.page)
   }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    getRegisterationMessage() {
-        // this.loading = true;
+    getRegisterationMessage(e) {
+        this.loading = true;
+        if(e) {
+            this.page = e;
+        }
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -112,13 +122,15 @@ export class RegisterationMessageComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.registerationMessageService.gets(headers, '/send-registration-messages')
+        return this.registerationMessageService.gets(headers, '/send-registration-messages?page='+this.page)
             .subscribe((res: any) => {
-                // this.loading = false;
-                this.dataSource = new MatTableDataSource(res.registration_message.data);
-                console.log(res)
+                this.loading = false;
+                // this.dataSource = new MatTableDataSource(res.registration_message.data);
+                this.dataSource = res.event_registrations.data;
+                this.per_page = res.event_registrations.per_page;
+                this.total = res.event_registrations.total;
             }, (httpErrorResponse: HttpErrorResponse) => {
-                // this.loading = false;
+                this.loading = false;
                 console.log(httpErrorResponse.status);
                 console.log(httpErrorResponse);
             })
@@ -132,13 +144,12 @@ export class RegisterationMessageComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.registerationMessageService.delete(`send-registration-messages/${id}`, headers)
+        return this.registerationMessageService.delete(`send-registration-message/${id}`, headers)
             .subscribe((res: {message: string}) => {
-                console.log(res.message);
-                this.getRegisterationMessage();
+                this.toastr.success('Registration message deleted successfully', 'Deleted', {timeOut: 3000});
+                this.getRegisterationMessage(this.page);
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+                this.toastr.error('Ooops! something went wrong, registration message is not deleted', 'Error', {timeOut: 3000});
             })
     }
 

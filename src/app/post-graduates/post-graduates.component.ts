@@ -3,6 +3,7 @@ import { PostGraduatesService } from '../services/post-graduates/post-graduates.
 import { StorageService } from '../services/storage.service';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 import { PostGraduatesModalComponent } from './post-graduates-modal/post-graduates-modal.component';
 
 export interface PeriodicElement {
@@ -31,6 +32,9 @@ export class PostGraduatesComponent implements OnInit {
   animal: string;
   firstname: string;
   loading: boolean;
+  per_page: number;
+  total: number;
+  page: number;
 
     displayedColumns: string[] = ['id', 'full_name', 'gender', 'phone', 'Acadamic_department', 'graduation_year', 'created_at', 'updated_at', 'action'];
     // dataSource = new MatTableDataSource(ELEMENT_DATA);
@@ -40,7 +44,8 @@ export class PostGraduatesComponent implements OnInit {
       private matDialog: MatDialog,
       private postGraduatesService: PostGraduatesService,
       private storageService: StorageService,
-  ) { }
+      private toastr: ToastrService,
+  ) { this.page = 1; }
 
 
     openCreate(): void {
@@ -51,7 +56,7 @@ export class PostGraduatesComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.collectionOfcon();
+            this.collectionOfcon(this.page);
             this.animal = result;
         });
     }
@@ -87,15 +92,18 @@ export class PostGraduatesComponent implements OnInit {
     // }
 
   ngOnInit() {
-      this.collectionOfcon()
+      this.collectionOfcon(this.page)
   }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    collectionOfcon() {
+    collectionOfcon(e) {
       this.loading = true;
+      if(e) {
+        this.page = e;
+      }
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -103,10 +111,13 @@ export class PostGraduatesComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.postGraduatesService.gets(headers, '/post-graduates')
+        return this.postGraduatesService.gets(headers, '/post-graduates?page='+this.page)
             .subscribe((res: any) => {
                 this.loading = false;
-                this.dataSource = new MatTableDataSource(res.post_graduates.data);
+                // this.dataSource = new MatTableDataSource(res.post_graduates.data);
+                this.dataSource = res.post_graduates.data;
+                this.total = res.post_graduates.total
+                this.per_page = res.post_graduates.per_page;
                 console.log(res)
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;
@@ -123,13 +134,13 @@ export class PostGraduatesComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.postGraduatesService.delete(`contact/${id}`, headers)
+        return this.postGraduatesService.delete(`post-graduate/${id}`, headers)
             .subscribe((res: {message: string}) => {
                 console.log(res.message);
-                this.collectionOfcon();
+                this.toastr.success('post graduate deleted successfully', 'Deleted');
+                this.collectionOfcon(this.page);
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+                this.toastr.error('Ooops! something went wrong, post graduate is not deleted', 'Error');
             })
     }
 

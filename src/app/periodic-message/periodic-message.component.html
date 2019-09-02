@@ -1,143 +1,123 @@
 <p style="font-weight: bolder; font-size: x-large; margin-top: 61px; margin-left: 20px"> PERIODIC MESSAGES </p>
 
-<!--<ol>-->
-<!--<li>-->
-<!--<mat-form-field>-->
-<!--<input matInput [(ngModel)]="name" placeholder="What's your name?">-->
-<!--</mat-form-field>-->
-<!--</li>-->
-<!--<div class="create" style="color: yellow; width: 100%">-->
-<!--<li>-->
-<!--<button class="l1" mat-raised-button (click)="openDialog()">Create</button>-->
-<mat-expansion-panel (opened)="panelOpenState = true"
-                     (closed)="panelOpenState = false" style="cursor: pointer; width: 30%; margin-left: 20px">
-  <mat-expansion-panel-header >Periodic Messages
-    <!--<mat-panel-title style="margin-top: 61px; left: 15px;">Periodic Messages</mat-panel-title>-->
-  </mat-expansion-panel-header>
-  <mat-list style="margin-top: 0">
-    <mat-list-item>
-      <a class="Flink" (click)="openCreate()">
-        <mat-icon style="margin-right: 5px">group</mat-icon>
-        For Group</a>
-    </mat-list-item>
-    <mat-list-item>
-      <a class="Flink" (click)="periodicContacts()">
-        <mat-icon style="margin-right: 5px">perm_contact_calender</mat-icon>
-        For Contact</a>
-    </mat-list-item>
-    <mat-list-item>
-      <a class="Flink" (click)="openCreate()">
-        <mat-icon style="margin-right: 5px">event_note</mat-icon>
-        For Event</a>
-    </mat-list-item>
-  </mat-list>
-</mat-expansion-panel>
+<div class="row p-3">
 
-<mat-form-field>
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-</mat-form-field>
+  <div class="col-3">
+    <mat-expansion-panel  style="cursor: pointer; width: 100%;">
+      <mat-expansion-panel-header >Periodic Messages
+      </mat-expansion-panel-header>
+      <mat-list style="margin-top: 0">
+        <mat-list-item>
+          <a class="Flink" (click)="periodicContacts()">
+            <i style="font-size: 22px; margin-right: 5px " class="fa fa-user"></i>
+            For Contact</a>
+        </mat-list-item>
+        <mat-list-item>
+          <a class="Flink" (click)="openCreate()">
+            <mat-icon style="margin-right: 5px">group</mat-icon>
+            For Team</a>
+        </mat-list-item>
+        <mat-list-item>
+          <a class="Flink">
+            <i style="font-size: 22px" class="fa fa-users"></i>
+            For Fellowship</a>
+        </mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+  </div>
+
+  <div class="col-3">
+    <mat-expansion-panel style="cursor: pointer; width: 100%;">
+      <mat-expansion-panel-header >Post Graduate
+      </mat-expansion-panel-header>
+      <mat-list style="margin-top: 0">
+        <mat-list-item>
+          <a class="Flink">
+            <mat-icon style="margin-right: 5px">group</mat-icon>
+            For Team</a>
+        </mat-list-item>
+        <mat-list-item>
+          <a class="Flink">
+            <i style="font-size: 22px" class="fa fa-users"></i>
+            For All Post Graduates</a>
+        </mat-list-item>
+      </mat-list>
+    </mat-expansion-panel>
+  </div>
+
+  <div class="col-2">
+    <button mat-raised-button>
+      <mat-icon>add</mat-icon>
+      Events Message
+    </button>
+  </div>
+
+  <div class="col-4">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+
+</div>
 
 
-<!--<button style="margin-top: 61px; left: 15px; " mat-raised-button (click)="openCreate()">-->
-  <!--<mat-icon>add</mat-icon>-->
-  <!--periodic message</button>-->
-<!--<button style="margin-top: 61px; left: 40px; " mat-raised-button (click)="periodicContacts()">Periodic message for Contact</button>-->
-<!--<button style="margin-top: 61px; left: 60px; " mat-raised-button (click)="openCreate()">Periodic message for Event</button>-->
-
-<!--<button mat-button color="primary" style="margin-top: 61px; left: 50px" mat-raised-button (click)="openImportContact()"> Import Contact  </button>-->
-<!--</li>-->
-<!--<li *ngIf="animal">-->
-<!--You chose: <i>{{animal}}</i>-->
-<!--</li>-->
-<!--&lt;!&ndash;</ol>&ndash;&gt;-->
-<!--</div>-->
 <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
 
-<div class="container">
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+      <div class="card-header card-header-warning">
+          <h4 class="card-title">Periodic Messages</h4>
+          <p class="card-category">list of periodic messages</p>
+      </div>
+    <div class="card-body table-responsive">
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Message</th>
+              <th>Type</th>
+              <th>Sent To</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Sent Time</th>
+              <th>Sent By</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let message of dataSource | paginate: { id: 'listing_pagination',
+                                                          itemsPerPage: per_page,
+                                                          currentPage: page,
+                                                          totalItems: total }; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{message.message}}</td>
+              <td>{{message.type}}</td>
+              <td>{{message.sent_to}}</td>
+              <td>{{message.start_date | date : 'fullDate'}}</td>
+              <td>{{message.end_date | date : 'fullDate'}}</td>
+              <td>{{message.sent_time}}</td>
+              <td>{{message.sent_by.full_name}}</td>
+              <td>
+                <button mat-button=""
+                        mwlConfirmationPopover
+                        [popoverTitle]="'Confirm Deletion'"
+                        [popoverMessage]="'Are you sure you want to end this periodic message?'"
+                        placement="left"
+                        (confirm)="deletePeriodicMessage(message.id)"
+                        (cancel)="cancelClicked = true"
+                >
 
-  <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="message">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Message </th>
-      <td mat-cell *matCellDef="let element"> {{element.message}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="sent_to">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Sent To </th>
-      <td mat-cell *matCellDef="let element"> {{element.sent_to}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <!--<ng-container matColumnDef="type">-->
-      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold">Type</th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.type }}</td>-->
-    <!--</ng-container>-->
-
-    <ng-container matColumnDef="start_date">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Start Date</th>
-      <td mat-cell *matCellDef="let element"> {{element.start_date | date :'fullDate'}}</td>
-    </ng-container>
-
-    <!--Weight Column -->
-    <!--<ng-container matColumnDef="campaign">-->
-    <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Campaign </th>-->
-    <!--<td mat-cell *matCellDef="let element"> {{element.campaign}} </td>-->
-    <!--</ng-container>-->
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="end_date">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> End Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.end_date | date :'fullDate'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="sent_time">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Sent Time </th>
-      <td mat-cell *matCellDef="let element"> {{element.sent_time}} </td>
-    </ng-container>
-
-    <!--<ng-container matColumnDef="team_id">-->
-      <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold">Team Id </th>-->
-      <!--<td mat-cell *matCellDef="let element"> {{element.team_id}} </td>-->
-    <!--</ng-container>-->
-
-    <ng-container matColumnDef="created_at">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Created At </th>
-      <td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="updated_at">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Updated At </th>
-      <td mat-cell *matCellDef="let element"> {{element.updated_at | date :'fullDate'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
-      <td mat-cell *matCellDef="let element">
-        <!--<button mat-button="">-->
-        <!--<mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon></button>-->
-        <button mat-button=""
-                mwlConfirmationPopover
-                [popoverTitle]="'Confirm Deletion'"
-                [popoverMessage]="'Are you sure you want to delete this contact'"
-                placement="left"
-                (confirm)="deletePeriodicMessage(element.id)"
-                (cancel)="cancelClicked = true"
-        >
-
-          <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
-        </button>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+                  <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <pagination-controls  id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="periodicMessage($event)"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

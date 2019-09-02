@@ -2,33 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatTableDataSource } from '@angular/material';
 import { StorageService } from '../services/storage.service';
 import { GroupedContactsService } from '../services/grouped_contacts/grouped-contacts.service';
-// import { GroupContactsModalComponent } from '../group-contacts/group-contacts-modal/group-contacts-modal.component';
-// import { UpdateContactInterface } from '../contacts/update-contact/update-contact.component';
-// import { UpdateContactComponent } from '../group-contacts/update-contact/update-contact.component';
-// import { GroupedContactsModalComponent } from './grouped-contacts-modal/grouped-contacts-modal.component';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { ImportContactComponent } from '../contacts/import-contact/import-contact.component';
-// import { UpdateGroupedContactsComponent } from './update-grouped-contacts/update-grouped-contacts.component';
-// import { AssignMembersComponent } from './assign-members/assign-members.component';
 import { PostGraduatesGroupsService } from '../services/post-graduates-groups/post-graduates-groups.service';
 import { AssingPostGraduatesComponent } from './assing-post-graduates/assing-post-graduates.component';
-// import { UpdateContactComponent, UpdateContactInterface } from '../group-contacts/update-contact/update-contact.component';
-
-// export interface PeriodicElement {
-//     id: number;
-//     full_name: string;
-//     gender: string;
-//     phone: string;
-//     Acadamic_department: string;
-//     // fellowship_id: number
-//     // created_at: string;
-//     // updated_at: string;
-//     action?: string
-//     groupedname: string;
-//     animal: string;
-// }
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-post-graduates-groups-detail',
@@ -46,12 +25,14 @@ export class PostGraduatesGroupsDetailComponent implements OnInit {
     graduation_year: string;
     groupedname: string;
     animal: string;
-    //
+    loading: boolean;
+
+    per_page: number;
+    total: number;
+    page: number;
 
     post_graduates_groups_id: string;
     team_detail: any;
-
-    // team_detail: any;
 
 
     displayedColumns: string[] = ['full_name', 'gender', 'phone', 'email', 'Acadamic_department', 'graduation_year', 'action'];
@@ -61,9 +42,11 @@ export class PostGraduatesGroupsDetailComponent implements OnInit {
         private matDialog: MatDialog,
         private storageService: StorageService,
         private activatedRoute: ActivatedRoute,
-        private postGraduatesGroupsService: PostGraduatesGroupsService
+        private postGraduatesGroupsService: PostGraduatesGroupsService,
+        private toastr: ToastrService
     ) {
         this.post_graduates_groups_id = activatedRoute.snapshot.params.post_graduates_groups_id;
+        this.page = 1;
 
     }
 
@@ -86,9 +69,8 @@ export class PostGraduatesGroupsDetailComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
             this.animal = result;
-            this.getPostGradutesByGroupName(this.groupedname)
+            this.getPostGradutesByGroupName(this.groupedname, this.page)
         });
     }
     //
@@ -126,17 +108,18 @@ export class PostGraduatesGroupsDetailComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.postGraduatesGroupsService.gets(headers, '/team/' + this.post_graduates_groups_id)
             .subscribe((res: any) => {
-                console.log(res);
                 this.team_detail = res;
                 this.groupedname = res.team.name;
-                this.getPostGradutesByGroupName(res.team.name);
+                this.getPostGradutesByGroupName(res.team.name, this.page);
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
     //
-    getPostGradutesByGroupName(name: string) {
+    getPostGradutesByGroupName(name: string, e) {
+        this.loading = true;
+        if(e) {
+            this.page = e;
+        }
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -144,14 +127,15 @@ export class PostGraduatesGroupsDetailComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.postGraduatesGroupsService.gets(headers, '/post-graduate-team/members/' + name)
+        return this.postGraduatesGroupsService.gets(headers, '/post-graduate-team/members/' + name + '?page='+this.page)
             .subscribe((res: any) => {
-                console.log(res);
-                this.dataSource = new MatTableDataSource(res.contacts.data);
-                // this.team_detail = res;
+                this.loading = false;
+                // this.dataSource = new MatTableDataSource(res.contacts.data);
+                this.dataSource = res.contacts.data;
+                this.per_page = res.contacts.per_page;
+                this.total = res.contacts.total;
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+                this.loading = false;
             })
     }
 
@@ -163,13 +147,12 @@ export class PostGraduatesGroupsDetailComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.postGraduatesGroupsService.delete(`team/members/${this.team_detail.team.name}/${id}`, headers)
+        return this.postGraduatesGroupsService.delete(`post-graduate-team/members/${this.team_detail.team.name}/${id}`, headers)
             .subscribe((res: {message: string}) => {
-                console.log(res.message);
+                this.toastr.success('contact deleted successfully', 'Deleted', {timeOut: 3000});
                 this.getGroupsById();
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+                this.toastr.error('Ooops! something went wrong, contact is not deleted', 'Error', {timeOut: 3000});
             })
     }
     //

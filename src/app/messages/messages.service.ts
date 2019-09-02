@@ -12,11 +12,11 @@ export class MessagesService {
   ) { }
   
   messages() {
-    return this.httpClient.get('http://localhost:3232/api/sentmessages')
+    return this.httpClient.get('http://localhost:8000/api/sentmessages')
   }
 
-  delete(id: string) {
-      return this.httpClient.delete(`http:localhost:3232/api/sentmessage/${id}`)
+  patch(id: string) {
+      return this.httpClient.delete(`http:localhost:8000/api/message/${id}`)
   }
 
 }

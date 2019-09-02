@@ -13,6 +13,8 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 import { GroupMessageFellowshipModalComponent } from './group-message-fellowship-modal/group-message-fellowship-modal.component';
 import { GroupMessagePostgraduatesModalComponent } from './group-message-postgraduates-modal/group-message-postgraduates-modal.component';
 import { GroupMessagePostgraduatesContactModalComponent } from './group-message-postgraduates-contact-modal/group-message-postgraduates-contact-modal.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { GroupMessageService } from './group-message.service';
 import { GroupMessageEventModalComponent } from './group-message-event-modal/group-message-event-modal.component';
 @NgModule({
     imports: [
@@ -22,12 +24,13 @@ import { GroupMessageEventModalComponent } from './group-message-event-modal/gro
         NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
         ConfirmationPopoverModule,
         ReactiveFormsModule,
+        NgxPaginationModule,
         GroupMessagesRoutingModule,
         Ng2SmartTableModule
     ],
     declarations: [GroupMessagesComponent, GroupMessagesModalComponent, GroupMessageFellowshipModalComponent,
         GroupMessagePostgraduatesModalComponent, GroupMessagePostgraduatesContactModalComponent, GroupMessageEventModalComponent],
-    providers: [ GroupedMessageService, StorageService],
+    providers: [ GroupedMessageService, StorageService, GroupMessageService],
     entryComponents: [GroupMessagesModalComponent, GroupMessageFellowshipModalComponent,
         GroupMessagePostgraduatesModalComponent, GroupMessagePostgraduatesContactModalComponent, GroupMessageEventModalComponent]
 })

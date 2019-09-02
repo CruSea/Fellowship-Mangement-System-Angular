@@ -15,6 +15,7 @@ import { PeriodicMessageEventModalComponent } from './periodic-message-event-mod
 import { PeriodicMessageContactsModalComponent } from './periodic-message-contacts-modal/periodic-message-contacts-modal.component';
 import { PeriodicMessageFellowModalComponent } from './periodic-message-fellow-modal/periodic-message-fellow-modal.component';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
       NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       ConfirmationPopoverModule,
       ReactiveFormsModule,
+      NgxPaginationModule,
       Ng2SmartTableModule,
       PeriodicMessageRoutingModule
   ],

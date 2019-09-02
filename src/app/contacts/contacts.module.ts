@@ -13,6 +13,7 @@ import { ContactService } from '../services/contact/contact.service';
 import { StorageService } from '../services/storage.service';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
       HttpClientModule,
       NgxLoadingModule.forRoot({animationType: ngxLoadingAnimationTypes.circle}),
       ConfirmationPopoverModule,
+      NgxPaginationModule,
       ReactiveFormsModule,
       ContactsRoutingModule,
   ],

@@ -86,11 +86,8 @@ export class MessageModalComponent implements OnInit {
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
         return this.smsPortService.gets(headers, '/sms-ports')
             .subscribe((res: any) => {
-                console.log(res);
                 this.smsPorts = res
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 }

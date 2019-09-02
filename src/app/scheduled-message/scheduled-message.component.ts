@@ -10,10 +10,11 @@ import { PeriodicMessageEventModalComponent } from '../periodic-message/periodic
 import { ScheduledMessageContactModalComponent } from './scheduled-message-contact-modal/scheduled-message-contact-modal.component';
 import { ScheduledMessageEventModalComponent } from './scheduled-message-event-modal/scheduled-message-event-modal.component';
 import { ScheduledMessageFellowshipModalComponent } from './scheduled-message-fellowship-modal/scheduled-message-fellowship-modal.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 export interface PeriodicElement {
-    id: number,
+    id: number;
   // port_name: string;
   sent_by: string;
   // sent_to: string;
@@ -32,7 +33,11 @@ export class ScheduledMessageComponent implements OnInit {
   animal: string;
   message: string;
   loading: boolean;
-    panelOpenState: boolean;
+  panelOpenState: boolean;
+
+  per_page: number;
+  total: number;
+  page: number;
 
   displayedColumns: string[] = ['id', 'sent_by', 'sent_to', 'send_date', 'send_time', 'message', 'action'];
     dataSource: any;
@@ -40,8 +45,9 @@ export class ScheduledMessageComponent implements OnInit {
   constructor(
       private matDialog: MatDialog,
       private storageService: StorageService,
-      private scheduledMessageService: ScheduledMessageService
-  ) { }
+      private scheduledMessageService: ScheduledMessageService,
+      private toastr: ToastrService
+  ) { this.page = 1;}
 
     scheduledGroup(): void {
         const dialogRef = this.matDialog.open(ScheduledMessageComponent, {
@@ -51,7 +57,7 @@ export class ScheduledMessageComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.scheduledMessage();
+            this.scheduledMessage(this.page);
             this.panelOpenState = false;
             this.animal = result;
         });
@@ -65,7 +71,7 @@ export class ScheduledMessageComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.scheduledMessage();
+            this.scheduledMessage(this.page);
             this.panelOpenState = false;
             this.animal = result;
         });
@@ -79,7 +85,7 @@ export class ScheduledMessageComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.scheduledMessage();
+            this.scheduledMessage(this.page);
             this.panelOpenState = false;
             this.animal = result;
         });
@@ -92,22 +98,25 @@ export class ScheduledMessageComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed');
-            this.scheduledMessage();
+            this.scheduledMessage(this.page);
             this.panelOpenState = false;
             this.animal = result;
         });
     }
 
     ngOnInit() {
-        this.scheduledMessage()
+        this.scheduledMessage(this.page)
     }
 
     applyFilter(filterValue: string) {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    scheduledMessage() {
+    scheduledMessage(e) {
       this.loading = true;
+      if(e) {
+        this.page = e;
+      }
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'GET')
@@ -115,15 +124,15 @@ export class ScheduledMessageComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.scheduledMessageService.gets(headers, '/alarm-messages')
+        return this.scheduledMessageService.gets(headers, '/alarm-messages?page='+this.page)
             .subscribe((res: any) => {
                 this.loading = false;
-                this.dataSource = new MatTableDataSource(res.scheduled_messages.data);
-                console.log(res)
+                // this.dataSource = new MatTableDataSource(res.scheduled_messages.data);
+                this.dataSource = res.scheduled_messages.data;
+                this.per_page = res.scheduled_messages.per_page;
+                this.total = res.scheduled_messages.total;
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 
@@ -135,13 +144,12 @@ export class ScheduledMessageComponent implements OnInit {
             .append('Access-Control-Allow-Headers', 'Content-Type')
             .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
         // .append('Authorization', 'Bearer ' + this.storageService.getStorage('accessToken'));
-        return this.scheduledMessageService.delete(`/${id}`, headers)
+        return this.scheduledMessageService.delete(`alarm-message/${id}`, headers)
             .subscribe((res: {message: string}) => {
-                console.log(res.message);
-                this.scheduledMessage();
+                this.toastr.success('scheduled message deleted successfully', 'Deleted', {timeOut: 3000});
+                this.scheduledMessage(this.page);
             }, (httpErrorResponse: HttpErrorResponse) => {
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
+                this.toastr.error('Ooops! something went wrong, scheduled message is not deleted', 'Error', {timeOut: 3000});
             })
     }
 

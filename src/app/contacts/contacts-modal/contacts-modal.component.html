@@ -1,13 +1,4 @@
-<!--<button mat-button (click)="onNoClick()">No Thanks</button>-->
-<!--<h1 mat-dialog-title>Hi {{data.name}}</h1>-->
-<!--<div mat-dialog-content>-->
-  <!--<p>What's your favorite animal?</p>-->
-  <!--<mat-form-field>-->
-    <!--<input matInput [(ngModel)]="data.animal">-->
-  <!--</mat-form-field>-->
-<!--</div>-->
-<!--<mat-spinner style="margin: 20% auto" *ngIf="!groupNames"></mat-spinner>-->
-<form [formGroup]="contactsModalForm" (ngSubmit)="contactsModal(contactsModalForm.value)" *ngIf="groupNames">
+<form [formGroup]="contactsModalForm" (ngSubmit)="contactsModal(contactsModalForm.value)">
 
   <mat-form-field>
     <input matInput placeholder="Full Name" type="text" formControlName="full_name">
@@ -27,7 +18,7 @@
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Phone number" type="text" formControlName="phone">
+    <input matInput placeholder="Phone number" type="number" formControlName="phone">
     <mat-error style="color: red" *ngIf="contactsModalForm.get('phone').invalid && (contactsModalForm.get('phone').dirty ||
       contactsModalForm.get('phone').touched) && !contactsModalForm.get('phone').errors?.minlength">
       Please insert phone number!
@@ -36,32 +27,18 @@
 
   <mat-form-field>
     <input matInput placeholder="Email" type="text" formControlName="email">
-    <!--<mat-error style="color: red" *ngIf="contactsModalForm.get('email').invalid && (contactsModalForm.get('email').dirty ||-->
-      <!--contactsModalForm.get('email').touched) && !contactsModalForm.get('email').errors?.minlength">-->
-      <!--Please insert email!-->
-    <!--</mat-error>-->
   </mat-form-field>
 
   <mat-form-field >
     <mat-label>Group Name</mat-label>
     <mat-select formControlName="team">
+      <div *ngIf="groupNames">
       <mat-option *ngFor="let groupName of groupNames.teams.data" [value]="groupName.name">
         {{groupName.name }}
       </mat-option>
+    </div>
     </mat-select>
-    <mat-error style="color: red" *ngIf="contactsModalForm.get('team').invalid">
-      Please select group name!
-    </mat-error>
   </mat-form-field>
-
-  <!--<mat-form-field>-->
-    <!--<input matInput placeholder="Graduation Year" type="text" formControlName="graduation_year">-->
-    <!--<mat-error style="color: red" *ngIf="contactsModalForm.get('graduation_year').invalid && (contactsModalForm.get('graduation_year').dirty ||-->
-      <!--contactsModalForm.get('graduation_year').touched) && !contactsModalForm.get('graduation_year').errors?.minlength">-->
-      <!--Please insert graduation year!-->
-    <!--</mat-error>-->
-  <!--</mat-form-field>-->
-
   <mat-form-field>
     <input matInput placeholder="Academic Department" type="text" formControlName="acadamic_department">
     <mat-error style="color: red" *ngIf="contactsModalForm.get('acadamic_department').invalid && (contactsModalForm.get('acadamic_department').dirty ||
@@ -79,9 +56,6 @@
                     panelClass="example-month-picker">
     </mat-datepicker>
   </mat-form-field>
-
-
-  <!--<button mat-raised-button color="primary" type="submit" >Add contact</button>-->
   <div mat-dialog-actions>
     <button mat-button mat-raised-button color="primary" type="submit"  cdkFocusInitial >Add contact</button>
     <button mat-button (click)="onNoClick()">Cancel</button>

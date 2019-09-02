@@ -41,7 +41,6 @@ export class UserProfileComponent implements OnInit {
 
   submit(newFellowshipForm: any) {
       this.loading = true;
-      console.log(newFellowshipForm);
       // if (this.settingForm.get('confirm_password').invalid) { return; }
       // delete settingInterface.confirm_password;
       const headers = new HttpHeaders()
@@ -50,11 +49,10 @@ export class UserProfileComponent implements OnInit {
           .append('X-Requested-With', 'XMLHttpRequest')
           .append('Access-Control-Allow-Headers', 'Content-Type')
           .append('Authorization', `Bearer ${this.storageService.getStorage('accessToken')}`);
-      this.httpClient.patch('http://localhost:3232/api/fellowship', newFellowshipForm,
+      this.httpClient.patch('http://localhost:8000/api/fellowship', newFellowshipForm,
           { headers: headers })
           .subscribe((res: any) => {
                   this.loading = false;
-                  console.log(res);
                   if (res.error) {
                       this.fellowshipUpdateError.show();
                   } else {
@@ -64,7 +62,6 @@ export class UserProfileComponent implements OnInit {
               (httpErrorResponse: HttpErrorResponse) => {
                   this.loading = false;
                   this.fellowshipUpdateError.show();
-                  console.log(httpErrorResponse);
               })
   }
 
@@ -94,23 +91,17 @@ export class UserProfileComponent implements OnInit {
         return this.userProfileService.gets(headers, '/fellowship')
             .subscribe((res: any) => {
                 this.loading = false;
-                console.log(res);
                 this.fellowshipForm.get('university_name').setValue(res.fellowship.university_name);
                 this.fellowshipForm.get('university_city').setValue(res.fellowship.university_city);
                 this.fellowshipForm.get('specific_place').setValue(res.fellowship.specific_place);
             }, (httpErrorResponse: HttpErrorResponse) => {
                 this.loading = false;
-                console.log(httpErrorResponse.status);
-                console.log(httpErrorResponse);
             })
     }
 
 
     setting(userProfileInterface: UserProfileInterface) {
       this.loading = true;
-        console.log(userProfileInterface);
-        // if (this.settingForm.get('confirm_password').invalid) { return; }
-        // delete settingInterface.confirm_password;
         const headers = new HttpHeaders()
             .append('Access-Control-Allow-Origin', '*')
             .append('Access-Control-Allow-Methods', 'PATCH')
@@ -121,7 +112,6 @@ export class UserProfileComponent implements OnInit {
             { headers: headers })
             .subscribe((res: any) => {
                     this.loading = false;
-                    console.log(res);
                     if (res.error) {
                         this.passwordResetError.show();
                     } else {
@@ -133,7 +123,6 @@ export class UserProfileComponent implements OnInit {
                 },
                 (httpErrorResponse: HttpErrorResponse) => {
                     this.loading = false;
-                console.log(httpErrorResponse);
                     this.passwordConfirmationError.show()
             })
     }

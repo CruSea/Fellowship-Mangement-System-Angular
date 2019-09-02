@@ -11,10 +11,10 @@ export class ContactsService {
   ) { }
 
   collectionofContacts() {
-    return this.httpClient.get('http://localhost:3232/api/contacts')
+    return this.httpClient.get('http://localhost:8000/api/contacts')
   }
 
   delete(id: string) {
-    return this.httpClient.delete(`http:localhost:3232/api/contacts/${id}`)
+    return this.httpClient.delete(`http:localhost:8000/api/contacts/${id}`)
   }
 }

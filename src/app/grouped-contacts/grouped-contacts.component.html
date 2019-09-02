@@ -1,12 +1,4 @@
-  <!--<mat-card style=" margin: 8% 5% 0 5%; height: 20%" >-->
-    <!--<section>-->
-      <!--<h1 style=" text-align: center; font-size: 150%; font-weight: bold" >Group Description</h1>-->
-      <!--<h5 style="font-weight: bold">Worship Team</h5>-->
-      <!--<p>Worship team is a team formed to organize the overall worship environment in the church </p>-->
-    <!--</section>-->
-  <!--</mat-card>-->
-
-<mat-spinner style="margin: 20%auto" *ngIf="!team_detail"></mat-spinner>
+<!-- <mat-spinner style="margin: 20%auto" *ngIf="!team_detail"></mat-spinner> -->
   <mat-card style=" margin: 10% 5% 0 5%; height: 50%" *ngIf="team_detail">
     <section>
       <h1 style="font-size: 20px; font-weight: bold" >{{team_detail.team.name | uppercase}}</h1>
@@ -18,85 +10,68 @@
     <button style="margin-top: 1%; margin-bottom: 2%; left: 3%; " class="btn btn-danger btn-round" (click)="openCreate()">Add New contact</button>
     <button class="btn btn-primary btn-round" mat-button color="primary" style="margin-top: 1%; margin-bottom: 2%; left: 6%"  (click)="openImportContact()"> Import Contact  </button>
     <button style="margin-top: 1%; margin-bottom: 2%; left: 8%; " class="btn btn-danger btn-round" (click)="assign()">Assign Members</button>
-    <mat-form-field>
+    <!-- <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-    </mat-form-field>
+    </mat-form-field> -->
+  <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', backdropBackgroundColour: 'rgba(0, 0, 0, 0.3)'}"></ngx-loading>
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <div class="card-header card-header-warning">
+          <h4 class="card-title">Contacts</h4>
+          <p class="card-category">list of members in a {{team_detail.team.name}} team</p>
+      </div>
+    <div class="card-body table-responsive">
+      <div class="container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Gender</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Acadamic Department</th>
+              <th>Graduation Year</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let contact of dataSource | paginate: { id: 'listing_pagination',
+                                                          itemsPerPage: per_page,
+                                                          currentPage: page,
+                                                          totalItems: total }; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{contact.full_name}}</td>
+              <td>{{contact.gender}}</td>
+              <td>{{contact.phone}}</td>
+              <td>{{contact.email}}</td>
+              <td>{{contact.Acadamic_department}}</td>
+              <td>{{contact.graduation_year | date :'fullDate'}}</td>
+              <td>
+                  <button mat-button="">
+                    <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon>
+                  </button>
+                  <button mat-button=""
+                          mwlConfirmationPopover
+                          [popoverTitle]="'Confirm Deletion'"
+                          [popoverMessage]="'Are you sure you want to delete this contact?'"
+                          placement="left"
+                          (confirm)="deleteGroupedContact(contact.id)"
+                          (cancel)="cancelClicked = true"
+                  >
 
-    <table style="width: 100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-      <!-- Position Column -->
-      <ng-container matColumnDef="full_name">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Full Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.full_name}} </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="gender">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Gender </th>
-        <td mat-cell *matCellDef="let element"> {{element.gender}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Phone </th>
-        <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Email </th>
-        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <!--<ng-container matColumnDef="phone">-->
-        <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold">Phone </th>-->
-        <!--<td mat-cell *matCellDef="let element"> {{element.phone}} </td>-->
-      <!--</ng-container>-->
-
-      <ng-container matColumnDef="Acadamic_department">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Academic Department </th>
-        <td mat-cell *matCellDef="let element"> {{element.Acadamic_department}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="graduation_year">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold">Graduation Year </th>
-        <td mat-cell *matCellDef="let element"> {{element.graduation_year}} </td>
-      </ng-container>
-
-      <!--<ng-container matColumnDef="created_at">-->
-        <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Created At </th>-->
-        <!--<td mat-cell *matCellDef="let element"> {{element.created_at | date :'fullDate'}} </td>-->
-      <!--</ng-container>-->
-
-
-      <!--&lt;!&ndash; Weight Column &ndash;&gt;-->
-      <!--<ng-container matColumnDef="updated_at">-->
-        <!--<th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Updated At </th>-->
-        <!--<td mat-cell *matCellDef="let element"> {{element.updated_at | date :'fullDate'}} </td>-->
-      <!--</ng-container>-->
-
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef style="font-weight: bold"> Action </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-button="">
-            <mat-icon  mat-raised-button (click)="openUpdate(element)">edit</mat-icon>
-          </button>
-          <button mat-button=""
-                  mwlConfirmationPopover
-                  [popoverTitle]="'Confirm Deletion'"
-                  [popoverMessage]="'Are you sure you want to delete this contact'"
-                  placement="left"
-                  (confirm)="deleteGroupedContact(element.id)"
-                  (cancel)="cancelClicked = true"
-          >
-
-            <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+                    <mat-icon style="color: red;" mat-raised-button>delete_outline</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <pagination-controls  id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="getGroupsContactByGroupName(team_detail.team.name,$event)"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   </mat-card>

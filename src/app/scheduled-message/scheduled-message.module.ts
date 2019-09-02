@@ -16,6 +16,7 @@ import { ngxLoadingAnimationTypes, NgxLoadingModule } from 'ngx-loading';
 import { ScheduledMessageFellowshipModalComponent } from './scheduled-message-fellowship-modal/scheduled-message-fellowship-modal.component';
 import { ScheduledMessageEventModalComponent } from './scheduled-message-event-modal/scheduled-message-event-modal.component';
 import { ScheduledMessageContactModalComponent } from './scheduled-message-contact-modal/scheduled-message-contact-modal.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { ScheduledMessageContactModalComponent } from './scheduled-message-conta
       ConfirmationPopoverModule,
       HttpClientModule,
       ReactiveFormsModule,
+      NgxPaginationModule,
       Ng2SmartTableModule,
       ScheduledMessageRoutingModule
   ],

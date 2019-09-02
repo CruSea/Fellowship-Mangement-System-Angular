@@ -3,7 +3,7 @@
       <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
-                  <div class="card-header card-header-warning card-header-icon" *ngIf="under_graduate_count">
+                  <div class="card-header card-header-warning card-header-icon">
                       <div class="card-icon">
                           <i class="fa fa-user"></i>
                       </div>
@@ -21,7 +21,7 @@
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
-                  <div class="card-header card-header-success card-header-icon" *ngIf="number_of_events">
+                  <div class="card-header card-header-success card-header-icon">
                       <div class="card-icon">
                           <i class="material-icons">event</i>
                       </div>
@@ -38,7 +38,7 @@
           </div>
           <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
-                  <div class="card-header card-header-danger card-header-icon" *ngIf="post_gradutes_number">
+                  <div class="card-header card-header-danger card-header-icon">
                       <div class="card-icon">
                           <i class="fa fa-graduation-cap"></i>
                       </div>
@@ -53,19 +53,19 @@
                   </div>
               </div>
           </div>
-          <div class="col-lg-3 col-md-6 col-sm-6" *ngIf="number_of_teams">
+          <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                   <div class="card-header card-header-info card-header-icon">
                       <div class="card-icon">
-                          <i class="fa fa-users"></i>
+                          <i class="fa fa-group"></i>
                       </div>
-                      <p class="card-category">Number Of Teams</p>
+                      <p class="card-category">Teams</p>
                       <h3 class="card-title">{{number_of_teams}}
                       </h3>
                   </div>
                   <div class="card-footer">
                       <div class="stats">
-                          <i class="material-icons">local_offer</i> Total Number Of Teams
+                          <i class="material-icons">group</i> Total Number Of Teams
                       </div>
                   </div>
               </div>
@@ -96,13 +96,13 @@
                       <div class="ct-chart" id="dailySalesChart"></div>
                   </div>
                   <div class="card-body">
-                      <h4 class="card-title">Daily Sales</h4>
+                      <h4 class="card-title">Today Messages</h4>
                       <p class="card-category">
-                          <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p>
+                          <span class="text-success">{{today_successful_messages}} </span></p>
                   </div>
                   <div class="card-footer">
                       <div class="stats">
-                          <i class="material-icons">access_time</i> updated 4 minutes ago
+                          <i class="material-icons">access_time</i> yestarday successfully sent messages
                       </div>
                   </div>
               </div>
@@ -113,12 +113,12 @@
                       <div class="ct-chart" id="websiteViewsChart"></div>
                   </div>
                   <div class="card-body">
-                      <h4 class="card-title">Email Subscriptions</h4>
-                      <p class="card-category">Last Campaign Performance</p>
+                      <h4 class="card-title">Last Month Messages</h4>
+                      <p class="card-category">{{last_month_messages}}</p>
                   </div>
                   <div class="card-footer">
                       <div class="stats">
-                          <i class="material-icons">access_time</i> campaign sent 2 days ago
+                          <i class="material-icons">access_time</i> last month successfully sent messages
                       </div>
                   </div>
               </div>
@@ -129,12 +129,12 @@
                       <div class="ct-chart" id="completedTasksChart"></div>
                   </div>
                   <div class="card-body">
-                      <h4 class="card-title">Completed Tasks</h4>
-                      <p class="card-category">Last Campaign Performance</p>
+                      <h4 class="card-title">Total Messages</h4>
+                      <p class="card-category"><span class="text-success">{{total_successful_messages}}</span></p>
                   </div>
                   <div class="card-footer">
                       <div class="stats">
-                          <i class="material-icons">access_time</i> campaign sent 2 days ago
+                          <i class="material-icons">access_time</i> total successfully sent messages
                       </div>
                   </div>
               </div>
@@ -150,19 +150,19 @@
                               <ul class="nav nav-tabs" data-tabs="tabs">
                                   <li class="nav-item">
                                       <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
-                                          <i class="material-icons">bug_report</i> Bugs
+                                          <i class="material-icons">message</i> Today Messages
                                           <div class="ripple-container"></div>
                                       </a>
                                   </li>
                                   <li class="nav-item">
                                       <a mat-button class="nav-link" href="#messages" data-toggle="tab">
-                                          <i class="material-icons">code</i> Website
+                                          <i class="material-icons">group</i> Team
                                           <div class="ripple-container"></div>
                                       </a>
                                   </li>
                                   <li class="nav-item">
                                       <a mat-button class="nav-link" href="#settings" data-toggle="tab">
-                                          <i class="material-icons">cloud</i> Server
+                                          <i class="material-icons">event</i> Event
                                           <div class="ripple-container"></div>
                                       </a>
                                   </li>
@@ -173,147 +173,71 @@
                   <div class="card-body">
                       <div class="tab-content">
                           <div class="tab-pane active" id="profile">
-                              <table class="table">
+                              <div class="container">
+                                <table class="table table-striped">
+                                  <thead>
+                                      <tr>
+                                        <th>ID</th>
+                                        <th>Message</th>
+                                      </tr>
+                                  </thead>
                                   <tbody>
-                                      <tr>
-                                          <td>
-                                              <div class="form-check">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox" value="" checked>
-                                                      <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                          </td>
-                                          <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                          <td class="td-actions text-right">
-                                              <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">edit</i>
-                                              </button>
-                                              <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">close</i>
-                                              </button>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <div class="form-check">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox" value="">
-                                                      <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                          </td>
-                                          <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                                          <td class="td-actions text-right">
-                                              <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">edit</i>
-                                              </button>
-                                              <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">close</i>
-                                              </button>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <div class="form-check">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox" value="">
-                                                      <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                          </td>
-                                          <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                          </td>
-                                          <td class="td-actions text-right">
-                                              <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">edit</i>
-                                              </button>
-                                              <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">close</i>
-                                              </button>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <div class="form-check">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox" value="" checked>
-                                                      <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                          </td>
-                                          <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                                          <td class="td-actions text-right">
-                                              <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">edit</i>
-                                              </button>
-                                              <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">close</i>
-                                              </button>
-                                          </td>
-                                      </tr>
+                                    <tr *ngFor="let message of notify_today_messages; let i = index">
+                                      <td>{{i+1}}</td>
+                                      <td>{{message.message}}</td>
+                                    </tr>
                                   </tbody>
-                              </table>
+                                </table>
+                              </div>
                           </div>
                           <div class="tab-pane" id="messages">
-                              <table class="table">
+                            <div class="container">
+                                <table class="table table-striped">
+                                  <thead>
+                                      <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Under Graduates</th>
+                                        <th>Post Graduates</th>
+                                        <th>Created By</th>
+                                      </tr>
+                                  </thead>
                                   <tbody>
-                                      <tr>
-                                          <td>
-                                              <div class="form-check">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox" value="" checked>
-                                                      <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                          </td>
-                                          <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                                          </td>
-                                          <td class="td-actions text-right">
-                                              <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">edit</i>
-                                              </button>
-                                              <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">close</i>
-                                              </button>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td>
-                                              <div class="form-check">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox" value="">
-                                                      <span class="form-check-sign">
-                                                          <span class="check"></span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                          </td>
-                                          <td>Sign contract for "What are conference organizers afraid of?"</td>
-                                          <td class="td-actions text-right">
-                                              <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">edit</i>
-                                              </button>
-                                              <button mat-raised-button type="button" matTooltip="Remove" [matTooltipPosition]="'above'" class="btn btn-danger btn-link btn-sm btn-just-icon">
-                                                  <i class="material-icons">close</i>
-                                              </button>
-                                          </td>
-                                      </tr>
+                                    <tr *ngFor="let team of teams; let i = index">
+                                      <td>{{i+1}}</td>
+                                      <td>{{team.name}}</td>
+                                      <td>{{team.underGraduatesNumber}}</td>
+                                      <td>{{team.postGraduatesNumber}}</td>
+                                      <td>{{team.created_by.full_name}}</td>
+                                    </tr>
                                   </tbody>
-                              </table>
+                                </table>
+                              </div>
                           </div>
                           <div class="tab-pane" id="settings">
-                              <table class="table">
+                            <div class="container">
+                                <table class="table table-striped">
+                                  <thead>
+                                      <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Members</th>
+                                        <th>Sms Registered Members</th>
+                                        <th>Created By</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let event of events; let i = index">
+                                      <td>{{i+1}}</td>
+                                      <td>{{event.event_name}}</td>
+                                      <td>{{event.numberOfMembers}}</td>
+                                      <td>{{event.numberOfSmsMembers}}</td>
+                                      <td>{{event.created_by.full_name}}</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <!-- <table class="table">
                                   <tbody>
                                       <tr>
                                           <td>
@@ -380,7 +304,7 @@
                                           </td>
                                       </tr>
                                   </tbody>
-                              </table>
+                              </table> -->
                           </div>
                       </div>
                   </div>
@@ -389,25 +313,42 @@
           <div class="col-lg-6 col-md-12">
               <div class="card">
                   <div class="card-header card-header-warning">
-                      <h4 class="card-title">Events List</h4>
-                      <p class="card-category">List Of All Events</p>
+                      <h4 class="card-title">Registered Members</h4>
+                      <p class="card-category">list of registered members through sms</p>
                   </div>
                   <div class="card-body table-responsive">
-                      <table class="table table-hover">
-                          <thead class="text-warning">
-                              <th>ID</th>
-                              <th>Name</th>
-
+                      <div class="container">
+                        <table class="table table-striped">
+                          <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>key</th>
+                                <th>Registered For</th>
+                                <th>Registered Date</th>
+                              </tr>
                           </thead>
                           <tbody>
-                              <tr>
-                                  <td>1</td>
-                                  <td>Dakota Rice</td>
-                                  <td>$36,738</td>
-                                  <td>Niger</td>
-                              </tr>
+                            <!-- <tr *ngFor="let registered_members of sms_registered_members | paginate: { 
+                                                          id: 'listing_pagination',
+                                                          itemsPerPage: per_page,
+                                                          currentPage: page,
+                                                          totalItems: total }; let i = index"> -->
+                            <tr *ngFor="let registered_members of sms_registered_members; let i = index">
+                              <td>{{i+1}}</td>
+                              <td>{{registered_members.full_name}}</td>
+                              <td>{{registered_members.phone}}</td>
+                              <td>{{registered_members.key}}</td>
+                              <td>{{registered_members.event}}</td>
+                              <td>{{registered_members.registered_date}}</td>
+                            </tr>
                           </tbody>
-                      </table>
+                        </table>
+                        <div>
+                          <!-- <pagination-controls  id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="getSmsRegisteredMembers($event)"></pagination-controls> -->
+                        </div>
+                      </div>
                   </div>
               </div>
           </div>
