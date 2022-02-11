@@ -36,7 +36,7 @@
     "@fortawesome/fontawesome-free": "^5.10.1",
     "@mdi/font": "^4.1.95",
     "@sweetalert2/ngx-sweetalert2": "^5.1.0",
-    "ajv": "6.4.0",
+    "ajv": "6.12.3",
     "angular-confirmation-popover": "^4.2.1",
     "arrive": "2.4.1",
     "bootstrap": "^4.3.1",
